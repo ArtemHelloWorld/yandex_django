@@ -1,4 +1,4 @@
-# yandex_django
+<h1 align="center">Django intensiv by<a href="https://t.me/@artemstreeter" target="_blank">Artem</a> 
 
 [![Python package](https://github.com/ArtemVX/yandex_django/actions/workflows/python-package.yml/badge.svg)](https://github.com/ArtemVX/yandex_django/actions/workflows/python-package.yml)
 
