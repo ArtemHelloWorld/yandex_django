@@ -10,8 +10,8 @@
 pip install -r requirements.txt
 
 <h3>Дополнительные </h3>
-1. Для тестов pip install -r requirements-test.txt
-2. Для разработки pip install -r requirements-development.txt
+<p>1. Для тестов pip install -r requirements-test.txt</p>
+<p>2. Для разработки pip install -r requirements-development.txt</p>
 
 
 
