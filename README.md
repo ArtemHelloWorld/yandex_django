@@ -16,6 +16,6 @@
 <pre><code>pip install -r requirements.txt</pre></code>
 
 <h4>Дополнительные </h4>
-<p>1. Для тестов <pre><code>pip install -r requirements-test.txt</pre></code></p>
-<p>2. Для разработки <pre><code>pip install -r requirements-development.txt</pre></code></p>
+<p>Для тестов <pre><code>pip install -r requirements-test.txt</pre></code></p>
+<p>Для разработки <pre><code>pip install -r requirements-development.txt</pre></code></p>
 
