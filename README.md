@@ -1,5 +1,5 @@
 # yandex_django
-https://github.com/ArtemVX/yandex_django/actions/workflows/python-package.yml
+https://github.com/ArtemVX/yandex_django/actions/workflows/python-package.yml/badge.svg
 
 Установка зависимостей
 
