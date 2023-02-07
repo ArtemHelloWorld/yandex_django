@@ -1,10 +1,10 @@
-<h1 align="center">Django intensiv by<a href="https://t.me/@artemstreeter" target="_blank">Artem</a> 
+<h1 align="center">Django intensiv by<a href="https://t.me/@artemstreeter" target="_blank">Artem</a> </h1>
 
 [![Python package](https://github.com/ArtemVX/yandex_django/actions/workflows/python-package.yml/badge.svg)](https://github.com/ArtemVX/yandex_django/actions/workflows/python-package.yml)
 
-Установка зависимостей
+<h2>Установка зависимостей</h2>
 
-Основные pip install -r requirements.txt
+<h3>Основные</h3> pip install -r requirements.txt
 
 Дополнительные 
 1. Для тестов pip install -r requirements-test.txt
