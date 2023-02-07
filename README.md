@@ -1,5 +1,5 @@
 # yandex_django
-![This is an image](https://github.com/ArtemVX/yandex_django/actions/workflows/python-package.yml/badge.svg)
+[![Python package](https://github.com/ArtemVX/yandex_django/actions/workflows/python-package.yml/badge.svg)](https://github.com/ArtemVX/yandex_django/actions/workflows/python-package.yml)
 
 Установка зависимостей
 
