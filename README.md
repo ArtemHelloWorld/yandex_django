@@ -1,4 +1,5 @@
 # yandex_django
+https://github.com/ArtemVX/yandex_django/actions/workflows/python-package.yml
 
 Установка зависимостей
 
