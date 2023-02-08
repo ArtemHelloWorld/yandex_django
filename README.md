@@ -6,16 +6,16 @@
 
 <h2>Чтобы запустить проект в dev-режиме</h2>
 <p>1. Установите основные зависимости </p>
-<p>2. Добавьте в корневой каталог файл .env, содержащий поля SECRET_KEY и DEBUG. Пример можно посмотреть в файле .env-example</p>
-<p>4. Запустите локальный сервер <pre><code>python app/manage.py runserver</code></pre></p>
+<p>2. Добавьте в корневой каталог файл .env, содержащий поля SECRET_KEY; DEBUG; ALLOWED_HOSTS.<br><h5>Пример можно посмотреть в файле .env-example</h5>Используйте надежный ключ, содержащий больше 50 символов.<br>Для поля Debug установите True, если проект находится на стадии разработки и вам необходимо видеть детальную информацию об ошибках.<br>Для рабочего сервера необходимо указать DEBUG=False и перечислить доступные хосты в поле ALLOWED_HOSTS. Используйте запятую(без пробелов) для указания нескольких достпных хостов.<br></p>
+<p>3. Запустите локальный сервер <pre><code>python app/manage.py runserver</code></pre></p>
 
 
 <h2>Установка зависимостей</h2>
 
 
-<h4>Основные</h4>
-<pre><code>pip install -r requirements.txt</code></pre>
+<h4>Основные | Django & dotenv</h4>
+<pre><code>pip install -r requirements-prod.txt</code></pre>
 
 <h4>Дополнительные </h4>
-<p>Для тестов <pre><code>pip install -r requirements-test.txt</code></pre></p>
-<p>Для разработки <pre><code>pip install -r requirements-development.txt</code></pre></p>
+<p>Для тестов | pytest<pre><code>pip install -r requirements-test.txt</code></pre></p>
+<p>Для разработки | black & flake8 <pre><code>pip install -r requirements-development.txt</code></pre></p>
