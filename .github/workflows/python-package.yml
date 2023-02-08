@@ -37,7 +37,7 @@ jobs:
         # exit-zero treats all errors as warnings. The GitHub editor is 80 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=80 --statistics
     - name: Lint with black
-      uses: psf/black@stable
+    - uses: psf/black@stable
       with:
         options: "--check --verbose"
         src: "./src"
