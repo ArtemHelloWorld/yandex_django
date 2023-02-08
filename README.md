@@ -7,10 +7,11 @@
 <h2>Чтобы запустить проект в dev-режиме</h2>
 <p>1. Установите основные зависимости </p>
 <p>2. Добавьте в корневой каталог файл .env, содержащий поля SECRET_KEY и DEBUG. Пример можно посмотреть в файле .env-example</p>
-<p>4. Запустите локальный сервер <pre><code>python app/manage.py runserve</code></pre></p>
+<p>4. Запустите локальный сервер <pre><code>python app/manage.py runserver</code></pre></p>
 
 
 <h2>Установка зависимостей</h2>
+
 
 <h4>Основные</h4>
 <pre><code>pip install -r requirements.txt</code></pre>
