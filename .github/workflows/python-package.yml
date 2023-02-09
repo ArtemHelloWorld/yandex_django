@@ -34,7 +34,7 @@ jobs:
       uses: py-actions/flake8@v2
       with:
         max-line-length: "79"
-        inline-quotes: "double"
+        args: "inline-quotes 'double'"
         plugins: "pep8-naming flake8-import-order flake8-quotes"
     - name: Lint with black
       uses: psf/black@stable
