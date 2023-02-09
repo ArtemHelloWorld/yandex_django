@@ -34,6 +34,10 @@ jobs:
       run: |
         flake8 . --count --show-source --inline-quotes 'double' --statistics
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=80 --inline-quotes 'double' --statistics
-
+    - name: Lint with black
+      uses: psf/black@stable
+        with:
+          options: "--check --verbose"
+          version: "~= 22.0"
 
     
