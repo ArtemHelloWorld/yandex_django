@@ -35,7 +35,7 @@ jobs:
       with:
         ignore: "Q000"
         max-line-length: "79"
-        args: "inline-quotes"
+        inline-quotes: "double"
         plugins: "pep8-naming flake8-import-order flake8-quotes"
     - name: Lint with black
       uses: psf/black@stable
