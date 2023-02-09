@@ -33,7 +33,6 @@ jobs:
     - name: flake8 Lint
       uses: py-actions/flake8@v2
       with:
-        ignore: "Q000"
         max-line-length: "79"
         inline-quotes: "double"
         plugins: "pep8-naming flake8-import-order flake8-quotes"
