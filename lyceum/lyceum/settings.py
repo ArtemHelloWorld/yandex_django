@@ -27,7 +27,7 @@ dotenv.load_dotenv()
 if os.getenv("SECRET_KEY"):
     SECRET_KEY = os.getenv("SECRET_KEY")
 else:
-    SECRET_KEY = 'secretkeytestasdkelflmdlfm22se'
+    SECRET_KEY = "secretkeytestasdkelflmdlfm22se"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG") in ("true", "True")
 
