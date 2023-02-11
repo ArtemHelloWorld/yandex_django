@@ -31,6 +31,11 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG") in ("true", "True")
 
+# for debug_toolbar
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(",")
 
 
@@ -58,10 +63,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
-]
-# for debug_toolbar
-INTERNAL_IPS = [
-    "127.0.0.1",
 ]
 
 ROOT_URLCONF = "lyceum.urls"
