@@ -7,4 +7,3 @@ def item_list(request):
 
 def item_detail(request, item_pk):
     return HttpResponse("Подробно элемент")
-
