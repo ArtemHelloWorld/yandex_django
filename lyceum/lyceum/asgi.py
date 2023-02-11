@@ -1,5 +1,5 @@
 """
-ASGI config for lyceym project.
+ASGI config for lyceum project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'lyceym.settings')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "lyceum.settings")
 
 application = get_asgi_application()
