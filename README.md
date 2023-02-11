@@ -1,7 +1,7 @@
 <h1 align="center">Django intensiv by <a href="https://t.me/@artemstreeter" target="_blank">Artem</a> </h1>
 
 [![Python package](https://github.com/ArtemVX/yandex_django/actions/workflows/python-package.yml/badge.svg)](https://github.com/ArtemVX/yandex_django/actions/workflows/python-package.yml)
-
+[![django | tests](https://github.com/ArtemVX/yandex_django/actions/workflows/django-tests.yml/badge.svg)](https://github.com/ArtemVX/yandex_django/actions/workflows/django-tests.yml)
 
 
 <h2>Чтобы запустить проект в dev-режиме</h2>
