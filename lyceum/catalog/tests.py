@@ -56,21 +56,15 @@ class CatalogTests(TestCase):
             except NoReverseMatch:
                 self.assertEqual(404, status, f"{number} failed")
 
-    # def test_item_detail_re(self):
-    #     tests = {
-    #         '1': 200,
-    #         '10001': 200,
-    #         '-10': 404,
-    #         '1.1': 404,
-    #         '-1.1': 404,
-    #     }
-    #     for number, status in self.tests_positive_integers.items():
-    #         try:
-    #             url = reverse("item_detail_re", kwargs={"reint": number})
-    #             response = Client().get(url)
-    # self.assertEqual(response.status_code, status, f"{number} failed")
-    #         except NoReverseMatch:
-    #             self.assertEqual(404, status, f"{number} failed")
+    def test_item_detail_re(self):
+
+        for number, status in self.tests_positive_integers.items():
+            try:
+                url = reverse("item_detail_re", kwargs={"reint": number})
+                response = Client().get(url)
+                self.assertEqual(response.status_code, status, f"{number} failed")
+            except NoReverseMatch:
+                self.assertEqual(404, status, f"{number} failed")
 
     def test_custom_converter(self):
         for number, status in self.tests_positive_integers.items():

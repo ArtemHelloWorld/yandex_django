@@ -25,11 +25,12 @@ dotenv.load_dotenv()
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv(
-    "SECRET_KEY", "django-insecure-w30sdst!plymksa^il!i5%i^^kdfi9kito"
+    "SECRET_KEY",
+    "django-insecure-w30sdst!plymksa^il!i5%i^^kdfi9kito"
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG") in ("true", "True")
+DEBUG = os.getenv("DEBUG", 'False').lower() in ("true", "1")
 
 # for debug_toolbar
 
@@ -54,8 +55,8 @@ INSTALLED_APPS = [
     "homepage.apps.HomepageConfig",
     "catalog.apps.CatalogConfig",
     "about.apps.AboutConfig",
-    "debug_toolbar",
 ]
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -65,9 +66,14 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
-    "lyceum.middleware.reversemiddleware.ReverseMiddleware",
 ]
+
+if DEBUG:
+    MIDDLEWARE += ("debug_toolbar.middleware.DebugToolbarMiddleware",)
+    INSTALLED_APPS += ("debug_toolbar",)
+
+if os.getenv("REVERSE_MIDDLEWARE", "False").lower() in ('active', 'true', '1'):
+    MIDDLEWARE += ("lyceum.middleware.common.ReverseMiddleware",)
 
 ROOT_URLCONF = "lyceum.urls"
 
