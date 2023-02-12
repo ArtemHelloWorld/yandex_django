@@ -34,9 +34,9 @@ class MyMiddlewareTestCase(TestCase):
 
             # check if REVERSE_MIDDLEWARE is Active
             if os.getenv("REVERSE_MIDDLEWARE", "False").lower() in (
-                    "active",
-                    "true",
-                    "1",
+                "active",
+                "true",
+                "1",
             ):
                 self.assertHTMLEqual(
                     response.content.decode("utf-8"),
