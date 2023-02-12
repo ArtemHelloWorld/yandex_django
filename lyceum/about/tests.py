@@ -6,5 +6,5 @@ class AboutTests(TestCase):
     client = Client()
 
     def test_description(self):
-        response = self.client.get(reverse('description'))
+        response = self.client.get(reverse("description"))
         self.assertEqual(response.status_code, 200)

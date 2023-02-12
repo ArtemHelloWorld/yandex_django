@@ -1,6 +1,3 @@
-from django.http import HttpResponse
-
-
 def flip_russian_subsequences(input_string):
     result = ""
     substring = ""
@@ -10,7 +7,7 @@ def flip_russian_subsequences(input_string):
             substring += char
         else:
             result += substring[::-1]
-            substring = ''
+            substring = ""
             result += char
 
     return result
@@ -27,6 +24,8 @@ class ReverseMiddleware:
         response = self.get_response(request)
 
         if self.counter % 10 == 0:
-            response.content = flip_russian_subsequences(response.content.decode("utf-8"))
+            response.content = flip_russian_subsequences(
+                response.content.decode("utf-8")
+            )
 
         return response

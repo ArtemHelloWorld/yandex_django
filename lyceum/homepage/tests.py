@@ -12,4 +12,6 @@ class HomepageTests(TestCase):
     def test_coffee(self):
         response = self.client.get(reverse("coffee"))
         self.assertEqual(response.status_code, 418)
-        self.assertHTMLEqual(response.content.decode("utf-8"), '<body>Я чайник.</body>')
+        self.assertHTMLEqual(
+            response.content.decode("utf-8"), "<body>Я чайник.</body>"
+        )
