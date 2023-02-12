@@ -13,7 +13,7 @@ from parameterized import parameterized_class
 class MyMiddlewareTestCase(TestCase):
     client = Client()
 
-    def test_first_nine_requests(self):
+    def test_ten_requests(self):
         middleware_status = os.getenv("REVERSE_MIDDLEWARE", "False").lower()
 
         for i in range(10):
@@ -27,5 +27,5 @@ class MyMiddlewareTestCase(TestCase):
             self.assertEqual(
                 response.content.decode("utf-8"),
                 expected_result,
-                f"Failed with first 9 requests. Url: {self.url}. Step {i}",
+                f"Failed on step {i}. Url: {self.url}.",
             )
