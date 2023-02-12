@@ -57,12 +57,13 @@ class CatalogTests(TestCase):
                 self.assertEqual(404, status, f"{number} failed")
 
     def test_item_detail_re(self):
-
         for number, status in self.tests_positive_integers.items():
             try:
                 url = reverse("item_detail_re", kwargs={"reint": number})
                 response = Client().get(url)
-                self.assertEqual(response.status_code, status, f"{number} failed")
+                self.assertEqual(
+                    response.status_code, status, f"{number} failed"
+                )
             except NoReverseMatch:
                 self.assertEqual(404, status, f"{number} failed")
 

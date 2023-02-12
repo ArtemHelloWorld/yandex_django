@@ -7,7 +7,6 @@ register_converter(converters.CustomPositiveIntegerConverter, "customint")
 urlpatterns = [
     path("", views.item_list, name="item_list"),
     path("<int:item_pk>/", views.item_detail, name="item_detail"),
-
     re_path(
         r"^re/(?P<reint>[+]?\d+)/", views.item_detail_re, name="item_detail_re"
     ),

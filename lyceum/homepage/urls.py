@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.urls import path
 
-from .views import home
+from . import views
 
 
 def error418(request):
@@ -9,6 +9,6 @@ def error418(request):
 
 
 urlpatterns = [
-    path("", home, name="homepage"),
+    path("", views.home, name="homepage"),
     path("coffee/", error418, name="coffee"),
 ]

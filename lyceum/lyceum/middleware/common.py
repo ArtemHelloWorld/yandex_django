@@ -1,5 +1,3 @@
-
-
 def flip_russian_subsequences(input_string):
     result = ""
     substring = ""
