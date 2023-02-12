@@ -9,7 +9,11 @@ from parameterized import parameterized_class
 @parameterized_class(
     ("url", "normal_body", "reversed_body"),
     [
-        (reverse("homepage"), "<body>Главная</body>", "<body>яанвалГ</body>"),
+        (
+            reverse("homepage"),
+            "<body>Главная</body>",
+            "<body>яанвалГ</body>"
+         ),
         (
             reverse("description"),
             "<body>О проекте</body>",
