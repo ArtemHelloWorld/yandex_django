@@ -14,26 +14,18 @@ class MyMiddlewareTestCase(TestCase):
     client = Client()
 
     def test_first_nine_requests(self):
-        for i in range(9):
-            response = self.client.get(self.url)
-            self.assertEqual(
-                response.content.decode("utf-8"),
-                self.normal_body,
-                f"Failed with first 9 requests. Url: {self.url}. Step {i}",
-            )
-
-    def test_last_request(self):
-        response = self.client.get(self.url)
-
         middleware_status = os.getenv("REVERSE_MIDDLEWARE", "False").lower()
 
-        if middleware_status in ("active", "true", "1"):
-            expected_result = self.reversed_body
-        else:
-            expected_result = self.normal_body
+        for i in range(10):
+            response = self.client.get(self.url)
 
-        self.assertHTMLEqual(
-            response.content.decode("utf-8"),
-            expected_result,
-            f"Last step failed. Url: {self.url}",
-        )
+            if i == 9 and middleware_status in ("active", "true", "1"):
+                expected_result = self.reversed_body
+            else:
+                expected_result = self.normal_body
+
+            self.assertEqual(
+                response.content.decode("utf-8"),
+                expected_result,
+                f"Failed with first 9 requests. Url: {self.url}. Step {i}",
+            )
