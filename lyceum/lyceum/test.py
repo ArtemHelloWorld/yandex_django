@@ -2,14 +2,26 @@ import os
 
 from django.test import Client, TestCase
 from django.urls import reverse
+
 from parameterized import parameterized_class
 
 
-@parameterized_class(("url", "normal_body", "reversed_body"), [
-    (reverse("homepage"), "<body>Главная</body>", "<body>яанвалГ</body>"),
-    (reverse("description"), "<body>О проекте</body>", "<body>О еткеорп</body>"),
-    (reverse("item_list"), "<body>Список элементов</body>", "<body>косипС вотнемелэ</body>"),
-])
+@parameterized_class(
+    ("url", "normal_body", "reversed_body"),
+    [
+        (reverse("homepage"), "<body>Главная</body>", "<body>яанвалГ</body>"),
+        (
+            reverse("description"),
+            "<body>О проекте</body>",
+            "<body>О еткеорп</body>",
+        ),
+        (
+            reverse("item_list"),
+            "<body>Список элементов</body>",
+            "<body>косипС вотнемелэ</body>",
+        ),
+    ],
+)
 class MyMiddlewareTestCase(TestCase):
     client = Client()
 
