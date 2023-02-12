@@ -47,5 +47,6 @@ class MyMiddlewareTestCase(TestCase):
                 self.assertHTMLEqual(
                     response.content.decode("utf-8"),
                     content[0],
-                    f"Changed content, but REVERSE_MIDDLEWARE=False. Url: {url}",
+                    f"Changed content, but REVERSE_MIDDLEWARE=False."
+                    f" Url: {url}",
                 )
