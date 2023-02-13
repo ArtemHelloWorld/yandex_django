@@ -7,12 +7,12 @@ from parameterized import parameterized_class
 @parameterized_class(
     ("number", "status"),
     [
-        ("0", 200),
         ("1", 200),
         ("12", 200),
         ("125", 200),
         ("10001", 200),
         ("3432143", 200),
+        ("0", 404),
         ("-1", 404),
         ("-12", 404),
         ("-154", 404),
@@ -52,8 +52,14 @@ class CatalogDynamicEndpointsTests(TestCase):
             status_code = response.status_code
         except NoReverseMatch:
             status_code = 404
+        if self.number == "0":
+            status_code_expected = 200
+        else:
+            status_code_expected = self.status
 
-        self.assertEqual(status_code, self.status, f"{self.number} failed")
+        self.assertEqual(
+            status_code, status_code_expected, f"{self.number} failed"
+        )
 
     def test_item_detail_re(self):
         try:
