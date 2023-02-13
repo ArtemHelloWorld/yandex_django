@@ -1,7 +1,7 @@
 from django.test import Client, TestCase
-from django.urls import NoReverseMatch, reverse
+from django.urls import reverse
 
-from parameterized import parameterized_class
+from parameterized import parameterized, parameterized_class
 
 
 @parameterized_class(
@@ -12,7 +12,6 @@ from parameterized import parameterized_class
         ("125", 200),
         ("10001", 200),
         ("3432143", 200),
-        ("0", 404),
         ("-1", 404),
         ("-12", 404),
         ("-154", 404),
@@ -42,49 +41,60 @@ from parameterized import parameterized_class
         ("*&873%", 404),
     ],
 )
-class CatalogDynamicEndpointsTests(TestCase):
+class CatalogDynamicTests(TestCase):
     client = Client()
 
     def test_item_detail(self):
-        try:
-            url = reverse("item_detail", kwargs={"item_pk": self.number})
-            response = self.client.get(url)
-            status_code = response.status_code
-        except NoReverseMatch:
-            status_code = 404
-        if self.number == "0":
-            status_code_expected = 200
-        else:
-            status_code_expected = self.status
+        url = f"/catalog/{self.number}/"
+        response = self.client.get(url)
 
         self.assertEqual(
-            status_code, status_code_expected, f"{self.number} failed"
+            response.status_code, self.status, f"{self.number} failed"
         )
 
     def test_item_detail_re(self):
-        try:
-            url = reverse("item_detail_re", kwargs={"reint": self.number})
-            response = self.client.get(url)
-            status_code = response.status_code
-        except NoReverseMatch:
-            status_code = 404
+        url = f"/catalog/re/{self.number}/"
+        response = self.client.get(url)
 
-        self.assertEqual(status_code, self.status, f"{self.number} failed")
+        self.assertEqual(
+            response.status_code, self.status, f"{self.number} failed"
+        )
 
     def test_custom_converter(self):
-        try:
-            url = reverse(
-                "custom_converter", kwargs={"custom_int": self.number}
-            )
-            response = self.client.get(url)
-            status_code = response.status_code
-        except NoReverseMatch:
-            status_code = 404
+        url = f"/catalog/converter/{self.number}/"
+        response = self.client.get(url)
 
-        self.assertEqual(status_code, self.status, f"{self.number} failed")
+        self.assertEqual(
+            response.status_code, self.status, f"{self.number} failed"
+        )
 
 
-class CatalogStaticEndpointsTests(TestCase):
+class CatalogDynamicUniqueTests(TestCase):
+    client = Client()
+
+    @parameterized.expand([("0", 200)])
+    def test_item_detail_unique(self, number, status):
+        url = f"/catalog/{number}/"
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, status, f"{number} failed")
+
+    @parameterized.expand([("0", 404)])
+    def test_item_detail_re_unique(self, number, status):
+        url = f"/catalog/re/{number}/"
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, status, f"{number} failed")
+
+    @parameterized.expand([("0", 404)])
+    def test_custom_converter_unique(self, number, status):
+        url = f"/catalog/converter/{number}/"
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, status, f"{number} failed")
+
+
+class CatalogStaticTests(TestCase):
     def test_item_list(self):
         response = self.client.get(reverse("item_list"))
         self.assertEqual(response.status_code, 200)
