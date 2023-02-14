@@ -3,7 +3,8 @@ from django.urls import reverse
 
 
 class AboutTests(TestCase):
-    client = Client()
+    def setUp(self):
+        self.client = Client()
 
     def test_description(self):
         response = self.client.get(reverse("description"))

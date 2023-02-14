@@ -31,6 +31,7 @@ SECRET_KEY = os.getenv(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "False").lower() in ("true", "1")
 
+
 # for debug_toolbar
 
 ALLOWED_HOSTS = os.getenv(
@@ -65,14 +66,19 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "lyceum.middleware.common.ReverseMiddleware",
 ]
+REVERSE_RU = os.getenv("REVERSE_MIDDLEWARE", "False").lower() in (
+    "active",
+    "true",
+    "1",
+)
+
 
 if DEBUG:
     MIDDLEWARE += ("debug_toolbar.middleware.DebugToolbarMiddleware",)
     INSTALLED_APPS += ("debug_toolbar",)
 
-if os.getenv("REVERSE_MIDDLEWARE", "False").lower() in ("active", "true", "1"):
-    MIDDLEWARE += ("lyceum.middleware.common.ReverseMiddleware",)
 
 ROOT_URLCONF = "lyceum.urls"
 

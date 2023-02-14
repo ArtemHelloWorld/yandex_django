@@ -42,7 +42,8 @@ from parameterized import parameterized, parameterized_class
     ],
 )
 class CatalogDynamicTests(TestCase):
-    client = Client()
+    def setUp(self):
+        self.client = Client()
 
     def test_item_detail(self):
         url = f"/catalog/{self.number}/"
@@ -70,7 +71,8 @@ class CatalogDynamicTests(TestCase):
 
 
 class CatalogDynamicUniqueTests(TestCase):
-    client = Client()
+    def setUp(self):
+        self.client = Client()
 
     @parameterized.expand([("0", 200)])
     def test_item_detail_unique(self, number, status):
@@ -95,6 +97,9 @@ class CatalogDynamicUniqueTests(TestCase):
 
 
 class CatalogStaticTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+
     def test_item_list(self):
         response = self.client.get(reverse("item_list"))
         self.assertEqual(response.status_code, 200)

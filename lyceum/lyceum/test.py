@@ -1,6 +1,4 @@
-import os
-
-from django.test import Client, TestCase
+from django.test import Client, TestCase, override_settings
 from django.urls import reverse
 
 from parameterized import parameterized_class
@@ -17,21 +15,21 @@ from parameterized import parameterized_class
         ),
         (
             reverse("item_list"),
-            "<body>Список элементов</body>",
-            "<body>косипС вотнемелэ</body>",
+            "<body>Список, элементов</body>",
+            "<body>косипС, вотнемелэ</body>",
         ),
     ],
 )
-class MyMiddlewareTestCase(TestCase):
-    client = Client()
+@override_settings(REVERSE_RU=True)
+class ActiveReverseMiddlewareTestCase(TestCase):
+    def setUp(self):
+        self.client = Client()
 
     def test_ten_requests(self):
-        middleware_status = os.getenv("REVERSE_MIDDLEWARE", "False").lower()
-
         for i in range(10):
             response = self.client.get(self.url)
 
-            if i == 9 and middleware_status in ("active", "true", "1"):
+            if i == 9:
                 expected_result = self.reversed_body
             else:
                 expected_result = self.normal_body
@@ -39,5 +37,34 @@ class MyMiddlewareTestCase(TestCase):
             self.assertEqual(
                 response.content.decode("utf-8"),
                 expected_result,
+                f"Failed on step {i}. Url: {self.url}.",
+            )
+
+
+@parameterized_class(
+    ("url", "normal_body"),
+    [
+        (reverse("homepage"), "<body>Главная</body>"),
+        (
+            reverse("description"),
+            "<body>О проекте</body>",
+        ),
+        (
+            reverse("item_list"),
+            "<body>Список, элементов</body>",
+        ),
+    ],
+)
+@override_settings(REVERSE_RU=False)
+class InActiveReverseMiddlewareTestCase(TestCase):
+    def setUp(self):
+        self.client = Client()
+
+    def test_ten_requests(self):
+        for i in range(10):
+            response = self.client.get(self.url)
+            self.assertEqual(
+                response.content.decode("utf-8"),
+                self.normal_body,
                 f"Failed on step {i}. Url: {self.url}.",
             )

@@ -3,7 +3,8 @@ from django.urls import reverse
 
 
 class HomepageTests(TestCase):
-    client = Client()
+    def setUp(self):
+        self.client = Client()
 
     def test_homepage(self):
         response = self.client.get(reverse("homepage"))
