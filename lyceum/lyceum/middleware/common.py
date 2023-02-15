@@ -17,20 +17,20 @@ def flip_ru_words(input_string):
 
 
 class ReverseMiddleware:
+    count = 0
+
     def __init__(self, get_response):
         self.get_response = get_response
-        self.count = 0
 
     def __call__(self, request):
-        self.count += 1
+        self.count = (self.count + 1) % 10
 
         response = self.get_response(request)
 
         if conf.settings.REVERSE_RU:
-            if self.count % 10 == 0:
+            if self.count == 0:
                 response.content = flip_ru_words(
                     response.content.decode("utf-8")
                 )
-                self.count = 0
 
         return response
