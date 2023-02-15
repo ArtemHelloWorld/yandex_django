@@ -5,15 +5,17 @@ from parameterized import parameterized_class
 
 
 @parameterized_class(
-    ("url", "reversed_body"),
+    ("url", "normal_body", "reversed_body"),
     [
-        (reverse("homepage"), "<body>яанвалГ</body>"),
+        (reverse("homepage"), "<body>Главная</body>", "<body>яанвалГ</body>"),
         (
             reverse("description"),
+            "<body>О проекте</body>",
             "<body>О еткеорп</body>",
         ),
         (
             reverse("item_list"),
+            "<body>Список, элементов</body>",
             "<body>косипС, вотнемелэ</body>",
         ),
     ],
@@ -23,29 +25,38 @@ class ActiveReverseMiddlewareTestCase(TestCase):
     def setUp(self):
         self.client = Client()
 
-    def test_ten_requests(self):
-        responses = []
+        self.responses_arr = []
         for i in range(10):
             response = self.client.get(self.url)
-            responses.append(response.content.decode("utf-8"))
+            self.responses_arr.append(response.content.decode("utf-8"))
 
+    def test_to_check_normal_response(self):
+        self.assertIn(
+            self.normal_body,
+            self.responses_arr,
+            f"Failed. Url: {self.url}.",
+        )
+
+    def test_to_check_reversed_response(self):
         self.assertIn(
             self.reversed_body,
-            responses,
+            self.responses_arr,
             f"Failed. Url: {self.url}.",
         )
 
 
 @parameterized_class(
-    ("url", "reversed_body"),
+    ("url", "normal_body", "reversed_body"),
     [
-        (reverse("homepage"), "<body>яанвалГ</body>"),
+        (reverse("homepage"), "<body>Главная</body>", "<body>яанвалГ</body>"),
         (
             reverse("description"),
+            "<body>О проекте</body>",
             "<body>О еткеорп</body>",
         ),
         (
             reverse("item_list"),
+            "<body>Список, элементов</body>",
             "<body>косипС, вотнемелэ</body>",
         ),
     ],
@@ -55,14 +66,21 @@ class InActiveReverseMiddlewareTestCase(TestCase):
     def setUp(self):
         self.client = Client()
 
-    def test_ten_requests(self):
-        responses = []
+        self.responses_arr = []
         for i in range(10):
             response = self.client.get(self.url)
-            responses.append(response.content.decode("utf-8"))
+            self.responses_arr.append(response.content.decode("utf-8"))
 
+    def test_to_check_normal_response(self):
+        self.assertIn(
+            self.normal_body,
+            self.responses_arr,
+            f"Failed. Url: {self.url}.",
+        )
+
+    def test_to_check_reversed_response(self):
         self.assertNotIn(
             self.reversed_body,
-            responses,
+            self.responses_arr,
             f"Failed. Url: {self.url}.",
         )
