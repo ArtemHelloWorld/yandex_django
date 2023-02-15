@@ -33,12 +33,12 @@ class ActiveReverseMiddlewareTestCase(TestCase):
 
         self.assertIn(
             self.normal_body,
-            self.responses_arr,
+            responses_arr,
             f"Failed. normal_body not in responses_arr. Url: {self.url}.",
         )
         self.assertIn(
             self.reversed_body,
-            self.responses_arr,
+            responses_arr,
             f"Failed. reversed_body not in responses_arr. Url: {self.url}.",
         )
 
@@ -77,6 +77,6 @@ class InActiveReverseMiddlewareTestCase(TestCase):
         )
         self.assertNotIn(
             self.reversed_body,
-            self.responses_arr,
+            responses_arr,
             f"Failed. reversed_body in responses_arr. Url: {self.url}.",
         )
