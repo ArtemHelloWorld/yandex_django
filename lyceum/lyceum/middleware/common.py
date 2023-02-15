@@ -23,8 +23,8 @@ class ReverseMiddleware:
         self.get_response = get_response
 
     @classmethod
-    def checkreverse(cls):
-        cls.count = (cls.count + 1) % 10 
+    def check_reverse(cls):
+        cls.count = (cls.count + 1) % 10
         if conf.settings.REVERSE_RU:
             if cls.count == 0:
                 return True
@@ -33,10 +33,7 @@ class ReverseMiddleware:
     def __call__(self, request):
         response = self.get_response(request)
 
-        if self.checkreverse():
-            response.content = flip_ru_words(
-                response.content.decode("utf-8")
-            )
+        if self.check_reverse():
+            response.content = flip_ru_words(response.content.decode("utf-8"))
 
         return response
-
