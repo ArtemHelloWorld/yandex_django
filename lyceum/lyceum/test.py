@@ -60,7 +60,6 @@ class InActiveReverseMiddlewareTestCase(TestCase):
         for i in range(10):
             response = self.client.get(self.url)
             responses.append(response.content.decode("utf-8"))
-        print(responses)
 
         self.assertNotIn(
             self.reversed_body,
