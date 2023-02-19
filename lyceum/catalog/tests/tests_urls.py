@@ -103,5 +103,3 @@ class CatalogStaticTests(TestCase):
     def test_item_list(self):
         response = self.client.get(reverse("item_list"))
         self.assertEqual(response.status_code, 200)
-
-

@@ -1,6 +1,6 @@
-from django.contrib import admin
-
 import catalog.models
+
+from django.contrib import admin
 
 
 @admin.register(catalog.models.Item)
@@ -16,9 +16,17 @@ class ItemAdmin(admin.ModelAdmin):
 
 @admin.register(catalog.models.Tag)
 class TagAdmin(admin.ModelAdmin):
-    prepopulated_fields = {catalog.models.Tag.slug.field.name: (catalog.models.Tag.name.field.name,)}
+    prepopulated_fields = {
+        catalog.models.Tag.slug.field.name: (
+            catalog.models.Tag.name.field.name,
+        )
+    }
 
 
 @admin.register(catalog.models.Category)
 class CategoryAdmin(admin.ModelAdmin):
-    prepopulated_fields = {catalog.models.Category.slug.field.name: (catalog.models.Category.name.field.name,)}
+    prepopulated_fields = {
+        catalog.models.Category.slug.field.name: (
+            catalog.models.Category.name.field.name,
+        )
+    }

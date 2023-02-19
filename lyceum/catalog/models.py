@@ -1,20 +1,18 @@
+import catalog.validators
+
 import core.models
 
 import django.core.exceptions
 import django.core.validators
 import django.db.models
-import catalog.validators
 
 
-class Item(
-    core.models.NameFieldMixin,
-    core.models.IsPublishedFieldMixin
-):
+class Item(core.models.NameFieldMixin, core.models.IsPublishedFieldMixin):
     text = django.db.models.TextField(
         validators=[catalog.validators.exist_adverbs_validator],
         verbose_name="описание",
         help_text="Придумайте описание. Текст должен включать"
-                  " слова превосходно или роскошно",
+        " слова превосходно или роскошно",
     )
     category = django.db.models.ForeignKey(
         "category",

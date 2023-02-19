@@ -1,7 +1,7 @@
+import catalog.models
+
 from django.core.exceptions import ValidationError
 from django.test import TestCase
-
-import catalog.models
 
 
 class ItemModelTests(TestCase):
@@ -30,7 +30,7 @@ class ItemModelTests(TestCase):
             name="Кроссовки",
             is_published=True,
             text="Кроссовки для бега мужские."
-                 " Роскошно подойдут для бега по утрам",
+            " Роскошно подойдут для бега по утрам",
             category=self.category,
         )
         self.item.full_clean()
@@ -85,7 +85,7 @@ class ItemModelTests(TestCase):
                 name="Кроссовки" + "*" * 150,
                 is_published=True,
                 text="Кроссовки для бега мужские. "
-                     "Роскошно подойдут для бега по утрам",
+                "Роскошно подойдут для бега по утрам",
                 category=self.category,
             )
             self.item.full_clean()
@@ -99,7 +99,6 @@ class ItemModelTests(TestCase):
 
 
 class TagModelTests(TestCase):
-
     def tearDown(self):
         catalog.models.Tag.objects.all().delete()
         super(TagModelTests, self).tearDown()
@@ -152,7 +151,6 @@ class TagModelTests(TestCase):
 
 
 class CategoryModelTests(TestCase):
-
     def tearDown(self):
         catalog.models.Category.objects.all().delete()
         super(CategoryModelTests, self).tearDown()
