@@ -1,0 +1,175 @@
+[
+{
+  "model": "catalog.item",
+  "pk": 1,
+  "fields": {
+    "name": "Мужская футболка",
+    "is_published": true,
+    "text": "Роскошная Мужская футболка на лето размер л хл",
+    "category": 1,
+    "tags": [
+      1,
+      4,
+      6
+    ]
+  }
+},
+{
+  "model": "catalog.item",
+  "pk": 2,
+  "fields": {
+    "name": "Женская футболка",
+    "is_published": true,
+    "text": "Женская футболка на лето. Роскошно подойдет всем",
+    "category": 1,
+    "tags": [
+      1,
+      4,
+      7
+    ]
+  }
+},
+{
+  "model": "catalog.item",
+  "pk": 3,
+  "fields": {
+    "name": "Домашняя футболка оверсайз",
+    "is_published": true,
+    "text": "Футболка модойдет мужчинам и женщинам. Превосходно подойдет для домашней одежды",
+    "category": 1,
+    "tags": [
+      1,
+      6,
+      7
+    ]
+  }
+},
+{
+  "model": "catalog.item",
+  "pk": 4,
+  "fields": {
+    "name": "Кроссовки мужские",
+    "is_published": true,
+    "text": "Кроссовки для бега мужские. Роскошно подойдут для бега по утрам",
+    "category": 2,
+    "tags": [
+      1,
+      5,
+      6
+    ]
+  }
+},
+{
+  "model": "catalog.item",
+  "pk": 5,
+  "fields": {
+    "name": "Туфли женские",
+    "is_published": true,
+    "text": "Туфли женские на высоком каблуке. Превосходно подойдут для работы и прогулок. Весна\\Осень",
+    "category": 2,
+    "tags": [
+      3,
+      5,
+      7
+    ]
+  }
+},
+{
+  "model": "catalog.item",
+  "pk": 6,
+  "fields": {
+    "name": "Кеды мужские",
+    "is_published": true,
+    "text": "Кеды мужские превосходно подойдут для любителей свободной одежды и прогулок летом",
+    "category": 2,
+    "tags": [
+      1,
+      4,
+      6
+    ]
+  }
+},
+{
+  "model": "catalog.tag",
+  "pk": 1,
+  "fields": {
+    "name": "Новая коллекция",
+    "is_published": true,
+    "slug": "novaya-kollekciya"
+  }
+},
+{
+  "model": "catalog.tag",
+  "pk": 2,
+  "fields": {
+    "name": "Зимний сезон",
+    "is_published": true,
+    "slug": "zimnij-sezon"
+  }
+},
+{
+  "model": "catalog.tag",
+  "pk": 3,
+  "fields": {
+    "name": "Весенний сезон",
+    "is_published": true,
+    "slug": "vesennij-sezon"
+  }
+},
+{
+  "model": "catalog.tag",
+  "pk": 4,
+  "fields": {
+    "name": "Летний сезон",
+    "is_published": true,
+    "slug": "letnij-sezon"
+  }
+},
+{
+  "model": "catalog.tag",
+  "pk": 5,
+  "fields": {
+    "name": "Осенний сезон",
+    "is_published": true,
+    "slug": "osennij-sezon"
+  }
+},
+{
+  "model": "catalog.tag",
+  "pk": 6,
+  "fields": {
+    "name": "Мужская коллекция",
+    "is_published": true,
+    "slug": "men"
+  }
+},
+{
+  "model": "catalog.tag",
+  "pk": 7,
+  "fields": {
+    "name": "Женская коллекция",
+    "is_published": true,
+    "slug": "women"
+  }
+},
+{
+  "model": "catalog.category",
+  "pk": 1,
+  "fields": {
+    "name": "Футболки",
+    "is_published": true,
+    "slug": "futbolki",
+    "weight": 500
+  }
+},
+{
+  "model": "catalog.category",
+  "pk": 2,
+  "fields": {
+    "name": "Обувь",
+    "is_published": true,
+    "slug": "obuv",
+    "weight": 2000
+  }
+}
+]

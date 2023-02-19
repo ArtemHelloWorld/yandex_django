@@ -1,34 +1,24 @@
 from django.contrib import admin
 
-from .models import Category, Item, Tag
+import catalog.models
 
 
-@admin.register(Item)
+@admin.register(catalog.models.Item)
 class ItemAdmin(admin.ModelAdmin):
-    name_name = Item.name.field.name
-    is_published_name = Item.is_published.field.name
-    tags_name = Item.tags.field.name
-
     list_display = (
-        name_name,
-        is_published_name,
+        catalog.models.Item.name.field.name,
+        catalog.models.Item.is_published.field.name,
     )
-    list_editable = (is_published_name,)
-    list_display_links = (name_name,)
-    filter_horizontal = (tags_name,)
+    list_editable = (catalog.models.Item.is_published.field.name,)
+    list_display_links = (catalog.models.Item.name.field.name,)
+    filter_horizontal = (catalog.models.Item.tags.field.name,)
 
 
-@admin.register(Tag)
+@admin.register(catalog.models.Tag)
 class TagAdmin(admin.ModelAdmin):
-    name_name = Tag.name.field.name
-    slug = Tag.slug.field.name
-
-    prepopulated_fields = {slug: (name_name,)}
+    prepopulated_fields = {catalog.models.Tag.slug.field.name: (catalog.models.Tag.name.field.name,)}
 
 
-@admin.register(Category)
+@admin.register(catalog.models.Category)
 class CategoryAdmin(admin.ModelAdmin):
-    name_name = Category.name.field.name
-    slug = Category.slug.field.name
-
-    prepopulated_fields = {slug: (name_name,)}
+    prepopulated_fields = {catalog.models.Category.slug.field.name: (catalog.models.Category.name.field.name,)}
