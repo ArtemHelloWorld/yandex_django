@@ -1,7 +1,10 @@
+from django.core.exceptions import ValidationError
 from django.test import Client, TestCase
 from django.urls import reverse
 
 from parameterized import parameterized, parameterized_class
+
+from .models import Category, Item, Tag
 
 
 @parameterized_class(
@@ -103,3 +106,225 @@ class CatalogStaticTests(TestCase):
     def test_item_list(self):
         response = self.client.get(reverse("item_list"))
         self.assertEqual(response.status_code, 200)
+
+
+class ItemModelTests(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+
+        cls.category = Category.objects.create(
+            name="Куртки",
+            is_published=True,
+            slug="kurtki",
+            weight=5000,
+        )
+        cls.tag = Tag.objects.create(
+            name="Женская коллекция",
+            is_published=True,
+            slug="women",
+        )
+
+    def test_item_create(self):
+        item_count = Item.objects.count()
+        self.item = Item(
+            name="Кроссовки",
+            is_published=True,
+            text="Кроссовки для бега мужские."
+            " Роскошно подойдут для бега по утрам",
+            category=self.category,
+        )
+        self.item.full_clean()
+        self.item.save()
+        self.item.tags.add(self.tag)
+
+        self.assertEqual(
+            Item.objects.count(),
+            item_count + 1,
+        )
+
+    def test_unable_create_one_letter(self):
+        item_count = Item.objects.count()
+        with self.assertRaises(ValidationError):
+            self.item = Item(
+                name="Кроссовки",
+                is_published=True,
+                text="К",
+                category=self.category,
+            )
+            self.item.full_clean()
+            self.item.save()
+            self.item.tags.add(self.tag)
+
+        self.assertEqual(
+            Item.objects.count(),
+            item_count,
+        )
+
+    def test_unable_create_without_adverbs(self):
+        item_count = Item.objects.count()
+        with self.assertRaises(ValidationError):
+            self.item = Item(
+                name="Кроссовки",
+                is_published=True,
+                text="Кроссовки для бега мужские.",
+                category=self.category,
+            )
+            self.item.full_clean()
+            self.item.save()
+            self.item.tags.add(self.tag)
+
+        self.assertEqual(
+            Item.objects.count(),
+            item_count,
+        )
+
+    def test_unable_create_big_name(self):
+        item_count = Item.objects.count()
+        with self.assertRaises(ValidationError):
+            self.item = Item(
+                name="Кроссовки" + "*" * 150,
+                is_published=True,
+                text="Кроссовки для бега мужские. "
+                "Роскошно подойдут для бега по утрам",
+                category=self.category,
+            )
+            self.item.full_clean()
+            self.item.save()
+            self.item.tags.add(self.tag)
+
+        self.assertEqual(
+            Item.objects.count(),
+            item_count,
+        )
+
+
+class TagModelTests(TestCase):
+    def test_tag_create(self):
+        item_count = Tag.objects.count()
+
+        self.tag = Tag(
+            name="Женская коллекция",
+            is_published=True,
+            slug="women-collection",
+        )
+        self.tag.full_clean()
+        self.tag.save()
+
+        self.assertEqual(
+            Tag.objects.count(),
+            item_count + 1,
+        )
+
+    def test_unable_create_tag_big_name(self):
+        item_count = Tag.objects.count()
+        with self.assertRaises(ValidationError):
+            self.tag = Tag(
+                name="Женская коллекция" + "*" * 150,
+                is_published=True,
+                slug="women-collection",
+            )
+            self.tag.full_clean()
+            self.tag.save()
+        self.assertEqual(
+            Tag.objects.count(),
+            item_count,
+        )
+
+    def test_unable_create_tag_wrong_slug(self):
+        item_count = Tag.objects.count()
+        with self.assertRaises(ValidationError):
+            self.tag = Tag(
+                name="Женская коллекция",
+                is_published=True,
+                slug="женская",
+            )
+            self.tag.full_clean()
+            self.tag.save()
+        self.assertEqual(
+            Tag.objects.count(),
+            item_count,
+        )
+
+
+class CategoryModelTests(TestCase):
+    def test_category_create(self):
+        category_count = Category.objects.count()
+
+        self.category = Category(
+            name="Обувь",
+            is_published=True,
+            slug="obuv",
+            weight=2000,
+        )
+        self.category.full_clean()
+        self.category.save()
+
+        self.assertEqual(
+            Category.objects.count(),
+            category_count + 1,
+        )
+
+    def test_unable_create_category_big_name(self):
+        item_count = Category.objects.count()
+        with self.assertRaises(ValidationError):
+            self.category = Category(
+                name="Обувь" + "*" * 150,
+                is_published=True,
+                slug="obuv",
+                weight=2000,
+            )
+            self.category.full_clean()
+            self.category.save()
+        self.assertEqual(
+            Category.objects.count(),
+            item_count,
+        )
+
+    def test_unable_create_category_wrong_slug(self):
+        item_count = Category.objects.count()
+        with self.assertRaises(ValidationError):
+            self.category = Category(
+                name="Обувь",
+                is_published=True,
+                slug="обувь",
+                weight=2000,
+            )
+            self.category.full_clean()
+            self.category.save()
+        self.assertEqual(
+            Category.objects.count(),
+            item_count,
+        )
+
+    def test_unable_create_category_wrong_weight1(self):
+        item_count = Category.objects.count()
+        with self.assertRaises(ValidationError):
+            self.category = Category(
+                name="Обувь",
+                is_published=True,
+                slug="обувь",
+                weight=-100,
+            )
+            self.category.full_clean()
+            self.category.save()
+        self.assertEqual(
+            Category.objects.count(),
+            item_count,
+        )
+
+    def test_unable_create_category_wrong_weight2(self):
+        item_count = Category.objects.count()
+        with self.assertRaises(ValidationError):
+            self.category = Category(
+                name="Обувь",
+                is_published=True,
+                slug="обувь",
+                weight=32768,
+            )
+            self.category.full_clean()
+            self.category.save()
+        self.assertEqual(
+            Category.objects.count(),
+            item_count,
+        )
