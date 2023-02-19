@@ -1,14 +1,13 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
-
 import catalog.models
+
 
 class ItemModelTests(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-
         cls.category = catalog.models.Category.objects.create(
             name="Куртки",
             is_published=True,
@@ -21,9 +20,9 @@ class ItemModelTests(TestCase):
             slug="women",
         )
 
-    @classmethod
-    def tearDownClass(cls):
-        super(ItemModelTests, cls).tearDownClass()
+    def tearDown(self):
+        catalog.models.Item.objects.all().delete()
+        super(ItemModelTests, self).tearDown()
 
     def test_item_create(self):
         item_count = catalog.models.Item.objects.count()
@@ -100,9 +99,10 @@ class ItemModelTests(TestCase):
 
 
 class TagModelTests(TestCase):
-    @classmethod
-    def tearDownClass(cls):
-        super(TagModelTests, cls).tearDownClass()
+
+    def tearDown(self):
+        catalog.models.Tag.objects.all().delete()
+        super(TagModelTests, self).tearDown()
 
     def test_tag_create(self):
         item_count = catalog.models.Tag.objects.count()
@@ -152,9 +152,10 @@ class TagModelTests(TestCase):
 
 
 class CategoryModelTests(TestCase):
-    @classmethod
-    def tearDownClass(cls):
-        super(CategoryModelTests, cls).tearDownClass()
+
+    def tearDown(self):
+        catalog.models.Category.objects.all().delete()
+        super(CategoryModelTests, self).tearDown()
 
     def test_category_create(self):
         category_count = catalog.models.Category.objects.count()
