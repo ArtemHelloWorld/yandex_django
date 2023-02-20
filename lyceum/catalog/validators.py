@@ -4,7 +4,6 @@ import django.core.exceptions
 class ValidateMustContain:
     def __init__(self, *words):
         self.words = words
-        print(words, self.words, type(self.words))
 
     def __call__(self, value):
         for word in self.words:
