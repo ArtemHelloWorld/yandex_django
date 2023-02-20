@@ -1,3 +1,4 @@
+import re
 import django.core.exceptions
 
 
@@ -6,9 +7,7 @@ class ValidateMustContain:
         self.words = words
 
     def __call__(self, value):
-        for word in self.words:
-            if word.lower() in value.lower():
-                return True
-        raise django.core.exceptions.ValidationError(
-            "Не содержит наречий. Добавьте `превосходно` или `роскошно`"
-        )
+        if not (set(re.findall(re.compile(r'\w+|\W+'), value.lower())) & set(self.words)):
+            raise django.core.exceptions.ValidationError(
+                f"Не содержит наречий. Добавьте {', '.join([word for word in self.words])}"
+            )
