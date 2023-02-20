@@ -1,8 +1,15 @@
 import django.core.exceptions
 
 
-def exist_adverbs_validator(value):
-    if not ("превосходно" in value.lower() or "роскошно" in value.lower()):
+class ValidateMustContain:
+    def __init__(self, *words):
+        self.words = words
+        print(words, self.words, type(self.words))
+
+    def __call__(self, value):
+        for word in self.words:
+            if word.lower() in value.lower():
+                return True
         raise django.core.exceptions.ValidationError(
             "Не содержит наречий. Добавьте `превосходно` или `роскошно`"
         )
