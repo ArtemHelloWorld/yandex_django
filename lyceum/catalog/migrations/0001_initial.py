@@ -146,7 +146,9 @@ class Migration(migrations.Migration):
                         "Текст должен включать "
                         "слова превосходно или роскошно",
                         validators=[
-                            catalog.validators.ValidateMustContain('превосходно', 'роскошно')
+                            catalog.validators.ValidateMustContain(
+                                "превосходно", "роскошно"
+                            )
                         ],
                         verbose_name="описание",
                     ),

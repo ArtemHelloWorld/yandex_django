@@ -9,7 +9,7 @@ import django.db.models
 class Item(core.models.NameFieldMixin, core.models.IsPublishedFieldMixin):
     text = django.db.models.TextField(
         validators=[
-            catalog.validators.ValidateMustContain('превосходно', 'роскошно')
+            catalog.validators.ValidateMustContain("превосходно", "роскошно")
         ],
         verbose_name="описание",
         help_text="Придумайте описание. Текст должен включать"
