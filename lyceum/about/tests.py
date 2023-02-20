@@ -1,11 +1,11 @@
-from django.test import Client, TestCase
-from django.urls import reverse
+import django.test
+import django.urls
 
 
-class AboutTests(TestCase):
+class AboutTests(django.test.TestCase):
     def setUp(self):
-        self.client = Client()
+        self.client = django.test.Client()
 
     def test_description(self):
-        response = self.client.get(reverse("description"))
+        response = self.client.get(django.urls.reverse("description"))
         self.assertEqual(response.status_code, 200)

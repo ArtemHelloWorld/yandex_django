@@ -21,5 +21,5 @@
 <p>Для разработки | black & flake8 <pre><code>pip install -r requirements-development.txt</code></pre></p>
 
 <h2>Создание базы данных</h2>
-<p>Чтобы создать бд, первым шагом необходимо выполнить миграции. С этим вам поможет команда<pre><code>python lyceum/manage.py makimigrations</code></pre>Дождитесь выполнения миграций</p>
+<p>Чтобы создать бд, первым шагом необходимо выполнить миграции. С этим вам поможет команда<pre><code>python lyceum/manage.py migrate</code></pre>Дождитесь выполнения миграций</p>
 <p>После того, как вы создали пустую бузу данных вы можете внести в нее тестовые данные. Такие данные вы можете найти в пакетах приложений в папках fixtures. Пример с загрузкой данных из приложения catalog: <pre><code>python lyceum/manage.py loaddata lyceum/catalog/fixtures/data.json</code></pre></p>

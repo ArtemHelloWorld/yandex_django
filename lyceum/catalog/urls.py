@@ -1,20 +1,26 @@
-from django.urls import path, re_path, register_converter
+import catalog.converters
+import catalog.views
 
-from . import converters, views
+import django.urls
 
-register_converter(converters.CustomPositiveIntegerConverter, "customint")
+
+django.urls.register_converter(
+    catalog.converters.CustomPositiveIntegerConverter, "customint"
+)
 
 urlpatterns = [
-    path("", views.item_list, name="item_list"),
-    path("<int:item_pk>/", views.item_detail, name="item_detail"),
-    re_path(
+    django.urls.path("", catalog.views.item_list, name="item_list"),
+    django.urls.path(
+        "<int:item_pk>/", catalog.views.item_detail, name="item_detail"
+    ),
+    django.urls.re_path(
         r"^re/(?P<reint>[1-9][0-9]*)/",
-        views.item_detail_re,
+        catalog.views.item_detail_re,
         name="item_detail_re",
     ),
-    path(
+    django.urls.path(
         "converter/<customint:custom_int>/",
-        views.custom_converter,
+        catalog.views.custom_converter,
         name="custom_converter",
     ),
 ]

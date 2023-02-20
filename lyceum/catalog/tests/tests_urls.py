@@ -1,10 +1,10 @@
-from django.test import Client, TestCase
-from django.urls import reverse
+import django.test
+import django.urls
 
-from parameterized import parameterized, parameterized_class
+import parameterized
 
 
-@parameterized_class(
+@parameterized.parameterized_class(
     ("number", "status"),
     [
         ("1", 200),
@@ -41,9 +41,9 @@ from parameterized import parameterized, parameterized_class
         ("*&873%", 404),
     ],
 )
-class CatalogDynamicTests(TestCase):
+class CatalogDynamicTests(django.test.TestCase):
     def setUp(self):
-        self.client = Client()
+        self.client = django.test.Client()
 
     def test_item_detail(self):
         url = f"/catalog/{self.number}/"
@@ -70,25 +70,25 @@ class CatalogDynamicTests(TestCase):
         )
 
 
-class CatalogDynamicUniqueTests(TestCase):
+class CatalogDynamicUniqueTests(django.test.TestCase):
     def setUp(self):
-        self.client = Client()
+        self.client = django.test.Client()
 
-    @parameterized.expand([("0", 200)])
+    @parameterized.parameterized.expand([("0", 200)])
     def test_item_detail_unique(self, number, status):
         url = f"/catalog/{number}/"
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, status, f"{number} failed")
 
-    @parameterized.expand([("0", 404)])
+    @parameterized.parameterized.expand([("0", 404)])
     def test_item_detail_re_unique(self, number, status):
         url = f"/catalog/re/{number}/"
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, status, f"{number} failed")
 
-    @parameterized.expand([("0", 404)])
+    @parameterized.parameterized.expand([("0", 404)])
     def test_custom_converter_unique(self, number, status):
         url = f"/catalog/converter/{number}/"
         response = self.client.get(url)
@@ -96,10 +96,10 @@ class CatalogDynamicUniqueTests(TestCase):
         self.assertEqual(response.status_code, status, f"{number} failed")
 
 
-class CatalogStaticTests(TestCase):
+class CatalogStaticTests(django.test.TestCase):
     def setUp(self):
-        self.client = Client()
+        self.client = django.test.Client()
 
     def test_item_list(self):
-        response = self.client.get(reverse("item_list"))
+        response = self.client.get(django.urls.reverse("item_list"))
         self.assertEqual(response.status_code, 200)

@@ -1,29 +1,33 @@
-from django.test import Client, TestCase, override_settings
-from django.urls import reverse
+import django.test
+import django.urls
 
-from parameterized import parameterized_class
+import parameterized
 
 
-@parameterized_class(
+@parameterized.parameterized_class(
     ("url", "normal_body", "reversed_body"),
     [
-        (reverse("homepage"), "<body>Главная</body>", "<body>яанвалГ</body>"),
         (
-            reverse("description"),
+            django.urls.reverse("homepage"),
+            "<body>Главная</body>",
+            "<body>яанвалГ</body>",
+        ),
+        (
+            django.urls.reverse("description"),
             "<body>О проекте</body>",
             "<body>О еткеорп</body>",
         ),
         (
-            reverse("item_list"),
+            django.urls.reverse("item_list"),
             "<body>Список, элементов</body>",
             "<body>косипС, вотнемелэ</body>",
         ),
     ],
 )
-@override_settings(REVERSE_RU=True)
-class ActiveReverseMiddlewareTestCase(TestCase):
+@django.test.override_settings(REVERSE_RU=True)
+class ActiveReverseMiddlewareTestCase(django.test.TestCase):
     def setUp(self):
-        self.client = Client()
+        self.client = django.test.Client()
 
     def test_to_check_responses(self):
         responses_arr = []
@@ -43,26 +47,30 @@ class ActiveReverseMiddlewareTestCase(TestCase):
         )
 
 
-@parameterized_class(
+@parameterized.parameterized_class(
     ("url", "normal_body", "reversed_body"),
     [
-        (reverse("homepage"), "<body>Главная</body>", "<body>яанвалГ</body>"),
         (
-            reverse("description"),
+            django.urls.reverse("homepage"),
+            "<body>Главная</body>",
+            "<body>яанвалГ</body>",
+        ),
+        (
+            django.urls.reverse("description"),
             "<body>О проекте</body>",
             "<body>О еткеорп</body>",
         ),
         (
-            reverse("item_list"),
+            django.urls.reverse("item_list"),
             "<body>Список, элементов</body>",
             "<body>косипС, вотнемелэ</body>",
         ),
     ],
 )
-@override_settings(REVERSE_RU=False)
-class InActiveReverseMiddlewareTestCase(TestCase):
+@django.test.override_settings(REVERSE_RU=False)
+class InActiveReverseMiddlewareTestCase(django.test.TestCase):
     def setUp(self):
-        self.client = Client()
+        self.client = django.test.Client()
 
     def test_to_check_responses(self):
         responses_arr = []

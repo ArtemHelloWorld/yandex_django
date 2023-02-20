@@ -1,4 +1,4 @@
-from django import conf
+import django.conf
 
 
 def flip_ru_words(input_string):
@@ -25,7 +25,7 @@ class ReverseMiddleware:
     @classmethod
     def check_reverse(cls):
         cls.count = (cls.count + 1) % 10
-        if conf.settings.REVERSE_RU:
+        if django.conf.settings.REVERSE_RU:
             if cls.count == 0:
                 return True
         return False

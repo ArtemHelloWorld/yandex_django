@@ -22,9 +22,6 @@ class IsPublishedFieldMixin(django.db.models.Model):
     class Meta:
         abstract = True
 
-    # def __str__(self):
-    #     return self.name[:20]
-
 
 class SlugFieldMixin(django.db.models.Model):
     slug = django.db.models.SlugField(

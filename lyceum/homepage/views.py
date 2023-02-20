@@ -1,9 +1,9 @@
-from django.http import HttpResponse
+import django.http
 
 
 def home(request):
-    return HttpResponse("<body>Главная</body>")
+    return django.http.HttpResponse("<body>Главная</body>")
 
 
 def error418(request):
-    return HttpResponse("<body>Я чайник.</body>", status=418)
+    return django.http.HttpResponse("<body>Я чайник.</body>", status=418)

@@ -33,7 +33,6 @@ DEBUG = os.getenv("DEBUG", "False").lower() in ("true", "1")
 
 
 # for debug_toolbar
-
 ALLOWED_HOSTS = os.getenv(
     "ALLOWED_HOSTS",
     "127.0.0.1",

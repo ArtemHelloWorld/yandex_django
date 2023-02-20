@@ -1,10 +1,10 @@
 import catalog.models
 
-from django.core.exceptions import ValidationError
-from django.test import TestCase
+import django.core.exceptions
+import django.test
 
 
-class ItemModelTests(TestCase):
+class ItemModelTests(django.test.TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -44,7 +44,7 @@ class ItemModelTests(TestCase):
 
     def test_unable_create_one_letter(self):
         item_count = catalog.models.Item.objects.count()
-        with self.assertRaises(ValidationError):
+        with self.assertRaises(django.core.exceptions.ValidationError):
             self.item = catalog.models.Item(
                 name="Кроссовки",
                 is_published=True,
@@ -62,7 +62,7 @@ class ItemModelTests(TestCase):
 
     def test_unable_create_without_adverbs(self):
         item_count = catalog.models.Item.objects.count()
-        with self.assertRaises(ValidationError):
+        with self.assertRaises(django.core.exceptions.ValidationError):
             self.item = catalog.models.Item(
                 name="Кроссовки",
                 is_published=True,
@@ -80,7 +80,7 @@ class ItemModelTests(TestCase):
 
     def test_unable_create_big_name(self):
         item_count = catalog.models.Item.objects.count()
-        with self.assertRaises(ValidationError):
+        with self.assertRaises(django.core.exceptions.ValidationError):
             self.item = catalog.models.Item(
                 name="Кроссовки" + "*" * 150,
                 is_published=True,
@@ -98,7 +98,7 @@ class ItemModelTests(TestCase):
         )
 
 
-class TagModelTests(TestCase):
+class TagModelTests(django.test.TestCase):
     def tearDown(self):
         catalog.models.Tag.objects.all().delete()
         super(TagModelTests, self).tearDown()
@@ -121,7 +121,7 @@ class TagModelTests(TestCase):
 
     def test_unable_create_tag_big_name(self):
         item_count = catalog.models.Tag.objects.count()
-        with self.assertRaises(ValidationError):
+        with self.assertRaises(django.core.exceptions.ValidationError):
             self.tag = catalog.models.Tag(
                 name="Женская коллекция" + "*" * 150,
                 is_published=True,
@@ -136,7 +136,7 @@ class TagModelTests(TestCase):
 
     def test_unable_create_tag_wrong_slug(self):
         item_count = catalog.models.Tag.objects.count()
-        with self.assertRaises(ValidationError):
+        with self.assertRaises(django.core.exceptions.ValidationError):
             self.tag = catalog.models.Tag(
                 name="Женская коллекция",
                 is_published=True,
@@ -150,7 +150,7 @@ class TagModelTests(TestCase):
         )
 
 
-class CategoryModelTests(TestCase):
+class CategoryModelTests(django.test.TestCase):
     def tearDown(self):
         catalog.models.Category.objects.all().delete()
         super(CategoryModelTests, self).tearDown()
@@ -174,7 +174,7 @@ class CategoryModelTests(TestCase):
 
     def test_unable_create_category_big_name(self):
         item_count = catalog.models.Category.objects.count()
-        with self.assertRaises(ValidationError):
+        with self.assertRaises(django.core.exceptions.ValidationError):
             self.category = catalog.models.Category(
                 name="Обувь" + "*" * 150,
                 is_published=True,
@@ -190,7 +190,7 @@ class CategoryModelTests(TestCase):
 
     def test_unable_create_category_wrong_slug(self):
         item_count = catalog.models.Category.objects.count()
-        with self.assertRaises(ValidationError):
+        with self.assertRaises(django.core.exceptions.ValidationError):
             self.category = catalog.models.Category(
                 name="Обувь",
                 is_published=True,
@@ -206,7 +206,7 @@ class CategoryModelTests(TestCase):
 
     def test_unable_create_category_wrong_weight1(self):
         item_count = catalog.models.Category.objects.count()
-        with self.assertRaises(ValidationError):
+        with self.assertRaises(django.core.exceptions.ValidationError):
             self.category = catalog.models.Category(
                 name="Обувь",
                 is_published=True,
@@ -222,7 +222,7 @@ class CategoryModelTests(TestCase):
 
     def test_unable_create_category_wrong_weight2(self):
         item_count = catalog.models.Category.objects.count()
-        with self.assertRaises(ValidationError):
+        with self.assertRaises(django.core.exceptions.ValidationError):
             self.category = catalog.models.Category(
                 name="Обувь",
                 is_published=True,

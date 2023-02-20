@@ -2,7 +2,6 @@ import catalog.validators
 
 import core.models
 
-import django.core.exceptions
 import django.core.validators
 import django.db.models
 
