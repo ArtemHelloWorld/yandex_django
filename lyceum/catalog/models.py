@@ -11,7 +11,8 @@ class Item(core.models.NameFieldMixin, core.models.IsPublishedFieldMixin):
             catalog.validators.ValidateMustContain("превосходно", "роскошно")
         ],
         verbose_name="описание",
-        help_text="Придумайте описание. Текст должен включать слова превосходно или роскошно",
+        help_text="Придумайте описание. Текст должен "
+        "включать слова превосходно или роскошно",
     )
     category = django.db.models.ForeignKey(
         "category",
