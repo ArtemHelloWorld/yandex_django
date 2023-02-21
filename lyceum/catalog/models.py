@@ -2,7 +2,6 @@ import catalog.validators
 
 import core.models
 
-import django.core.validators
 import django.db.models
 
 
@@ -12,8 +11,7 @@ class Item(core.models.NameFieldMixin, core.models.IsPublishedFieldMixin):
             catalog.validators.ValidateMustContain("превосходно", "роскошно")
         ],
         verbose_name="описание",
-        help_text="Придумайте описание. Текст должен включать"
-        " слова превосходно или роскошно",
+        help_text="Придумайте описание. Текст должен включать слова превосходно или роскошно",
     )
     category = django.db.models.ForeignKey(
         "category",
@@ -47,12 +45,8 @@ class Category(
     core.models.IsPublishedFieldMixin,
     core.models.SlugFieldMixin,
 ):
-    weight = django.db.models.IntegerField(
+    weight = django.db.models.PositiveSmallIntegerField(
         default=100,
-        validators=[
-            django.core.validators.MinValueValidator(0),
-            django.core.validators.MaxValueValidator(32767),
-        ],
         verbose_name="масса",
         help_text="Укажите массу",
     )
