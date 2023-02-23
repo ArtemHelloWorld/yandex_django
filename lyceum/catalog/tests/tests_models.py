@@ -3,6 +3,8 @@ import catalog.models
 import django.core.exceptions
 import django.test
 
+import parameterized
+
 
 class ItemModelTests(django.test.TestCase):
     @classmethod
@@ -149,6 +151,40 @@ class TagModelTests(django.test.TestCase):
             item_count,
         )
 
+    @parameterized.parameterized.expand(
+        [
+            ("Женская коллекция", "Же,Нс.кАя,,,    коЛле.кЦия."),
+            ("мужская одежда", "МУЖСКАЯ ОДЕЖДА"),
+            ("детская одежда", "д е т с к а я  о д е ж д а"),
+            ("Одежда для подростоков.", "Одежда, для подростоков."),
+            ("Новая коллекция", "Novaja kollektsija"),
+        ]
+    )
+    def test_unable_create_two_similar_names(self, first_name, second_name):
+        item_count = catalog.models.Tag.objects.count()
+
+        self.tag = catalog.models.Tag(
+            name=first_name,
+            is_published=True,
+            slug="women-collection",
+        )
+        self.tag.full_clean()
+        self.tag.save()
+
+        with self.assertRaises(django.core.exceptions.ValidationError):
+            self.tag = catalog.models.Tag(
+                name=second_name,
+                is_published=True,
+                slug="женская",
+            )
+            self.tag.full_clean()
+            self.tag.save()
+
+        self.assertEqual(
+            catalog.models.Tag.objects.count(),
+            item_count + 1,
+        )
+
 
 class CategoryModelTests(django.test.TestCase):
     def tearDown(self):
@@ -234,4 +270,38 @@ class CategoryModelTests(django.test.TestCase):
         self.assertEqual(
             catalog.models.Category.objects.count(),
             item_count,
+        )
+
+    @parameterized.parameterized.expand(
+        [
+            ("Зимняя одежда", "Зи,Мн.яЯ,,,    оДe.Жда."),
+            ("джинсы", "ДЖИНСЫ"),
+            ("ветровки", " в е т р о в к и "),
+            ("Теплая одежда.", "Теплая, одежда."),
+            ("Кроссовки", "Krossovki"),
+        ]
+    )
+    def test_unable_create_two_similar_names(self, first_name, second_name):
+        item_count = catalog.models.Category.objects.count()
+
+        self.category = catalog.models.Category(
+            name=first_name,
+            is_published=True,
+            slug="women-collection",
+        )
+        self.category.full_clean()
+        self.category.save()
+
+        with self.assertRaises(django.core.exceptions.ValidationError):
+            self.category = catalog.models.Category(
+                name=second_name,
+                is_published=True,
+                slug="женская",
+            )
+            self.category.full_clean()
+            self.category.save()
+
+        self.assertEqual(
+            catalog.models.Category.objects.count(),
+            item_count + 1,
         )

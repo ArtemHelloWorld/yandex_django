@@ -5,12 +5,12 @@
   "fields": {
     "name": "Мужская футболка",
     "is_published": true,
-    "text": "Роскошная Мужская футболка на лето размер л хл",
+    "text": "Мужская футболка роскошно подойдет на лето размер л хл",
     "category": 1,
     "tags": [
       1,
       4,
-      6
+      5
     ]
   }
 },
@@ -24,8 +24,8 @@
     "category": 1,
     "tags": [
       1,
-      4,
-      7
+      2,
+      3
     ]
   }
 },
@@ -70,6 +70,7 @@
     "tags": [
       3,
       5,
+      6,
       7
     ]
   }
@@ -93,27 +94,30 @@
   "model": "catalog.tag",
   "pk": 1,
   "fields": {
-    "name": "Новая коллекция",
+    "name": "Женская коллекция",
+    "name_normalized": "zhenskajakollektsija",
     "is_published": true,
-    "slug": "novaya-kollekciya"
+    "slug": "zhenskaya-kollekciya"
   }
 },
 {
   "model": "catalog.tag",
   "pk": 2,
   "fields": {
-    "name": "Зимний сезон",
+    "name": "Мужская коллекция",
+    "name_normalized": "muzhskajakollektsija",
     "is_published": true,
-    "slug": "zimnij-sezon"
+    "slug": "muzhskaya-kollekciya"
   }
 },
 {
   "model": "catalog.tag",
   "pk": 3,
   "fields": {
-    "name": "Весенний сезон",
+    "name": "Осенний сезон",
+    "name_normalized": "osennijsezon",
     "is_published": true,
-    "slug": "vesennij-sezon"
+    "slug": "osennij-sezon"
   }
 },
 {
@@ -121,6 +125,7 @@
   "pk": 4,
   "fields": {
     "name": "Летний сезон",
+    "name_normalized": "letnijsezon",
     "is_published": true,
     "slug": "letnij-sezon"
   }
@@ -129,27 +134,30 @@
   "model": "catalog.tag",
   "pk": 5,
   "fields": {
-    "name": "Осенний сезон",
+    "name": "Весенний сезон",
+    "name_normalized": "vesennijsezon",
     "is_published": true,
-    "slug": "osennij-sezon"
+    "slug": "vesennij-sezon"
   }
 },
 {
   "model": "catalog.tag",
   "pk": 6,
   "fields": {
-    "name": "Мужская коллекция",
+    "name": "Зимний сезон",
+    "name_normalized": "zimnijsezon",
     "is_published": true,
-    "slug": "men"
+    "slug": "zimnij-sezon"
   }
 },
 {
   "model": "catalog.tag",
   "pk": 7,
   "fields": {
-    "name": "Женская коллекция",
+    "name": "Новая коллекция",
+    "name_normalized": "novajakollektsija",
     "is_published": true,
-    "slug": "women"
+    "slug": "novaya-kollekciya"
   }
 },
 {
@@ -157,6 +165,7 @@
   "pk": 1,
   "fields": {
     "name": "Футболки",
+    "name_normalized": "futbolki",
     "is_published": true,
     "slug": "futbolki",
     "weight": 500
@@ -167,6 +176,7 @@
   "pk": 2,
   "fields": {
     "name": "Обувь",
+    "name_normalized": "obuv'",
     "is_published": true,
     "slug": "obuv",
     "weight": 2000

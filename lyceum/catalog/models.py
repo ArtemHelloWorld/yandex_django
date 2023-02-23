@@ -35,6 +35,7 @@ class Tag(
     core.models.NameFieldMixin,
     core.models.IsPublishedFieldMixin,
     core.models.SlugFieldMixin,
+    core.models.NormalizedNameFieldMixin,
 ):
     class Meta:
         verbose_name = "тег"
@@ -45,6 +46,7 @@ class Category(
     core.models.NameFieldMixin,
     core.models.IsPublishedFieldMixin,
     core.models.SlugFieldMixin,
+    core.models.NormalizedNameFieldMixin,
 ):
     weight = django.db.models.PositiveSmallIntegerField(
         default=100,
