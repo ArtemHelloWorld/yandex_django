@@ -47,9 +47,6 @@ class NormalizedNameFieldMixin(django.db.models.Model):
                 "большие буквы не влияют на уникальность имени"
             )
 
-    def unique_error_message(self, model_class, unique_check):
-        return "Custom errrrorrr"
-
     class Meta:
         abstract = True
 
