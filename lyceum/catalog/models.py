@@ -49,7 +49,7 @@ class Category(
     core.models.NormalizedNameFieldMixin,
 ):
     weight = django.db.models.PositiveSmallIntegerField(
-        default=100,
+        default=150,
         verbose_name="масса",
         help_text="Укажите массу",
     )
