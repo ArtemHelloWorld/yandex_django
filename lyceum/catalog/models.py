@@ -5,6 +5,7 @@ import core.models
 import django.db.models
 
 
+
 class Item(core.models.NameFieldMixin, core.models.IsPublishedFieldMixin):
     text = django.db.models.TextField(
         validators=[

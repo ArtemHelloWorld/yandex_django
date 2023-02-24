@@ -1,10 +1,12 @@
 import re
 
 import django.core.exceptions
+import django.utils.deconstruct
 
 PATTERN = re.compile(r"\w+|\W+")
 
 
+@django.utils.deconstruct.deconstructible
 class ValidateMustContain:
     def __init__(self, *words):
         self.words = words

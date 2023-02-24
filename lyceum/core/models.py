@@ -7,14 +7,6 @@ import django.forms
 import transliterate
 
 
-def normalize_name(value):
-    value = value.lower()
-    value = re.sub(r"[^\w]", "", value)
-    value = transliterate.translit(value, "ru", reversed=True)
-
-    return value
-
-
 class NameFieldMixin(django.db.models.Model):
     name = django.db.models.CharField(
         max_length=150,
@@ -34,18 +26,23 @@ class NormalizedNameFieldMixin(django.db.models.Model):
     )
 
     def save(self, *args, **kwargs):
-        name = getattr(self, "name")
-        normalized = normalize_name(name)
-        try:
-            setattr(self, "name_normalized", normalized)
-            super(NormalizedNameFieldMixin, self).save(*args, **kwargs)
-        except django.db.IntegrityError:
+        self.name_normalized = self._generate_normalize_name()
+        super().save(*args, **kwargs)
+
+    def _generate_normalize_name(self):
+        normalized = self.name.lower()
+        normalized = re.sub(r"\W", "", normalized)
+        normalized = transliterate.translit(normalized, "ru", reversed=True)
+
+        if self.__class__.objects.filter(name_normalized=normalized).exists():
             raise django.db.IntegrityError(
                 "Подобное имя уже существует. "
                 "Пожалуста придумайте более уникально имя. "
                 "Учтите, что пробелы, знаки препинания, "
                 "большие буквы не влияют на уникальность имени"
             )
+
+        return normalized
 
     class Meta:
         abstract = True
