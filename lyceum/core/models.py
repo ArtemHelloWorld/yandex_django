@@ -34,6 +34,11 @@ class NormalizedNameFieldMixin(django.db.models.Model):
         normalized = re.sub(r"\W", "", normalized)
         normalized = transliterate.translit(normalized, "ru", reversed=True)
 
+        self._check_name_normalized_unique(normalized)
+
+        return normalized
+
+    def _check_name_normalized_unique(self, normalized):
         if self.__class__.objects.filter(name_normalized=normalized).exists():
             raise django.db.IntegrityError(
                 "Подобное имя уже существует. "
@@ -41,8 +46,6 @@ class NormalizedNameFieldMixin(django.db.models.Model):
                 "Учтите, что пробелы, знаки препинания, "
                 "большие буквы не влияют на уникальность имени"
             )
-
-        return normalized
 
     class Meta:
         abstract = True

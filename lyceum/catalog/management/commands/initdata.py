@@ -104,8 +104,7 @@ class Command(django.core.management.base.BaseCommand):
 
         if interactive:
             django.core.management.call_command(
-                "createsuperuser",
-                interactive=True
+                "createsuperuser", interactive=True
             )
 
         else:
@@ -113,9 +112,7 @@ class Command(django.core.management.base.BaseCommand):
 
             try:
                 django.core.management.call_command(
-                    "createsuperuser",
-                    **extra_fields,
-                    interactive=False
+                    "createsuperuser", **extra_fields, interactive=False
                 )
             except django.core.management.base.CommandError as e:
                 self.stdout.write(self.style.ERROR(e))
@@ -127,6 +124,5 @@ class Command(django.core.management.base.BaseCommand):
 
                 if choice_superuser.lower() in ("yes", "да"):
                     django.core.management.call_command(
-                        "createsuperuser",
-                        interactive=True
+                        "createsuperuser", interactive=True
                     )
