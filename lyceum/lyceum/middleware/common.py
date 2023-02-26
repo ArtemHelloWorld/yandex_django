@@ -1,26 +1,21 @@
 import django.conf
 
 
-def flip_ru_words(input_string):
-    result = ""
-    substring = ""
-
-    for char in input_string:
-        if 1040 <= ord(char) <= 1103:
-            substring += char
-        else:
-            result += substring[::-1]
-            result += char
-            substring = ""
-
-    return result
-
-
 class ReverseMiddleware:
     count = 0
 
     def __init__(self, get_response):
         self.get_response = get_response
+
+    def __call__(self, request):
+        response = self.get_response(request)
+
+        if self.check_reverse():
+            response.content = self.flip_ru_words(
+                response.content.decode("utf-8")
+            )
+
+        return response
 
     @classmethod
     def check_reverse(cls):
@@ -30,10 +25,17 @@ class ReverseMiddleware:
                 return True
         return False
 
-    def __call__(self, request):
-        response = self.get_response(request)
+    @staticmethod
+    def flip_ru_words(input_string):
+        result = ""
+        substring = ""
 
-        if self.check_reverse():
-            response.content = flip_ru_words(response.content.decode("utf-8"))
+        for char in input_string:
+            if 1040 <= ord(char) <= 1103:
+                substring += char
+            else:
+                result += substring[::-1]
+                result += char
+                substring = ""
 
-        return response
+        return result

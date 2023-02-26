@@ -1,17 +1,28 @@
+import catalog.models
+
 import django.http
+import django.shortcuts
 
 
 def item_list(request):
-    return django.http.HttpResponse("<body>Список, элементов</body>")
+    context = {
+        "title": "Каталог",
+        "items": catalog.models.Item.objects.filter(is_published=True),
+    }
+    return django.shortcuts.render(
+        request=request,
+        template_name="catalog/item_list.html",
+        context=context,
+    )
 
 
 def item_detail(request, item_pk):
-    return django.http.HttpResponse("<body>Подробно элемент</body>")
-
-
-def item_detail_re(request, reint):
-    return django.http.HttpResponse("<body>re path</body>")
-
-
-def custom_converter(request, custom_int):
-    return django.http.HttpResponse("<body>custom int path</body>")
+    context = {
+        "title": f"Товар {item_pk}",
+        "content": f"Подробно элемент. Pk:{item_pk}",
+    }
+    return django.shortcuts.render(
+        request=request,
+        template_name="catalog/item_detail.html",
+        context=context,
+    )

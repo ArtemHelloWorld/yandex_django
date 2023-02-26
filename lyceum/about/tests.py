@@ -7,5 +7,5 @@ class AboutTests(django.test.TestCase):
         self.client = django.test.Client()
 
     def test_description(self):
-        response = self.client.get(django.urls.reverse("description"))
+        response = self.client.get(django.urls.reverse("about:description"))
         self.assertEqual(response.status_code, 200)

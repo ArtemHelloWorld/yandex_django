@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     "homepage.apps.HomepageConfig",
     "catalog.apps.CatalogConfig",
     "about.apps.AboutConfig",
+    "sorl.thumbnail",
+    "django_cleanup.apps.CleanupConfig",
 ]
 
 
@@ -84,7 +86,7 @@ ROOT_URLCONF = "lyceum.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -152,6 +154,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = "/static/"
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static_dev",
+]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
+MEDIA_URL = "/media/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

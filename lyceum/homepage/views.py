@@ -1,8 +1,15 @@
 import django.http
+import django.shortcuts
 
 
 def home(request):
-    return django.http.HttpResponse("<body>Главная</body>")
+    context = {
+        "title": "Главная",
+        "content": "Главная",
+    }
+    return django.shortcuts.render(
+        request=request, template_name="homepage/home.html", context=context
+    )
 
 
 def error418(request):

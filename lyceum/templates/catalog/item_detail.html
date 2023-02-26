@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <p>{{ content }}</p>
+    <img src="{% get_media_prefix %}/images/cat.jpg" alt="">
+{% endblock %}

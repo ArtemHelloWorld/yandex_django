@@ -21,6 +21,9 @@ class ItemModelTests(django.test.TestCase):
             is_published=True,
             slug="women",
         )
+        cls.image = catalog.models.ItemImageMain.objects.create(
+            image_main="item/main/2023/02/26/Скриншот_09-02-2023_173124.jpg",
+        )
 
     def tearDown(self):
         catalog.models.Item.objects.all().delete()
@@ -34,6 +37,7 @@ class ItemModelTests(django.test.TestCase):
             text="Кроссовки для бега мужские."
             " Роскошно подойдут для бега по утрам",
             category=self.category,
+            image=self.image,
         )
         self.item.full_clean()
         self.item.save()
