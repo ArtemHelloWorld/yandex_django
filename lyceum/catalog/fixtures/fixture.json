@@ -4,10 +4,10 @@
   "pk": 1,
   "fields": {
     "name": "Мужская футболка",
-    "is_published": true,
+    "is_published": false,
     "text": "Мужская футболка роскошно подойдет на лето размер л хл",
     "category": 1,
-    "image": 7,
+    "image": 14,
     "tags": [
       1,
       4,
@@ -23,7 +23,7 @@
     "is_published": true,
     "text": "Женская футболка на лето. Роскошно подойдет всем",
     "category": 1,
-    "image": 6,
+    "image": 13,
     "tags": [
       1,
       2,
@@ -39,7 +39,7 @@
     "is_published": true,
     "text": "Футболка модойдет мужчинам и женщинам. Превосходно подойдет для домашней одежды",
     "category": 1,
-    "image": 5,
+    "image": 12,
     "tags": [
       1,
       6,
@@ -55,7 +55,7 @@
     "is_published": true,
     "text": "Кроссовки для бега мужские. Роскошно подойдут для бега по утрам",
     "category": 2,
-    "image": 4,
+    "image": 11,
     "tags": [
       1,
       5,
@@ -68,10 +68,10 @@
   "pk": 5,
   "fields": {
     "name": "Туфли женские",
-    "is_published": false,
+    "is_published": true,
     "text": "Туфли женские на высоком каблуке. Превосходно подойдут для работы и прогулок. Весна\\Осень",
     "category": 2,
-    "image": 8,
+    "image": 10,
     "tags": [
       3,
       5,
@@ -85,10 +85,10 @@
   "pk": 6,
   "fields": {
     "name": "Кеды мужские",
-    "is_published": false,
-    "text": "Кеды мужские превосходно подойдут для любителей свободной одежды и прогулок летом",
+    "is_published": true,
+    "text": "<p style=\"text-align: center;\"><strong>Кеды мужские превосходно подойдут для любителей свободной одежды и прогулок летом</strong></p>",
     "category": 2,
-    "image": 2,
+    "image": 9,
     "tags": [
       1,
       4,
@@ -240,51 +240,44 @@
 },
 {
   "model": "catalog.itemimagemain",
-  "pk": 2,
+  "pk": 9,
   "fields": {
-    "image_main": "item/main/2023/02/26/Скриншот_01-02-2023_103531.jpg"
+    "image_main": "item/main/2023/02/26/vans_m.jpg"
   }
 },
 {
   "model": "catalog.itemimagemain",
-  "pk": 3,
+  "pk": 10,
   "fields": {
-    "image_main": "item/main/2023/02/26/Скриншот_09-02-2023_173124.jpg"
+    "image_main": "item/main/2023/02/26/shoes_w.jpg"
   }
 },
 {
   "model": "catalog.itemimagemain",
-  "pk": 4,
+  "pk": 11,
   "fields": {
-    "image_main": "item/main/2023/02/26/Скриншот_09-02-2023_173124_DqbCiyB.jpg"
+    "image_main": "item/main/2023/02/26/sneakers_m.jpg"
   }
 },
 {
   "model": "catalog.itemimagemain",
-  "pk": 5,
+  "pk": 12,
   "fields": {
-    "image_main": "item/main/2023/02/26/Скриншот_09-02-2023_173124_1ZfqZmW.jpg"
+    "image_main": "item/main/2023/02/26/tshort.jpg"
   }
 },
 {
   "model": "catalog.itemimagemain",
-  "pk": 6,
+  "pk": 13,
   "fields": {
-    "image_main": "item/main/2023/02/26/Скриншот_09-02-2023_172807.jpg"
+    "image_main": "item/main/2023/02/26/tshort_w.jpg"
   }
 },
 {
   "model": "catalog.itemimagemain",
-  "pk": 7,
+  "pk": 14,
   "fields": {
-    "image_main": "item/main/2023/02/26/Скриншот_09-02-2023_203222.jpg"
-  }
-},
-{
-  "model": "catalog.itemimagemain",
-  "pk": 8,
-  "fields": {
-    "image_main": "item/main/2023/02/26/Скриншот_09-02-2023_173124_3990ENN.jpg"
+    "image_main": "item/main/2023/02/26/tshort_m.jpg"
   }
 },
 {
