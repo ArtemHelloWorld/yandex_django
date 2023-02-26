@@ -12,7 +12,7 @@
       <div class="col-sm-4">
         <div class="card mb-3">
           {% thumbnail item.image.image_main "300x300" padding=True as im %}
-            <img src="{{ im.url }}"  width="{{ im.width }}">
+            <img src="{{ im.url }}"  width="{{ im.width }}" class="mx-auto">
           {% endthumbnail %}
 
           <div class="card-body">
