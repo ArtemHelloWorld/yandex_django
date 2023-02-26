@@ -56,7 +56,7 @@ class Migration(migrations.Migration):
                     "slug",
                     models.SlugField(
                         help_text="Укажите слаг, который"
-                                  " будет отображаться в ссылке",
+                        " будет отображаться в ссылке",
                         max_length=200,
                         verbose_name="слаг",
                     ),
@@ -113,7 +113,7 @@ class Migration(migrations.Migration):
                     "slug",
                     models.SlugField(
                         help_text="Укажите слаг, который "
-                                  "будет отображаться в ссылке",
+                        "будет отображаться в ссылке",
                         max_length=200,
                         verbose_name="слаг",
                     ),
@@ -174,9 +174,9 @@ class Migration(migrations.Migration):
                     "text",
                     models.TextField(
                         help_text="Придумайте описание. "
-                                  "Текст должен включать "
-                                  "слова превосходно или "
-                                  "роскошно",
+                        "Текст должен включать "
+                        "слова превосходно или "
+                        "роскошно",
                         validators=[
                             catalog.validators.ValidateMustContain(
                                 "превосходно", "роскошно"
