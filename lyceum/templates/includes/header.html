@@ -1,29 +1,29 @@
 {% load static %}
 
 <header class="p-3 text-bg-dark">
-    <div class="container">
-      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-          <img src="{% get_media_prefix %}/logo/logo.svg" width="72" height="57">
-        </a>
+  <div class="container">
+    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+      <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+        <img src="{% get_media_prefix %}/logo/logo.svg" class="header-logo">
+      </a>
 
-        {% with request.resolver_match.view_name as view_name %}
+      {% with request.resolver_match.view_name as view_name %}
 
-        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="{% url 'homepage:homepage' %}" class="nav-link px-2 {% if view_name == 'homepage:homepage' %} text-secondary {% else %} text-white {% endif %}">На главную</a></li>
-          <li><a href="{% url 'about:description' %}" class="nav-link px-2 {% if view_name == 'about:description' %} text-secondary {% else %} text-white {% endif %}">О проекте</a></li>
-          <li><a href="{% url 'catalog:item_list' %}" class="nav-link px-2 {% if view_name == 'catalog:item_list' %} text-secondary {% else %} text-white {% endif %}">Список товаров</a></li>
-        </ul>
-        {% endwith %}
+      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="{% url 'homepage:homepage' %}" class="nav-link px-2 {% if view_name == 'homepage:homepage' %} text-secondary {% else %} text-white {% endif %}">На главную</a></li>
+        <li><a href="{% url 'about:description' %}" class="nav-link px-2 {% if view_name == 'about:description' %} text-secondary {% else %} text-white {% endif %}">О проекте</a></li>
+        <li><a href="{% url 'catalog:item_list' %}" class="nav-link px-2 {% if view_name == 'catalog:item_list' %} text-secondary {% else %} text-white {% endif %}">Список товаров</a></li>
+      </ul>
+      {% endwith %}
 
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-          <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
-        </form>
+      <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+        <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
+      </form>
 
-        <div class="text-end">
-          <button type="button" class="btn btn-outline-light me-2">Login</button>
-          <button type="button" class="btn  btn-primary me-2">Sign-up</button>
-        </div>
+      <div class="text-end">
+        <button type="button" class="btn btn-outline-light me-2">Войти</button>
+        <button type="button" class="btn  btn-primary me-2">Зарегистрироваться</button>
       </div>
     </div>
-  </header>
+  </div>
+</header>
