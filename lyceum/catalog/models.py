@@ -5,9 +5,11 @@ import core.models
 import django.db.models
 import django.urls
 
+import tinymce
+
 
 class Item(core.models.NameFieldMixin, core.models.IsPublishedFieldMixin):
-    text = django.db.models.TextField(
+    text = tinymce.HTMLField(
         validators=[
             catalog.validators.ValidateMustContain("превосходно", "роскошно")
         ],

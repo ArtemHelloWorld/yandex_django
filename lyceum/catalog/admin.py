@@ -1,6 +1,9 @@
 import catalog.models
 
 import django.contrib.admin
+import django.db.models
+
+import tinymce.widgets
 
 
 class ImageGalleryInline(django.contrib.admin.StackedInline):
@@ -17,6 +20,10 @@ class ItemAdmin(django.contrib.admin.ModelAdmin):
     list_editable = (catalog.models.Item.is_published.field.name,)
     list_display_links = (catalog.models.Item.name.field.name,)
     filter_horizontal = (catalog.models.Item.tags.field.name,)
+
+    formfield_overrides = {
+        django.db.models.TextField: {"widget": tinymce.widgets.TinyMCE},
+    }
 
     inlines = [
         ImageGalleryInline,
