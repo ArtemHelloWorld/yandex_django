@@ -5,6 +5,10 @@ import core.models
 import django.db.models
 import django.urls
 
+import django_cleanup.signals
+
+import sorl.thumbnail
+
 import tinymce
 
 
@@ -91,3 +95,10 @@ class ItemImageGallery(django.db.models.Model):
     class Meta:
         verbose_name = "фото галерея"
         verbose_name_plural = "фото галерея"
+
+
+def sorl_delete(**kwargs):
+    sorl.thumbnail.delete(kwargs["file"])
+
+
+django_cleanup.signals.cleanup_pre_delete.connect(sorl_delete)
