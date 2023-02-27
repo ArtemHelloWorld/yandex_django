@@ -1,5 +1,4 @@
 import catalog.models
-
 import django.http
 import django.shortcuts
 

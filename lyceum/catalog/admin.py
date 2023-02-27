@@ -1,8 +1,6 @@
 import catalog.models
-
 import django.contrib.admin
 import django.db.models
-
 import tinymce.widgets
 
 

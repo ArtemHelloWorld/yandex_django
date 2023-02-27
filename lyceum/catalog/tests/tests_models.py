@@ -1,8 +1,6 @@
 import catalog.models
-
 import django.core.exceptions
 import django.test
-
 import parameterized
 
 

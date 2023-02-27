@@ -3,7 +3,6 @@ import django.conf.urls.static
 import django.contrib.admin
 import django.urls
 
-
 urlpatterns = [
     django.urls.path("admin/", django.contrib.admin.site.urls),
     django.urls.path("catalog/", django.urls.include("catalog.urls")),

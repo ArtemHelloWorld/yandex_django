@@ -3,7 +3,6 @@ import re
 import django.db
 import django.db.models
 import django.forms
-
 import transliterate
 
 

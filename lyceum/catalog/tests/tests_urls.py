@@ -1,6 +1,5 @@
 import django.test
 import django.urls
-
 import parameterized
 
 

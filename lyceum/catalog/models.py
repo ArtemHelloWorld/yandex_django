@@ -1,15 +1,11 @@
 import catalog.validators
-
-import core.models
-
 import django.db.models
 import django.urls
-
 import django_cleanup.signals
-
 import sorl.thumbnail
-
 import tinymce
+
+import core.models
 
 
 class Item(core.models.NameFieldMixin, core.models.IsPublishedFieldMixin):

@@ -1,8 +1,6 @@
 import catalog.converters
 import catalog.views
-
 import django.urls
-
 
 app_name = "catalog"
 
