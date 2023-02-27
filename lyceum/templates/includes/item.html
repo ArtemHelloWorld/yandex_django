@@ -2,9 +2,8 @@
 <div class="col-sm-4">
   <div class="card mb-3">
     {% thumbnail item.image.image_main "300x300" padding=True as im %}
-      <img src="{{ im.url }}"  width="{{ im.width }}" class="mx-auto">
+      <img src="{{ im.url }}" class="mx-auto">
     {% endthumbnail %}
-
     <div class="card-body">
       <h5 class="card-title">{{ item.name }}</h5>
       <p class="card-text">{{ item.text|truncatewords:10|safe }}</p>
