@@ -93,6 +93,7 @@ class ItemImageGallery(django.db.models.Model):
         verbose_name_plural = "фото галерея"
 
 
+# clearing cache
 def sorl_delete(**kwargs):
     sorl.thumbnail.delete(kwargs["file"])
 

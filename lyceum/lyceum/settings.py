@@ -167,3 +167,28 @@ MEDIA_URL = "/media/"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+TINYMCE_DEFAULT_CONFIG = {
+    "theme": "modern",
+    "width": "auto",
+    "plugins": [
+        "advlist autolink lists link image charmap print preview hr anchor",
+        "searchreplace wordcount visualblocks visualchars code fullscreen",
+        "insertdatetime media nonbreaking "
+        "save table contextmenu directionality",
+        "emoticons template paste textcolor colorpicker textpattern",
+    ],
+    "toolbar1": (
+        "undo redo | "
+        "bold italic underline strikethrough | "
+        "alignleft aligncenter alignright alignjustify | "
+        "bullist numlist outdent indent | "
+        "link image media | "
+        "forecolor backcolor"
+    ),
+    "toolbar2": (
+        "styleselect formatselect fontselect fontsizeselect | "
+        "emoticons | "
+        "preview"
+    ),
+}

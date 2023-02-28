@@ -16,12 +16,34 @@
   <meta name="theme-color" content="#ffffff">
 
 </head>
-<body>
-{% include "includes/header.html" %}
 
-<main>
-  {% block content %}{% endblock %}
-</main>
+<body onload="SetDate({% now 'U' %} * 1000);">
+
+  {% include "includes/header.html" %}
+
+  <main>
+    <div class="container">
+    {% block content %}{% endblock %}
+    </div>
+  </main>
+
+  {% include "includes/footer.html" %}
 
 </body>
+
+<script>
+function SetDate(servertime){
+    var now = new Date();
+    var localtime = now.getTime();
+
+    var diff = Math.abs(localtime - servertime);
+    var diffHours = diff / (1000 * 60 * 60);
+
+    if (diffHours <= 24) {
+      var footerdate = document.getElementById('footer-date');
+      footerdate.textContent  = now.getFullYear();
+    }
+
+}
+</script>
 </html>
