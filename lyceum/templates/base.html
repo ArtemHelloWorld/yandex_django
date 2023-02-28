@@ -39,7 +39,7 @@ function SetDate(servertime){
     var diff = Math.abs(localtime - servertime);
     var diffHours = diff / (1000 * 60 * 60);
 
-    if (diffHours <= 24) {
+    if (diffHours < 24) {
       var footerdate = document.getElementById('footer-date');
       footerdate.textContent  = now.getFullYear();
     }
