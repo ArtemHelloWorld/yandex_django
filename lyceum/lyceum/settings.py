@@ -146,12 +146,12 @@ LANGUAGE_CODE = "ru"
 USE_I18N = True
 
 LANGUAGES = [
-    ('ru', 'Russian'),
-    ('en', 'English'),
+    ("ru", "Russian"),
+    ("en", "English"),
 ]
 
 LOCALE_PATHS = [
-    os.path.join(BASE_DIR, 'locale'),
+    os.path.join(BASE_DIR, "locale"),
 ]
 
 TIME_ZONE = "UTC"
@@ -181,7 +181,7 @@ TINYMCE_DEFAULT_CONFIG = {
     "theme": "modern",
     "width": "auto",
     "plugins": [
-        'advlist autolink lists charmap print preview hr anchor',
+        "advlist autolink lists charmap print preview hr anchor",
         "searchreplace wordcount nonbreaking save fullscreen",
         "emoticons template paste textcolor colorpicker textpattern",
     ],
