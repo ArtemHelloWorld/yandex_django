@@ -143,9 +143,18 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "ru"
 
-TIME_ZONE = "UTC"
-
 USE_I18N = True
+
+LANGUAGES = [
+    ('ru', 'Russian'),
+    ('en', 'English'),
+]
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale'),
+]
+
+TIME_ZONE = "UTC"
 
 USE_L10N = True
 
@@ -172,10 +181,8 @@ TINYMCE_DEFAULT_CONFIG = {
     "theme": "modern",
     "width": "auto",
     "plugins": [
-        "advlist autolink lists link image charmap print preview hr anchor",
-        "searchreplace wordcount visualblocks visualchars code fullscreen",
-        "insertdatetime media nonbreaking "
-        "save table contextmenu directionality",
+        'advlist autolink lists charmap print preview hr anchor',
+        "searchreplace wordcount nonbreaking save fullscreen",
         "emoticons template paste textcolor colorpicker textpattern",
     ],
     "toolbar1": (
@@ -183,7 +190,6 @@ TINYMCE_DEFAULT_CONFIG = {
         "bold italic underline strikethrough | "
         "alignleft aligncenter alignright alignjustify | "
         "bullist numlist outdent indent | "
-        "link image media | "
         "forecolor backcolor"
     ),
     "toolbar2": (

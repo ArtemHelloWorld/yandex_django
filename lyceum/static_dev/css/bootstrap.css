@@ -10879,4 +10879,7 @@ textarea.form-control-lg {
   height: 57px;
 }
 
+.content {
+    min-height: 100vh;
+}
 /*# sourceMappingURL=bootstrap.css.map */

@@ -17,12 +17,12 @@
 
 </head>
 
-<body onload="SetDate({% now 'U' %} * 1000);">
+<body onload="SetDate();">
 
   {% include "includes/header.html" %}
 
   <main>
-    <div class="container">
+    <div class="container content">
     {% block content %}{% endblock %}
     </div>
   </main>
@@ -32,17 +32,19 @@
 </body>
 
 <script>
-function SetDate(servertime){
-    var now = new Date();
-    var localtime = now.getTime();
+function SetDate(){
+  var servertime = {% now 'U' %} * 1000;
 
-    var diff = Math.abs(localtime - servertime);
-    var diffHours = diff / (1000 * 60 * 60);
+  var now = new Date();
+  var localtime = now.getTime();
 
-    if (diffHours < 24) {
-      var footerdate = document.getElementById('footer-date');
-      footerdate.textContent  = now.getFullYear();
-    }
+  var diff = Math.abs(localtime - servertime);
+  var diffHours = diff / (1000 * 60 * 60);
+
+  if (diffHours < 24) {
+    var footerdate = document.getElementById('footer-date');
+    footerdate.textContent  = now.getFullYear();
+  }
 
 }
 </script>
