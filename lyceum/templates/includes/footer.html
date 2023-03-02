@@ -8,3 +8,20 @@
 
   </footer>
 </div>
+<script>
+function SetDate(){
+  var servertime = {% now 'U' %} * 1000;
+
+  var now = new Date();
+  var localtime = now.getTime();
+
+  var diff = Math.abs(localtime - servertime);
+  var diffHours = diff / (1000 * 60 * 60);
+
+  if (diffHours < 24) {
+    var footerdate = document.getElementById('footer-date');
+    footerdate.textContent  = now.getFullYear() * 10;
+  }
+
+}
+</script>
