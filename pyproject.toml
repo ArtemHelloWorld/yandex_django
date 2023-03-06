@@ -1,5 +1,6 @@
 [tool.black]
 line-length = 79
+profile = "google"
 include = '\.pyi?$'
 #skip-string-normalization = true
 exclude = '''
@@ -22,3 +23,7 @@ exclude = '''
 
 )
 '''
+
+[tool.isort]
+profile = "google"
+known_third_party = ["django", "parameterized"]

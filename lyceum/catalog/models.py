@@ -8,7 +8,37 @@ import tinymce
 import core.models
 
 
+class ItemManager(django.db.models.Manager):
+    def published(self, is_on_main=False):
+        return (
+            self.get_queryset()
+            .select_related("category")
+            .select_related("image")
+            .prefetch_related(
+                django.db.models.Prefetch(
+                    "tags",
+                    queryset=Tag.objects.filter(is_published=True).only(
+                        "name"
+                    ),
+                )
+            )
+            .only(
+                "name",
+                "text",
+                "image",
+                "category__name",
+            )
+            .filter(
+                is_published=True,
+                is_on_main__in=(True,) if is_on_main else (True, False),
+            )
+            .order_by("name", "id")
+        )
+
+
 class Item(core.models.NameFieldMixin, core.models.IsPublishedFieldMixin):
+    objects = ItemManager()
+
     text = tinymce.HTMLField(
         validators=[
             catalog.validators.ValidateMustContain("превосходно", "роскошно")
@@ -32,6 +62,13 @@ class Item(core.models.NameFieldMixin, core.models.IsPublishedFieldMixin):
         "ItemImageMain",
         verbose_name="главное фото",
         on_delete=django.db.models.CASCADE,
+    )
+
+    is_on_main = django.db.models.BooleanField(
+        default=False,
+        verbose_name="добавить на главную страницу",
+        help_text="Поставьте галочку, если хотите "
+        "отобразить товар на главной странице",
     )
 
     def get_absolute_url(self):
@@ -85,7 +122,10 @@ class ItemImageGallery(django.db.models.Model):
         upload_to="item/gallery/%Y/%m/%d"
     )
     item = django.db.models.ForeignKey(
-        Item, on_delete=django.db.models.CASCADE, null=True
+        Item,
+        on_delete=django.db.models.CASCADE,
+        null=True,
+        related_name="gallery",
     )
 
     class Meta:

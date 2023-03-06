@@ -6,6 +6,13 @@
     {% endthumbnail %}
     <div class="card-body">
       <h5 class="card-title">{{ item.name }}</h5>
+      <p class="card-text">Категория: {{ item.category.name }}</p>
+      <p class="card-text">
+        Теги:
+        {% for tag in item.tags.all %}
+          {{ tag.name }}
+        {% endfor %}
+      </p>
       <p class="card-text">{{ item.text|truncatewords:10|safe }}</p>
       <a href="{{ item.get_absolute_url }}" class="btn btn-primary">Перейти</a>
     </div>

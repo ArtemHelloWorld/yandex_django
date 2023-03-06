@@ -3,4 +3,13 @@
 
 {% block title %}{{ title }} {% endblock %}
 
-{% block content %}{{ content }} {% endblock %}
+
+{% block content %}{{ content }}
+<div class="container pt-4">
+ <div class="row">
+    {% for item in items %}
+        {% include "includes/item.html"  with item=item %}
+    {% endfor %}
+ </div>
+</div>
+ {% endblock %}

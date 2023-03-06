@@ -1,9 +1,30 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{ title }}{% endblock %}
+{% block title %}{{ item.name }}{% endblock %}
 
 {% block content %}
-  <p>{{ content }}</p>
-  <img src="{% get_media_prefix %}/images/cat.jpg" alt="">
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <img src="{{ item.image.image_main.url }}" class="img-fluid">
+    </div>
+    <div class="col-md-6">
+      <h1>{{ item.name }}</h1>
+      <p>{{ item.text|safe }}</p>
+      <p><strong>Категория: </strong>{{ item.category.name }}</p>
+      <p><strong>Теги: </strong>{% for tag in item.tags.all %}{{ tag.name }} {% endfor %}</p>
+    </div>
+  </div>
+  <div class="carousel-inner">
+    {% for image in item.gallery.all %}
+    <div class="carousel-item {% if forloop.first %} active {% endif %}">
+      <img src="{{ image.image_gallery.url }}" class="d-block">
+    </div>
+    {% endfor %}
+
+  </div>
+</div>
+
 {% endblock %}

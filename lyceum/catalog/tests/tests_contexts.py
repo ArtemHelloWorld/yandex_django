@@ -4,7 +4,7 @@ import django.test
 import django.urls
 
 
-class HomepageTests(django.test.TestCase):
+class ContextTests(django.test.TestCase):
     def setUp(self):
         self.client = django.test.Client()
 
@@ -63,20 +63,16 @@ class HomepageTests(django.test.TestCase):
         cls.published_item.tags.add(cls.published_tag.pk)
         cls.published_item.tags.add(cls.unpublished_tag.pk)
 
-    def test_homepage(self):
-        response = self.client.get(django.urls.reverse("homepage:homepage"))
-        self.assertEqual(response.status_code, 200)
-
-    def test_homepage_context(self):
-        response = self.client.get(django.urls.reverse("homepage:homepage"))
+    def test_catalog_item_list_context(self):
+        response = self.client.get(django.urls.reverse("catalog:item_list"))
         self.assertIn("items", response.context)
 
-    def test_homepage_context_length(self):
-        response = self.client.get(django.urls.reverse("homepage:homepage"))
+    def test_catalog_item_list_context_length(self):
+        response = self.client.get(django.urls.reverse("catalog:item_list"))
         items = response.context["items"]
         self.assertEqual(len(items), 1)
 
-    def test_homepage_context_values(self):
+    def test_catalog_item_list_context_values(self):
         response = self.client.get(django.urls.reverse("homepage:homepage"))
         items = response.context["items"]
         for i in items:
@@ -94,12 +90,40 @@ class HomepageTests(django.test.TestCase):
                 list(django.forms.models.model_to_dict(i).keys()),
             )
 
-    def test_coffee_status_code(self):
-        response = self.client.get(django.urls.reverse("homepage:coffee"))
-        self.assertEqual(response.status_code, 418)
-
-    def test_coffee_body(self):
-        response = self.client.get(django.urls.reverse("homepage:coffee"))
-        self.assertEqual(
-            response.content.decode("utf-8"), "<body>Я чайник.</body>"
+    def test_catalog_item_detail_published_context(self):
+        response = self.client.get(
+            django.urls.reverse("catalog:item_detail", kwargs={"item_pk": 1})
         )
+        self.assertIn("item", response.context)
+
+    def test_catalog_item_detail_published_context_length(self):
+        response = self.client.get(
+            django.urls.reverse("catalog:item_detail", kwargs={"item_pk": 1})
+        )
+        self.assertEqual(response.status_code, 200)
+
+    def test_catalog_item_detail_context_values(self):
+        response = self.client.get(
+            django.urls.reverse("catalog:item_detail", kwargs={"item_pk": 1})
+        )
+        item = response.context["item"]
+        print(response.context)
+        self.assertEqual(
+            [
+                "id",
+                "name",
+                "is_published",
+                "text",
+                "category",
+                "image",
+                "is_on_main",
+                "tags",
+            ],
+            list(django.forms.models.model_to_dict(item).keys()),
+        )
+
+    def test_catalog_item_detail_unpublished_context_length(self):
+        response = self.client.get(
+            django.urls.reverse("catalog:item_detail", kwargs={"item_pk": 2})
+        )
+        self.assertEqual(response.status_code, 404)

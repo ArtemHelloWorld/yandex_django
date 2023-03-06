@@ -1,12 +1,14 @@
 import catalog.models
+import django.db.models
 import django.http
 import django.shortcuts
 
 
 def item_list(request):
+    items = catalog.models.Item.objects.published()
     context = {
         "title": "Каталог",
-        "items": catalog.models.Item.objects.filter(is_published=True),
+        "items": items,
     }
     return django.shortcuts.render(
         request=request,
@@ -16,9 +18,16 @@ def item_list(request):
 
 
 def item_detail(request, item_pk):
+    item = django.shortcuts.get_object_or_404(
+        catalog.models.Item.objects.published().prefetch_related(
+            "gallery",
+        ),
+        pk=item_pk,
+    )
+
     context = {
-        "title": f"Товар {item_pk}",
         "content": f"Подробно элемент. Pk:{item_pk}",
+        "item": item,
     }
     return django.shortcuts.render(
         request=request,
