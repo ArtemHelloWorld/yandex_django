@@ -1,5 +1,5 @@
-import catalog.validators
 import catalog.model_managers
+import catalog.validators
 import django.db.models
 import django.urls
 import django_cleanup.signals
@@ -18,7 +18,7 @@ class Item(core.models.NameFieldMixin, core.models.IsPublishedFieldMixin):
         ],
         verbose_name="описание",
         help_text="Придумайте описание. Текст должен "
-                  "включать слова превосходно или роскошно",
+        "включать слова превосходно или роскошно",
     )
     category = django.db.models.ForeignKey(
         "category",
@@ -41,15 +41,13 @@ class Item(core.models.NameFieldMixin, core.models.IsPublishedFieldMixin):
         default=False,
         verbose_name="добавить на главную страницу",
         help_text="Поставьте галочку, если хотите "
-                  "отобразить товар на главной странице",
+        "отобразить товар на главной странице",
     )
     date_created = django.db.models.DateField(
-        auto_now_add=True,
-        verbose_name='дата создания'
+        auto_now_add=True, verbose_name="дата создания"
     )
     date_updated = django.db.models.DateField(
-        auto_now=True,
-        verbose_name='дата последнего изменения'
+        auto_now=True, verbose_name="дата последнего изменения"
     )
 
     def get_absolute_url(self):

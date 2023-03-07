@@ -91,7 +91,9 @@ class ContextTests(django.test.TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_catalog_item_detail_context_values(self):
-        response = self.client.get(django.urls.reverse("catalog:item_detail", kwargs={"item_pk": 1}))
+        response = self.client.get(
+            django.urls.reverse("catalog:item_detail", kwargs={"item_pk": 1})
+        )
         item = response.context["item"]
         self.assertIsInstance(item, catalog.models.Item)
 

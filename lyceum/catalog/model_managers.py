@@ -1,8 +1,9 @@
-import django.db.models
 import catalog.models
+import django.db.models
+
 
 class ItemManager(django.db.models.Manager):
-    def published(self, is_on_main=False, ordering='name'):
+    def published(self, is_on_main=False, ordering="name"):
         return (
             self.get_queryset()
             .select_related("category")
@@ -10,9 +11,9 @@ class ItemManager(django.db.models.Manager):
             .prefetch_related(
                 django.db.models.Prefetch(
                     "tags",
-                    queryset=catalog.models.Tag.objects.filter(is_published=True).only(
-                        "name"
-                    ),
+                    queryset=catalog.models.Tag.objects.filter(
+                        is_published=True
+                    ).only("name"),
                 )
             )
             .only(

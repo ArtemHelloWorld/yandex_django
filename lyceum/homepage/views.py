@@ -5,7 +5,9 @@ import django.shortcuts
 
 
 def home(request):
-    items = catalog.models.Item.objects.published(is_on_main=True, ordering='name')
+    items = catalog.models.Item.objects.published(
+        is_on_main=True, ordering="name"
+    )
 
     context = {
         "title": "Главная",
