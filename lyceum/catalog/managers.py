@@ -43,7 +43,7 @@ class ItemManager(django.db.models.Manager):
         return (
             self.get_queryset()
             .filter(
-                is_published=True, date_updated__week_day=4
+                is_published=True, date_updated__week_day=6
             )
             .values_list("id", flat=True)
             .order_by("-date_created")
