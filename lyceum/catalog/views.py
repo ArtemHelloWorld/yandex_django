@@ -81,11 +81,8 @@ def download_image_gallery(request, image_pk):
 
 def items_new(request):
     number_of_items = 5
-    time_week_ago = datetime.datetime.now() - datetime.timedelta(days=7)
-    items_ids = catalog.models.Item.objects.filter(
-        is_published=True,
-        date_created__gte=time_week_ago,
-    ).values_list("id", flat=True)
+
+    items_ids = catalog.models.Item.objects.this_week()
 
     if len(items_ids) > number_of_items:
         random_numbers = random.sample(list(items_ids), number_of_items)
@@ -107,13 +104,7 @@ def items_new(request):
 
 
 def items_friday(request):
-    items_ids = (
-        catalog.models.Item.objects.filter(
-            is_published=True, date_updated__week_day=4
-        )
-        .values_list("id", flat=True)
-        .order_by("-date_created")[:5]
-    )
+    items_ids = catalog.models.Item.objects.friday()[:5]
 
     items = catalog.models.Item.objects.filter(id__in=list(items_ids))
     context = {
@@ -129,10 +120,7 @@ def items_friday(request):
 
 
 def items_unverified(request):
-    items = catalog.models.Item.objects.filter(
-        is_published=True,
-        date_created=django.db.models.F('date_updated')
-    )
+    items = catalog.models.Item.objects.unverified()
     context = {
         "title": "Непроверенное",
         "header": "Эти товары ещё не изменялись",
