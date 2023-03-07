@@ -131,10 +131,8 @@ def items_friday(request):
 def items_unverified(request):
     items = catalog.models.Item.objects.filter(
         is_published=True,
+        date_created=django.db.models.F('date_updated')
     )
-    for i in items:
-        print(i.date_created)
-        print(i.date_updated)
     context = {
         "title": "Непроверенное",
         "header": "Эти товары ещё не изменялись",

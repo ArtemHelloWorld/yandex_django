@@ -1,4 +1,4 @@
-import catalog.model_managers
+import catalog.managers
 import catalog.validators
 import django.db.models
 import django.urls
@@ -10,7 +10,7 @@ import core.models
 
 
 class Item(core.models.NameFieldMixin, core.models.IsPublishedFieldMixin):
-    objects = catalog.model_managers.ItemManager()
+    objects = catalog.managers.ItemManager()
 
     text = tinymce.HTMLField(
         validators=[
