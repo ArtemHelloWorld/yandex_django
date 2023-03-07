@@ -1,4 +1,5 @@
 import datetime
+
 import catalog.models
 import django.db.models
 
@@ -33,27 +34,23 @@ class ItemManager(django.db.models.Manager):
     def this_week(self):
         time_week_ago = datetime.datetime.now() - datetime.timedelta(days=7)
         return (
-            self.get_queryset().filter(
+            self.get_queryset()
+            .filter(
                 is_published=True,
                 date_created__gte=time_week_ago,
-            ).values_list("id", flat=True)
+            )
+            .values_list("id", flat=True)
         )
 
     def friday(self):
         return (
             self.get_queryset()
-            .filter(
-                is_published=True, date_updated__week_day=6
-            )
+            .filter(is_published=True, date_updated__week_day=6)
             .values_list("id", flat=True)
             .order_by("-date_created")
         )
 
     def unverified(self):
-        return (
-            self.get_queryset()
-            .filter(
-                is_published=True,
-                date_created=django.db.models.F('date_updated')
-            )
+        return self.get_queryset().filter(
+            is_published=True, date_created=django.db.models.F("date_updated")
         )
