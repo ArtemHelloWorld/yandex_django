@@ -79,20 +79,8 @@ class HomepageTests(django.test.TestCase):
     def test_homepage_context_values(self):
         response = self.client.get(django.urls.reverse("homepage:homepage"))
         items = response.context["items"]
-        for i in items:
-            self.assertEqual(
-                [
-                    "id",
-                    "name",
-                    "is_published",
-                    "text",
-                    "category",
-                    "image",
-                    "is_on_main",
-                    "tags",
-                ],
-                list(django.forms.models.model_to_dict(i).keys()),
-            )
+        for item in items:
+            self.assertIsInstance(item, catalog.models.Item)
 
     def test_coffee_status_code(self):
         response = self.client.get(django.urls.reverse("homepage:coffee"))

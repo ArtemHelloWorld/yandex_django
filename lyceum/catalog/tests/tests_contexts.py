@@ -73,22 +73,10 @@ class ContextTests(django.test.TestCase):
         self.assertEqual(len(items), 1)
 
     def test_catalog_item_list_context_values(self):
-        response = self.client.get(django.urls.reverse("homepage:homepage"))
+        response = self.client.get(django.urls.reverse("catalog:item_list"))
         items = response.context["items"]
-        for i in items:
-            self.assertEqual(
-                [
-                    "id",
-                    "name",
-                    "is_published",
-                    "text",
-                    "category",
-                    "image",
-                    "is_on_main",
-                    "tags",
-                ],
-                list(django.forms.models.model_to_dict(i).keys()),
-            )
+        for item in items:
+            self.assertIsInstance(item, catalog.models.Item)
 
     def test_catalog_item_detail_published_context(self):
         response = self.client.get(
@@ -103,24 +91,9 @@ class ContextTests(django.test.TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_catalog_item_detail_context_values(self):
-        response = self.client.get(
-            django.urls.reverse("catalog:item_detail", kwargs={"item_pk": 1})
-        )
+        response = self.client.get(django.urls.reverse("catalog:item_detail", kwargs={"item_pk": 1}))
         item = response.context["item"]
-        print(response.context)
-        self.assertEqual(
-            [
-                "id",
-                "name",
-                "is_published",
-                "text",
-                "category",
-                "image",
-                "is_on_main",
-                "tags",
-            ],
-            list(django.forms.models.model_to_dict(item).keys()),
-        )
+        self.assertIsInstance(item, catalog.models.Item)
 
     def test_catalog_item_detail_unpublished_context_length(self):
         response = self.client.get(

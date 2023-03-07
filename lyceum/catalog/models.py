@@ -1,4 +1,5 @@
 import catalog.validators
+import catalog.model_managers
 import django.db.models
 import django.urls
 import django_cleanup.signals
@@ -8,36 +9,8 @@ import tinymce
 import core.models
 
 
-class ItemManager(django.db.models.Manager):
-    def published(self, is_on_main=False):
-        return (
-            self.get_queryset()
-            .select_related("category")
-            .select_related("image")
-            .prefetch_related(
-                django.db.models.Prefetch(
-                    "tags",
-                    queryset=Tag.objects.filter(is_published=True).only(
-                        "name"
-                    ),
-                )
-            )
-            .only(
-                "name",
-                "text",
-                "image",
-                "category__name",
-            )
-            .filter(
-                is_published=True,
-                is_on_main__in=(True,) if is_on_main else (True, False),
-            )
-            .order_by("name", "id")
-        )
-
-
 class Item(core.models.NameFieldMixin, core.models.IsPublishedFieldMixin):
-    objects = ItemManager()
+    objects = catalog.model_managers.ItemManager()
 
     text = tinymce.HTMLField(
         validators=[
@@ -45,7 +18,7 @@ class Item(core.models.NameFieldMixin, core.models.IsPublishedFieldMixin):
         ],
         verbose_name="описание",
         help_text="Придумайте описание. Текст должен "
-        "включать слова превосходно или роскошно",
+                  "включать слова превосходно или роскошно",
     )
     category = django.db.models.ForeignKey(
         "category",
@@ -68,7 +41,15 @@ class Item(core.models.NameFieldMixin, core.models.IsPublishedFieldMixin):
         default=False,
         verbose_name="добавить на главную страницу",
         help_text="Поставьте галочку, если хотите "
-        "отобразить товар на главной странице",
+                  "отобразить товар на главной странице",
+    )
+    date_created = django.db.models.DateField(
+        auto_now_add=True,
+        verbose_name='дата создания'
+    )
+    date_updated = django.db.models.DateField(
+        auto_now=True,
+        verbose_name='дата последнего изменения'
     )
 
     def get_absolute_url(self):

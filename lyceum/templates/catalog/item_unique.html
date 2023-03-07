@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{{ title }} {% endblock %}
+
+
+{% block content %}
+
+<div class="container pt-4">
+    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="{% url 'catalog:items_new' %}" class="nav-link px-2 {% if view_name == 'catalog:items_new' %} text-secondary {% else %} text-black {% endif %}">{% trans "Новинки" %}</a></li>
+        <li><a href="{% url 'catalog:items_friday' %}" class="nav-link px-2 {% if view_name == 'catalog:items_friday' %} text-secondary {% else %} text-black {% endif %}">{% trans "Пятница" %}</a></li>
+        <li><a href="{% url 'catalog:items_unverified' %}" class="nav-link px-2 {% if view_name == 'catalog:items_unverified' %} text-secondary {% else %} text-black {% endif %}">{% trans "Непроверенное" %}</a></li>
+      </ul>
+    <h2>{{ header }}</h2>
+ <div class="row">
+    {% for item in items %}
+        {% include "includes/item.html"  with item=item %}
+    {% endfor %}
+ </div>
+</div>
+ {% endblock %}
