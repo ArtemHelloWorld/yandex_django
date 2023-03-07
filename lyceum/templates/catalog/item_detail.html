@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load i18n %}
+{% load thumbnail %}
 
 {% block title %}{{ item.name }}{% endblock %}
 
@@ -9,7 +10,10 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6">
-      <img src="{{ item.image.image_main.url }}" class="img-fluid">
+      {% thumbnail item.image.image_main "500x500" padding=True as im %}
+        <img src="{{ im.url }}" class="img-fluid">
+      {% endthumbnail %}
+
       <a href="{% url 'catalog:download_image_main' item.image.pk %}" type="button" class="btn btn-outline-dark me-2">{% trans "Скачать фото" %}</a>
 
     </div>
@@ -23,7 +27,10 @@
   <div class="carousel-inner">
     {% for image in item.gallery.all %}
     <div class="carousel-item {% if forloop.first %} active {% endif %}">
-      <img src="{{ image.image_gallery.url }}" class="d-block">
+      {% thumbnail image.image_gallery "400x400" padding=True as im %}
+        <img src="{{ im.url }}" class="d-block">
+      {% endthumbnail %}
+
       <a href="{% url 'catalog:download_image_gallery' image.pk %}" type="button" class="btn btn-outline-dark me-2">{% trans "Скачать фото" %}</a>
     </div>
     {% endfor %}
