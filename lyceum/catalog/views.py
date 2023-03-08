@@ -5,6 +5,8 @@ import django.shortcuts
 
 
 NUMBER_OF_ITEMS = 5
+
+
 def item_list(request):
     items = catalog.models.Item.objects.published(ordering="category__name")
     context = {
