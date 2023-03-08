@@ -71,13 +71,6 @@ class ItemManager(django.db.models.Manager):
         )
 
     def friday(self, number_of_items):
-        items_ids = (
-            self.get_queryset()
-            .filter(is_published=True, date_updated__week_day=6)
-            .values_list("id", flat=True)
-            .order_by("-date_created")
-        )[:number_of_items]
-
         return (
             self.get_queryset()
             .select_related("category")
@@ -96,8 +89,8 @@ class ItemManager(django.db.models.Manager):
                 "image__image_main",
                 "category__name",
             )
-            .filter(id__in=list(items_ids))
-            .order_by("-id")
+            .filter(is_published=True, date_updated__week_day=6)
+            .order_by("-id")[:number_of_items]
         )
 
     def unverified(self):

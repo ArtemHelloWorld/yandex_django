@@ -4,6 +4,7 @@ import django.http
 import django.shortcuts
 
 
+NUMBER_OF_ITEMS = 5
 def item_list(request):
     items = catalog.models.Item.objects.published(ordering="category__name")
     context = {
@@ -77,8 +78,7 @@ def download_image_gallery(request, image_pk):
 
 
 def items_new(request):
-    number_of_items = 5
-    items = catalog.models.Item.objects.this_week(number_of_items)
+    items = catalog.models.Item.objects.this_week(NUMBER_OF_ITEMS)
 
     context = {
         "title": "Новинки",
@@ -93,8 +93,7 @@ def items_new(request):
 
 
 def items_friday(request):
-    number_of_items = 5
-    items = catalog.models.Item.objects.friday(number_of_items)
+    items = catalog.models.Item.objects.friday(NUMBER_OF_ITEMS)
 
     context = {
         "title": "Пятница!",

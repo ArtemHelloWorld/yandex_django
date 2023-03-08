@@ -104,7 +104,7 @@ class HomepageTests(django.test.TestCase):
 
         for item in items:
             check_dict = item.__dict__
-
+            print(check_dict)
             for value in exists:
                 self.assertIn(value, check_dict)
 
