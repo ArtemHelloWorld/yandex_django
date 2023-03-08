@@ -82,6 +82,38 @@ class HomepageTests(django.test.TestCase):
         for item in items:
             self.assertIsInstance(item, catalog.models.Item)
 
+    def test_homepage_context_queries(self):
+        response = self.client.get(django.urls.reverse("homepage:homepage"))
+        items = response.context["items"]
+
+        exists = (
+            "name",
+            "text",
+            "category_id",
+            "image_id",
+        )
+
+        prefetched = ("tags",)
+
+        not_loaded = (
+            "is_on_main",
+            "date_created",
+            "date_updated",
+            "is_published",
+        )
+
+        for item in items:
+            check_dict = item.__dict__
+
+            for value in exists:
+                self.assertIn(value, check_dict)
+
+            for value in prefetched:
+                self.assertIn(value, check_dict["_prefetched_objects_cache"])
+
+            for value in not_loaded:
+                self.assertNotIn(value, check_dict)
+
     def test_coffee_status_code(self):
         response = self.client.get(django.urls.reverse("homepage:coffee"))
         self.assertEqual(response.status_code, 418)

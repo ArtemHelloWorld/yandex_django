@@ -1,5 +1,3 @@
-import random
-
 import catalog.models
 import django.db.models
 import django.http
@@ -80,15 +78,7 @@ def download_image_gallery(request, image_pk):
 
 def items_new(request):
     number_of_items = 5
-
-    items_ids = catalog.models.Item.objects.this_week()
-
-    if len(items_ids) > number_of_items:
-        random_numbers = random.sample(list(items_ids), number_of_items)
-    else:
-        random_numbers = items_ids
-
-    items = catalog.models.Item.objects.filter(id__in=random_numbers)
+    items = catalog.models.Item.objects.this_week(number_of_items)
 
     context = {
         "title": "Новинки",
@@ -103,9 +93,9 @@ def items_new(request):
 
 
 def items_friday(request):
-    items_ids = catalog.models.Item.objects.friday()[:5]
+    number_of_items = 5
+    items = catalog.models.Item.objects.friday(number_of_items)
 
-    items = catalog.models.Item.objects.filter(id__in=list(items_ids))
     context = {
         "title": "Пятница!",
         "header": "ПЯТНИЧНЫЕ НОВИНКИ!",

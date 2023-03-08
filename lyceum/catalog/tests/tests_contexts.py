@@ -78,6 +78,38 @@ class ContextTests(django.test.TestCase):
         for item in items:
             self.assertIsInstance(item, catalog.models.Item)
 
+    def test_catalog_context_queries(self):
+        response = self.client.get(django.urls.reverse("catalog:item_list"))
+        items = response.context["items"]
+
+        exists = (
+            "name",
+            "text",
+            "category_id",
+            "image_id",
+        )
+
+        prefetched = ("tags",)
+
+        not_loaded = (
+            "is_on_main",
+            "date_created",
+            "date_updated",
+            "is_published",
+        )
+
+        for item in items:
+            check_dict = item.__dict__
+
+            for value in exists:
+                self.assertIn(value, check_dict)
+
+            for value in prefetched:
+                self.assertIn(value, check_dict["_prefetched_objects_cache"])
+
+            for value in not_loaded:
+                self.assertNotIn(value, check_dict)
+
     def test_catalog_item_detail_published_context(self):
         response = self.client.get(
             django.urls.reverse("catalog:item_detail", kwargs={"item_pk": 1})
@@ -96,6 +128,39 @@ class ContextTests(django.test.TestCase):
         )
         item = response.context["item"]
         self.assertIsInstance(item, catalog.models.Item)
+
+    def test_catalog_item_detail_context_queries(self):
+        response = self.client.get(
+            django.urls.reverse("catalog:item_detail", kwargs={"item_pk": 1})
+        )
+        item = response.context["item"]
+
+        exists = (
+            "name",
+            "text",
+            "category_id",
+            "image_id",
+        )
+
+        prefetched = ("tags",)
+
+        not_loaded = (
+            "is_on_main",
+            "date_created",
+            "date_updated",
+            "is_published",
+        )
+
+        check_dict = item.__dict__
+
+        for value in exists:
+            self.assertIn(value, check_dict)
+
+        for value in prefetched:
+            self.assertIn(value, check_dict["_prefetched_objects_cache"])
+
+        for value in not_loaded:
+            self.assertNotIn(value, check_dict)
 
     def test_catalog_item_detail_unpublished_context_length(self):
         response = self.client.get(

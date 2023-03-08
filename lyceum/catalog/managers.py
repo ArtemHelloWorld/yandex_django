@@ -1,4 +1,5 @@
 import datetime
+import random
 
 import catalog.models
 import django.db.models
@@ -31,9 +32,9 @@ class ItemManager(django.db.models.Manager):
             .order_by(ordering, "id")
         )
 
-    def this_week(self):
+    def this_week(self, number_of_items):
         time_week_ago = datetime.datetime.now() - datetime.timedelta(days=7)
-        return (
+        items_ids = (
             self.get_queryset()
             .filter(
                 is_published=True,
@@ -42,15 +43,84 @@ class ItemManager(django.db.models.Manager):
             .values_list("id", flat=True)
         )
 
-    def friday(self):
+        if len(items_ids) > number_of_items:
+            random_numbers = random.sample(list(items_ids), number_of_items)
+        else:
+            random_numbers = items_ids
+
         return (
+            self.get_queryset()
+            .select_related("category")
+            .select_related("image")
+            .prefetch_related(
+                django.db.models.Prefetch(
+                    "tags",
+                    queryset=catalog.models.Tag.objects.filter(
+                        is_published=True
+                    ).only("name"),
+                )
+            )
+            .only(
+                "name",
+                "text",
+                "image__image_main",
+                "category__name",
+            )
+            .filter(id__in=random_numbers)
+            .order_by("-id")
+        )
+
+    def friday(self, number_of_items):
+        items_ids = (
             self.get_queryset()
             .filter(is_published=True, date_updated__week_day=6)
             .values_list("id", flat=True)
             .order_by("-date_created")
+        )[:number_of_items]
+
+        return (
+            self.get_queryset()
+            .select_related("category")
+            .select_related("image")
+            .prefetch_related(
+                django.db.models.Prefetch(
+                    "tags",
+                    queryset=catalog.models.Tag.objects.filter(
+                        is_published=True
+                    ).only("name"),
+                )
+            )
+            .only(
+                "name",
+                "text",
+                "image__image_main",
+                "category__name",
+            )
+            .filter(id__in=list(items_ids))
+            .order_by("-id")
         )
 
     def unverified(self):
-        return self.get_queryset().filter(
-            is_published=True, date_created=django.db.models.F("date_updated")
+        return (
+            self.get_queryset()
+            .select_related("category")
+            .select_related("image")
+            .prefetch_related(
+                django.db.models.Prefetch(
+                    "tags",
+                    queryset=catalog.models.Tag.objects.filter(
+                        is_published=True
+                    ).only("name"),
+                )
+            )
+            .only(
+                "name",
+                "text",
+                "image__image_main",
+                "category__name",
+            )
+            .filter(
+                is_published=True,
+                date_created=django.db.models.F("date_updated"),
+            )
         )
