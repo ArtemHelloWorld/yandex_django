@@ -19,15 +19,15 @@
 
 <body onload="SetDate();">
 
-  {% include "includes/header.html" %}
+{% include "includes/header.html" %}
 
-  <main>
-    <div class="container content">
-    {% block content %}{% endblock %}
-    </div>
-  </main>
+<main class="main">
+  <div class="container content">
+  {% block content %}{% endblock %}
+  </div>
+</main>
 
-  {% include "includes/footer.html" %}
+{% include "includes/footer.html" %}
 
 </body>
 

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title }} {% endblock %}
+
+
+{% block content %}
+<div class="container pt-4">
+  <div class="row justify-content-center">
+    <div class=" col-md-6  text-center">
+      <h1 class="text-center pb-4">Форма обратной связи</h1>
+      <form method="POST">
+        {% csrf_token %}
+        {% for form_item in form %}
+          <div class="form-group">
+
+            <label for="{{ form_item.id_for_label }}">{{ form_item.label }}</label>
+            {% for error in form_item.errors %}
+              <p class="form-error text-danger">{{ error }}</p>
+            {% endfor %}
+            <p>{{ form_item }}</p>
+            {% if form_item.help_text %}
+              <p><small class="form-text text-muted">{{ form_item.help_text }}</small></p>
+            {% endif %}
+          </div>
+        {% endfor %}
+        {% for message in messages %}
+          <p class="form-status text-success">{{ message }}</p>
+        {% endfor %}
+        <input type="submit" class="btn btn-primary" value="Отправить письмо">
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

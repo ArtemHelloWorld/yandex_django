@@ -51,12 +51,13 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "homepage.apps.HomepageConfig",
-    "catalog.apps.CatalogConfig",
     "about.apps.AboutConfig",
+    "catalog.apps.CatalogConfig",
+    "feedback.apps.FeedbackConfig",
+    "homepage.apps.HomepageConfig",
     "sorl.thumbnail",
-    "django_cleanup.apps.CleanupConfig",
     "tinymce",
+    "django_cleanup.apps.CleanupConfig",
 ]
 
 
@@ -198,3 +199,7 @@ TINYMCE_DEFAULT_CONFIG = {
         "preview"
     ),
 }
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = BASE_DIR / 'send_mail'
+DEFAULT_FROM_EMAIL = os.getenv('EMAIL_TO_SEND_MESSAGES')
