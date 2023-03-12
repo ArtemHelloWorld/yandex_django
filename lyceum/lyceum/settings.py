@@ -200,6 +200,6 @@ TINYMCE_DEFAULT_CONFIG = {
     ),
 }
 
-EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = BASE_DIR / 'send_mail'
-DEFAULT_FROM_EMAIL = os.getenv('EMAIL_TO_SEND_MESSAGES')
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = BASE_DIR / "send_mail"
+DEFAULT_FROM_EMAIL = os.getenv("EMAIL_TO_SEND_MESSAGES")

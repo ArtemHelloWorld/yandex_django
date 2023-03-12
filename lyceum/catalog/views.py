@@ -3,7 +3,6 @@ import django.db.models
 import django.http
 import django.shortcuts
 
-
 NUMBER_OF_ITEMS = 5
 
 
