@@ -4,12 +4,6 @@ import feedback.models
 
 
 class FeedbackForm(django.forms.ModelForm):
-    email = django.forms.CharField(
-        validators=[django.core.validators.validate_email],
-        label="Ваша электронная почта",
-        help_text="Электронная почта",
-    )
-
     class Meta:
         model = feedback.models.Feedback
         fields = ["email", "text"]
@@ -18,7 +12,18 @@ class FeedbackForm(django.forms.ModelForm):
             feedback.models.Feedback.text.field.name: (
                 "Напишите всё, что хотите сказать <3"
             ),
+            feedback.models.Feedback.email.field.name: (
+                "Ваша электронная почта"
+            ),
         }
+
         help_texts = {
             feedback.models.Feedback.text.field.name: "Сообщение",
+            feedback.models.Feedback.email.field.name: "Электронная почта",
+        }
+
+        validators = {
+            feedback.models.Feedback.email.field.name: [
+                django.core.validators.validate_email
+            ]
         }
