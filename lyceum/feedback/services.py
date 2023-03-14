@@ -23,5 +23,14 @@ def send_feedback_mail(text, email):
     )
 
 
-def add_feedback_to_db(text, email):
-    feedback.models.Feedback.objects.create(text=text, email=email)
+def add_feedback_to_db(text, email, files):
+    personal_information = feedback.models.PersonalInformation.objects.create(
+        email=email
+    )
+
+    fb = feedback.models.Feedback.objects.create(
+        text=text, personal_information=personal_information
+    )
+    for file in files:
+        print(type(file))
+        feedback.models.FeedbackFile.objects.create(feedback=fb, file=file)

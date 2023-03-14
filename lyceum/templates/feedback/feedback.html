@@ -9,7 +9,7 @@
   <div class="row justify-content-center">
     <div class=" col-md-6  text-center">
       <h1 class="text-center pb-4">Форма обратной связи</h1>
-      <form method="POST">
+      <form enctype="multipart/form-data" method="POST">
         {% csrf_token %}
         {% for form_item in form %}
           <div class="form-group">
