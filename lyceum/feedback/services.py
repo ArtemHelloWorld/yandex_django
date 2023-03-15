@@ -45,10 +45,6 @@ def get_feedbacks_by_email(email):
         "status",
         "created_on",
     )
-    # for feedback_item in feedbacks:
-    #     feedback_item['id'] = encode_item_id(
-    #         feedback_item['id'],
-    #     )
     return feedbacks
 
 
