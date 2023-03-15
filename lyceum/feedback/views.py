@@ -25,10 +25,44 @@ def feedback_render(request):
     else:
         form = feedback.forms.FeedbackForm()
 
-    context = {"title": "Обратная связь", "form": form}
+    context = {"form": form}
 
     return django.shortcuts.render(
         request=request,
         template_name="feedback/feedback.html",
+        context=context,
+    )
+
+
+def feedback_check(request):
+    form = feedback.forms.FeedbackCheckForm(request.POST or None)
+
+    context = {"form": form}
+
+    if form.is_valid():
+        email = form.cleaned_data["email"]
+        feedbacks = feedback.services.get_feedbacks_by_email(email)
+
+        if feedbacks.count():
+            context["feedbacks"] = feedbacks
+        else:
+            django.contrib.messages.error(request, "Такой почты нет")
+            return django.shortcuts.redirect("feedback:feedback_check")
+
+    return django.shortcuts.render(
+        request=request,
+        template_name="feedback/feedback_check.html",
+        context=context,
+    )
+
+
+def feedback_detail(request, feedback_id_code):
+    feedback_item = feedback.services.get_feedback_by_pk(feedback_id_code)
+
+    context = {"feedback_item": feedback_item}
+
+    return django.shortcuts.render(
+        request=request,
+        template_name="feedback/feedback_detail.html",
         context=context,
     )

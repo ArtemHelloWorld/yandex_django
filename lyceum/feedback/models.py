@@ -40,7 +40,9 @@ class FeedbackFile(django.db.models.Model):
     feedback = django.db.models.ForeignKey(
         Feedback, on_delete=django.db.models.CASCADE, related_name="files"
     )
-    file = django.db.models.FileField(upload_to=feedback_upload_path)
+    file = django.db.models.FileField(
+        upload_to=feedback_upload_path,
+    )
 
 
 class PersonalInformation(django.db.models.Model):

@@ -1,5 +1,6 @@
 import django.core.validators
 import django.forms
+import feedback.models
 
 
 class FeedbackForm(django.forms.Form):
@@ -19,3 +20,16 @@ class FeedbackForm(django.forms.Form):
         help_text="Файлы",
         label="Добавьте файлы",
     )
+
+
+class FeedbackCheckForm(django.forms.ModelForm):
+    class Meta:
+        model = feedback.models.PersonalInformation
+        fields = ["email"]
+
+        labels = {"email": "Ваша электронная почта"}
+
+        help_texts = {
+            feedback.models.PersonalInformation.email.field.name:
+                "Введите почту, которую вы указывали в форме обратной связи"
+        }
