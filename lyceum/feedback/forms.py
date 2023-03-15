@@ -30,6 +30,7 @@ class FeedbackCheckForm(django.forms.ModelForm):
         labels = {"email": "Ваша электронная почта"}
 
         help_texts = {
-            feedback.models.PersonalInformation.email.field.name:
+            feedback.models.PersonalInformation.email.field.name: (
                 "Введите почту, которую вы указывали в форме обратной связи"
+            )
         }
