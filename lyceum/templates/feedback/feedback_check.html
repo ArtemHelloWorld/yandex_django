@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load i18n %}
+{% load feedback_tags %}
 
-{% block title %}Обратная связь{% endblock %}
+{% block title %}Проверить мое обращение{% endblock %}
 
 
 {% block content %}
 <div class="container pt-4">
-  <div class="row justify-content-center">
+  <div class="row justify-content-center  pb-4">
     <div class=" col-md-6  text-center">
-      <h1 class="text-center pb-4">Форма обратной связи</h1>
-      <form enctype="multipart/form-data" method="POST">
+      <h1 class="text-center pb-4">Проверить мой фидбек</h1>
+      <form method="POST">
         {% csrf_token %}
         {% for form_item in form %}
           <div class="form-group">
@@ -28,10 +28,21 @@
         {% for message in messages %}
           <p class="form-status {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}text-danger{% else %}text-success{% endif %}">{{ message }}</p>
         {% endfor %}
-        <input type="submit" class="btn btn-primary" value="Отправить письмо">
+        <input type="submit" class="btn btn-primary" value="Найти">
       </form>
-
     </div>
+
   </div>
+  <div class="text-center">
+      {% if feedbacks %}
+        {% for feedback in feedbacks %}
+          {% id_encode feedback_id=feedback.id as feedback_id_code %}
+          <a href="{% url 'feedback:feedback_detail' feedback_id_code=feedback_id_code %}">
+            <p class="mb-0"><strong>Создано: {{ feedback.created_on }}</strong></p>
+            <p><small>Статус: {{ feedback.get_status_display }}</small></p>
+          </a>
+        {% endfor %}
+      {% endif %}
+    </div>
 </div>
 {% endblock %}

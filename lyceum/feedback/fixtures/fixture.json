@@ -1,0 +1,35 @@
+[
+{
+  "model": "feedback.feedback",
+  "pk": 16,
+  "fields": {
+    "text": "123",
+    "status": "received",
+    "personal_information": 17,
+    "created_on": "2023-03-13T19:17:15.926Z"
+  }
+},
+{
+  "model": "feedback.feedbackfile",
+  "pk": 17,
+  "fields": {
+    "feedback": 16,
+    "file": "uploads/16/boots-vans.jpg"
+  }
+},
+{
+  "model": "feedback.feedbackfile",
+  "pk": 18,
+  "fields": {
+    "feedback": 16,
+    "file": "uploads/16/boots-vans-g.webp"
+  }
+},
+{
+  "model": "feedback.personalinformation",
+  "pk": 17,
+  "fields": {
+    "email": "testmaill@mail.ruu"
+  }
+}
+]

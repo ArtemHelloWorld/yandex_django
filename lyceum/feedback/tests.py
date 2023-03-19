@@ -1,3 +1,4 @@
+import django.core.files.uploadedfile
 import django.shortcuts
 import django.test
 import django.urls
@@ -47,14 +48,29 @@ class ContextTests(django.test.TestCase):
             response, django.shortcuts.reverse("feedback:feedback")
         )
 
-    def test_feedback_model_added(self):
-        form_data = {"text": "Мои возмущения", "email": "mailmail@mail.ru"}
-        count = feedback.models.Feedback.objects.all().count()
-        self.client.post(
-            django.shortcuts.reverse("feedback:feedback"),
-            data=form_data,
-            follow=True,
+    def test_file_upload(self):
+        count = feedback.models.FeedbackFile.objects.count()
+
+        file_data = b"file1"
+        file1 = django.core.files.uploadedfile.SimpleUploadedFile(
+            "file1.txt", file_data
         )
+
+        file_data = b"file2"
+        file2 = django.core.files.uploadedfile.SimpleUploadedFile(
+            "file2.txt", file_data
+        )
+
+        form_data = {
+            "email": "test@example.com",
+            "text": "Test message",
+            "files": [file1, file2],
+        }
+
+        self.client.post(
+            django.shortcuts.reverse("feedback:feedback"), form_data
+        )
+
         self.assertEqual(
-            feedback.models.Feedback.objects.all().count(), count + 1
+            feedback.models.FeedbackFile.objects.count(), count + 2
         )
