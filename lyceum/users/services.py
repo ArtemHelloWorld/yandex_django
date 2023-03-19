@@ -24,9 +24,7 @@ def generate_activation_link(user):
     activation_code = signer.sign(user.username)
 
     link = django.urls.reverse(
-        "users:signup_activate", kwargs={
-            "activation_code": activation_code
-        }
+        "users:signup_activate", kwargs={"activation_code": activation_code}
     )
     return link
 
