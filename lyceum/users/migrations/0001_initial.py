@@ -42,7 +42,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 (
-                    "coffe_count",
+                    "coffee_count",
                     models.PositiveIntegerField(
                         default=0, verbose_name="сколько раз сварил кофе"
                     ),

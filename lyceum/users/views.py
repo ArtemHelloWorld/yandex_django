@@ -85,7 +85,7 @@ def user_detail(request, user_id):
             "last_name",
             "profile__birthday",
             "profile__image",
-            "profile__coffe_count",
+            "profile__coffee_count",
         )
         .get(id=user_id)
     )

@@ -21,7 +21,7 @@ class Profile(django.db.models.Model):
         verbose_name="аватарка",
     )
 
-    coffe_count = django.db.models.PositiveIntegerField(
+    coffee_count = django.db.models.PositiveIntegerField(
         default=0,
         null=False,
         blank=False,

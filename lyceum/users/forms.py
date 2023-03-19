@@ -19,9 +19,9 @@ class UserProfileForm(django.forms.ModelForm):
 
     class Meta:
         model = users.models.Profile
-        fields = ("birthday", "image", "coffe_count")
+        fields = ("birthday", "image", "coffee_count")
 
-        readonly = ("coffe_count",)
+        readonly = ("coffee_count",)
 
 
 class SignUpForm(django.contrib.auth.forms.UserCreationForm):
