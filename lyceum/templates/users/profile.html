@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load thumbnail %}
+
+{% block title %}Мой профиль{% endblock %}
+
+
+{% block content %}
+<h1>Мой профиль</h1>
+<div class="container pt-4">
+ <div class="row">
+   <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ user_form.as_p }}
+    {{ profile_form.as_p }}
+    <a href="{% url 'homepage:coffe' %}" type="button" class="btn btn-outline-dark me-2">Выпить кофе</a>
+    <button type="submit">Сохранить изменения</button>
+</form>
+ </div>
+</div>
+ {% endblock %}

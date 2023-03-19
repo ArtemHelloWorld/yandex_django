@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Зарегестрированные пользователи{% endblock %}
+
+
+{% block content %}
+<h1>Список пользователей:</h1>
+<div class="container pt-4">
+ <div class="row">
+   {% for user in users %}
+   <a href="{% url 'users:user_detail' user_id=user.id %}">{{ user.username }}</a>
+   {% endfor %}
+ </div>
+</div>
+ {% endblock %}

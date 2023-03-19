@@ -114,11 +114,11 @@ class HomepageTests(django.test.TestCase):
                 self.assertNotIn(value, check_dict)
 
     def test_coffee_status_code(self):
-        response = self.client.get(django.urls.reverse("homepage:coffee"))
+        response = self.client.get(django.urls.reverse("homepage:coffe"))
         self.assertEqual(response.status_code, 418)
 
     def test_coffee_body(self):
-        response = self.client.get(django.urls.reverse("homepage:coffee"))
+        response = self.client.get(django.urls.reverse("homepage:coffe"))
         self.assertEqual(
             response.content.decode("utf-8"), "<body>Я чайник.</body>"
         )
