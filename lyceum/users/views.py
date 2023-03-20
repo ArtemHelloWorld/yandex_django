@@ -30,7 +30,9 @@ def signup(request):
         "form": signup_form,
     }
 
-    return django.shortcuts.render(request, "users/signup/signup.html", context)
+    return django.shortcuts.render(
+        request, "users/signup/signup.html", context
+    )
 
 
 def signup_complete(request):
@@ -71,7 +73,9 @@ def users_list(request):
     }
 
     return django.shortcuts.render(
-        request=request, template_name="users/profile/users_list.html", context=context
+        request=request,
+        template_name="users/profile/users_list.html",
+        context=context,
     )
 
 
@@ -120,4 +124,6 @@ def profile(request):
         "profile_form": profile_form,
     }
 
-    return django.shortcuts.render(request, "users/profile/profile.html", context)
+    return django.shortcuts.render(
+        request, "users/profile/profile.html", context
+    )

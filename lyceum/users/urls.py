@@ -1,6 +1,6 @@
 import catalog.converters
-import django.contrib.auth.views
 import django.conf
+import django.contrib.auth.views
 import django.urls
 import users.views
 
@@ -69,9 +69,7 @@ urlpatterns = [
     ),
     django.urls.path("signup/", users.views.signup, name="signup"),
     django.urls.path(
-        "signup_complete/",
-        users.views.signup_complete,
-        name="signup_complete"
+        "signup_complete/", users.views.signup_complete, name="signup_complete"
     ),
     django.urls.path(
         "signup/activate/<str:activation_code>",
