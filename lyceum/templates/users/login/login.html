@@ -1,0 +1,7 @@
+<!DOCTYPE html>
+<html>
+  <h1>Логин</h1>
+  {% include "users/form.html" with form=form btn_text="Войти" %}
+  <a href="{% url 'users:password_reset' %}" type="button" class="btn btn-outline-light me-2">Забыли пароль?</a>
+  <a href="{% url 'users:signup' %}" type="button" class="btn btn-outline-light me-2">Регистрация</a>
+</html>

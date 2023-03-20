@@ -22,7 +22,7 @@ def signup(request):
             user.is_active = False
             user.save()
 
-            users.services.send_message(request, user)
+            users.services.send_email_with_registration_link(request, user)
 
             return django.shortcuts.redirect("users:signup_complete")
 
@@ -30,13 +30,13 @@ def signup(request):
         "form": signup_form,
     }
 
-    return django.shortcuts.render(request, "users/signup.html", context)
+    return django.shortcuts.render(request, "users/signup/signup.html", context)
 
 
 def signup_complete(request):
     return django.shortcuts.render(
         request=request,
-        template_name="users/signup_complete.html",
+        template_name="users/signup/signup_complete.html",
     )
 
 
@@ -56,7 +56,7 @@ def signup_activate(request, activation_code):
 
     return django.shortcuts.render(
         request=request,
-        template_name="users/signup_done.html",
+        template_name="users/signup/signup_done.html",
         context=context,
     )
 
@@ -71,7 +71,7 @@ def users_list(request):
     }
 
     return django.shortcuts.render(
-        request=request, template_name="users/users_list.html", context=context
+        request=request, template_name="users/profile/users_list.html", context=context
     )
 
 
@@ -95,7 +95,7 @@ def user_detail(request, user_id):
     }
     return django.shortcuts.render(
         request=request,
-        template_name="users/user_detail.html",
+        template_name="users/profile/user_detail.html",
         context=context,
     )
 
@@ -120,4 +120,4 @@ def profile(request):
         "profile_form": profile_form,
     }
 
-    return django.shortcuts.render(request, "users/profile.html", context)
+    return django.shortcuts.render(request, "users/profile/profile.html", context)

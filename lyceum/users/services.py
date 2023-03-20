@@ -1,3 +1,4 @@
+import datetime
 import django.conf
 import django.contrib.auth.models
 import django.core.mail
@@ -8,7 +9,7 @@ import django.urls
 MESSAGE = "Для завершения регистрации перейдите по ссылке:\n" "{}"
 
 
-def send_message(request, user):
+def send_email_with_registration_link(request, user):
     django.core.mail.send_mail(
         subject="Subject",
         message=MESSAGE.format(
@@ -31,7 +32,7 @@ def generate_activation_link(user):
 
 def validate_activation_link(value):
     signer = django.core.signing.TimestampSigner()
-    max_age = 60 * 60 * 12
+    max_age = datetime.timedelta(hours=12)
 
     try:
         username = signer.unsign(value, max_age=max_age)
