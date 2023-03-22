@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load thumbnail %}
+
+{% block title %}{{ user_info.username }}{% endblock %}
+
+
+{% block content %}
+<h1>Пользователь {{ user_info.username }}</h1>
+<div class="container pt-4">
+ <div class="row">
+   <p>Почта: {{ user_info.email }}</p>
+   <p>Имя:{% if user_info.first_name %} {{ user_info.first_name }} {% else %} <strong>не указано </strong>{% endif %}</p>
+   <p>Фамилия:{% if user_info.last_name %} {{ user_info.last_name }} {% else %} <strong>не указано</strong> {% endif %}</p>
+   <p>День рождения:{% if user_info.profile.birthday %} {{ user_info.profile.birthday }} {% else %} <strong>не указано</strong> {% endif %}</p>
+   <p>Картинка:
+     {% if user_info.profile.image %}
+       {% thumbnail user_info.profile.image "500x500" padding=True as im %}
+          <img src="{{ im.url }}" class="img-fluid">
+       {% endthumbnail %}
+     {% else %}
+      <strong>не добалвено</strong>
+     {% endif %}
+   </p>
+   <p>Кружек кофе: {{ user_info.profile.coffee_count }}</p>
+ </div>
+</div>
+ {% endblock %}

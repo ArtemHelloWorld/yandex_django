@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     "catalog.apps.CatalogConfig",
     "feedback.apps.FeedbackConfig",
     "homepage.apps.HomepageConfig",
+    "users.apps.UsersConfig",
     "sorl.thumbnail",
     "tinymce",
     "django_cleanup.apps.CleanupConfig",
@@ -204,3 +205,11 @@ TINYMCE_DEFAULT_CONFIG = {
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = BASE_DIR / "send_mail"
 DEFAULT_FROM_EMAIL = os.getenv("EMAIL_TO_SEND_MESSAGES")
+
+LOGIN_URL = "/users/login/"
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/users/login/"
+
+ACTIVATE_USERS = (
+    True if DEBUG else os.getenv("ACTIVATE_USERS", "False").lower() == "true"
+)

@@ -1,10 +1,13 @@
 import django.conf
 import django.conf.urls.static
 import django.contrib.admin
+import django.contrib.auth.urls
 import django.urls
 
 urlpatterns = [
     django.urls.path("admin/", django.contrib.admin.site.urls, name="admin"),
+    django.urls.path("users/", django.urls.include("users.urls")),
+    django.urls.path("users/", django.urls.include(django.contrib.auth.urls)),
     django.urls.path("catalog/", django.urls.include("catalog.urls")),
     django.urls.path("about/", django.urls.include("about.urls")),
     django.urls.path("tinymce/", django.urls.include("tinymce.urls")),

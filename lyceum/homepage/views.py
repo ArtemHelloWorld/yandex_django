@@ -20,4 +20,8 @@ def home(request):
 
 
 def error418(request):
+    if request.user.is_authenticated:
+        request.user.profile.coffee_count += 1
+        request.user.profile.save()
+
     return django.http.HttpResponse("<body>Я чайник.</body>", status=418)

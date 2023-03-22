@@ -23,11 +23,15 @@
         {% if user.is_authenticated %}
           {% if user.is_staff %}
             <a href="{% url 'admin:index' %}" type="button" class="btn btn-outline-light me-2">{% trans "Панель администратора" %}</a>
-          {% endif %}
-          <button type="button" class="btn btn-outline-light me-2">{% trans "Выйти" %}</button>
+            <a href="{% url 'users:users_list' %}" type="button" class="btn btn-outline-light me-2">{% trans "Пользователи" %}</a>
+
+        {% endif %}
+          <a href="{% url 'users:logout' %}" type="button" class="btn btn-outline-light me-2">{% trans "Выйти" %}</a>
+          <a href="{% url 'users:profile' %}" type="button" class="btn btn-outline-light me-2">{% trans "Мой профиль" %}</a>
         {% else %}
-          <button type="button" class="btn btn-outline-light me-2">{% trans "Войти" %}</button>
-          <button type="button" class="btn  btn-primary me-2">{% trans "Зарегистрироваться" %}</button>
+          <a href="{% url 'users:login' %}" type="button" class="btn btn-outline-light me-2">{% trans "Войти" %}</a>
+          <a href="{% url 'users:signup' %}" type="button" class="btn btn-outline-light me-2">{% trans "Зарегистрироваться" %}</a>
+
         {% endif %}
       </div>
     </div>
@@ -47,6 +51,5 @@ function SetDate(){
     var footerdate = document.getElementById('footer-date');
     footerdate.textContent  = now.getFullYear();
   }
-
 }
 </script>

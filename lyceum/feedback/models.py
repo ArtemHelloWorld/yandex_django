@@ -32,11 +32,11 @@ class Feedback(django.db.models.Model):
         verbose_name_plural = "сообщения пользователей"
 
 
-class FeedbackFile(django.db.models.Model):
-    @staticmethod
-    def feedback_upload_path(instance, filename):
-        return f"uploads/{instance.feedback.id}/{filename}"
+def feedback_upload_path(instance, filename):
+    return f"uploads/{instance.feedback.id}/{filename}"
 
+
+class FeedbackFile(django.db.models.Model):
     feedback = django.db.models.ForeignKey(
         Feedback, on_delete=django.db.models.CASCADE, related_name="files"
     )
