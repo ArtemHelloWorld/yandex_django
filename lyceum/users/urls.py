@@ -15,7 +15,7 @@ urlpatterns = [
     django.urls.path(
         "login/",
         django.contrib.auth.views.LoginView.as_view(
-            template_name="users/login/login.html"
+            template_name="users/login/login.html",
         ),
         name="login",
     ),

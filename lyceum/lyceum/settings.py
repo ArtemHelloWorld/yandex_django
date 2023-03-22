@@ -213,3 +213,8 @@ LOGOUT_REDIRECT_URL = "/users/login/"
 ACTIVATE_USERS = (
     True if DEBUG else os.getenv("ACTIVATE_USERS", "False").lower() == "true"
 )
+
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "users.backends.AuthByEmailBackend",
+]

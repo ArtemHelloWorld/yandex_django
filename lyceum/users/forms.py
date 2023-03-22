@@ -1,3 +1,4 @@
+import django.conf
 import django.contrib.auth.forms
 import django.contrib.auth.models
 import django.forms
@@ -31,7 +32,58 @@ class SignUpForm(django.contrib.auth.forms.UserCreationForm):
         for field in self.Meta.required:
             self.fields[field].required = True
 
+    def clean(self):
+        username = self.cleaned_data.get("username")
+        if django.contrib.auth.models.User.objects.filter(
+            username=username
+        ).exists():
+            raise django.forms.ValidationError("Такое имя уже существует")
+
+        email = self.cleaned_data.get("email")
+        if django.contrib.auth.models.User.objects.filter(
+            email=email
+        ).exists():
+            raise django.forms.ValidationError("Такая почта уже существует")
+
+        return self.cleaned_data
+
     class Meta:
         model = django.contrib.auth.models.User
         fields = ("username", "email", "password1", "password2")
         required = ("username", "email", "password1", "password2")
+
+
+class CustomAuthenticationForm(django.contrib.auth.forms.AuthenticationForm):
+    username = django.forms.CharField(label="Логин или почта", max_length=254)
+
+    def clean(self):
+        username = self.cleaned_data.get("username")
+        password = self.cleaned_data.get("password")
+        print(password)
+        if username is not None and password:
+            # ЭТО БЫЛО ДЛЯ ВТОРОГО ЗАДАНИЯ
+            # СЕЙЧАС УЖЕ СДЕЛАЛ КАСТОМНЫЙ БЭКЕНД
+            # if '@' in username:
+            #     user = django.contrib.auth.models.User.objects.only(
+            #         'username'
+            #     ).filter(
+            #         email=username
+            #     ).first()
+            #
+            #     if not user:
+            #         raise django.forms.ValidationError(
+            #         'Такой почты нет в базе'
+            #         )
+            #
+            #     username = user.username
+
+            self.user_cache = django.contrib.auth.authenticate(
+                self.request, username=username, password=password
+            )
+
+            if self.user_cache is None:
+                raise self.get_invalid_login_error()
+            else:
+                self.confirm_login_allowed(self.user_cache)
+
+        return self.cleaned_data

@@ -8,7 +8,7 @@ import users.forms
 import users.services
 
 
-class ContextTests(django.test.TestCase):
+class SignUpTests(django.test.TestCase):
     def setUp(self):
         self.client = django.test.Client()
 
@@ -186,3 +186,90 @@ class ContextTests(django.test.TestCase):
                 ).is_active,
                 False,
             )
+
+
+class LoginTests(django.test.TestCase):
+    def setUp(self):
+        form_data_signup = {
+            "username": "testusername",
+            "email": "teatmail@mail.ru",
+            "password1": "Testpasswordaloalo35aloalo",
+            "password2": "Testpasswordaloalo35aloalo",
+        }
+
+        self.client = django.test.Client()
+
+        self.user = self.client.post(
+            django.shortcuts.reverse("users:signup"),
+            data=form_data_signup,
+            follow=True,
+        )
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.form = users.forms.SignUpForm()
+
+    def test_login_by_username(self):
+        form_data_login = {
+            "username": "testusername",
+            "password": "Testpasswordaloalo35aloalo",
+        }
+
+        response = self.client.post(
+            django.shortcuts.reverse("users:login"),
+            data=form_data_login,
+            follow=True,
+        )
+
+        self.assertTrue(response.context["user"].is_authenticated)
+
+    def test_login_by_email(self):
+        form_data_login = {
+            "username": "teatmail@mail.ru",
+            "password": "Testpasswordaloalo35aloalo",
+        }
+
+        response = self.client.post(
+            django.shortcuts.reverse("users:login"),
+            data=form_data_login,
+            follow=True,
+        )
+
+        self.assertTrue(response.context["user"].is_authenticated)
+
+    def test_login_incorrect_username(self):
+        form_data = {
+            "username": "incorrect",
+            "password": "Testpasswordaloalo35aloalo",
+        }
+        response = self.client.post(
+            django.shortcuts.reverse("users:login"),
+            data=form_data,
+            follow=True,
+        )
+        self.assertFalse(response.context["user"].is_authenticated)
+
+    def test_login_incorrect_email(self):
+        form_data = {
+            "username": "incorrct@mail.ru",
+            "password": "Testpasswordaloalo35aloalo",
+        }
+        response = self.client.post(
+            django.shortcuts.reverse("users:login"),
+            data=form_data,
+            follow=True,
+        )
+        self.assertFalse(response.context["user"].is_authenticated)
+
+    def test_login_incorrect_password(self):
+        form_data = {
+            "username": "testusername",
+            "password": "IncorrctPassword",
+        }
+        response = self.client.post(
+            django.shortcuts.reverse("users:login"),
+            data=form_data,
+            follow=True,
+        )
+        self.assertFalse(response.context["user"].is_authenticated)

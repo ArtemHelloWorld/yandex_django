@@ -80,19 +80,15 @@ def users_list(request):
 
 
 def user_detail(request, user_id):
-    user_info = (
-        django.contrib.auth.models.User.objects.select_related("profile")
-        .only(
-            "email",
-            "username",
-            "first_name",
-            "last_name",
-            "profile__birthday",
-            "profile__image",
-            "profile__coffee_count",
-        )
-        .get(id=user_id)
-    )
+    user_info = users.models.MyUser.objects.select_profile.only(
+        "email",
+        "username",
+        "first_name",
+        "last_name",
+        "profile__birthday",
+        "profile__image",
+        "profile__coffee_count",
+    ).get(id=user_id)
 
     context = {
         "user_info": user_info,
