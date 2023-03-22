@@ -48,7 +48,7 @@ class SignUpForm(django.contrib.auth.forms.UserCreationForm):
         if django.contrib.auth.models.User.objects.filter(
             email=email
         ).exists():
-            print('1')
+            print("1")
             raise django.forms.ValidationError("Такая почта уже существует")
 
         return email
