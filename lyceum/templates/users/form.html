@@ -3,6 +3,7 @@
 {% endfor %}
 <form action="" method="POST">
   {% csrf_token %}
+  {{ form.errors }}
   {% for field in form %}
     {{ field.error }}
     <label for="{{ field.id_for_label }}">
@@ -17,6 +18,9 @@
         {{ field.help_text|safe }}
       </small>
     {% endif %}
+    {% for error in form_item.errors %}
+      <p class="form-error text-danger">{{ error }}</p>
+    {% endfor %}
   {% endfor %}
   <button type="submit">{{ btn_text }}</button>
 </form>

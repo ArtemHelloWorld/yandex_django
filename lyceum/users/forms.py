@@ -32,20 +32,26 @@ class SignUpForm(django.contrib.auth.forms.UserCreationForm):
         for field in self.Meta.required:
             self.fields[field].required = True
 
-    def clean(self):
+    def clean_username(self):
         username = self.cleaned_data.get("username")
+
         if django.contrib.auth.models.User.objects.filter(
             username=username
         ).exists():
             raise django.forms.ValidationError("Такое имя уже существует")
 
+        return username
+
+    def clean_email(self):
         email = self.cleaned_data.get("email")
+
         if django.contrib.auth.models.User.objects.filter(
             email=email
         ).exists():
+            print('1')
             raise django.forms.ValidationError("Такая почта уже существует")
 
-        return self.cleaned_data
+        return email
 
     class Meta:
         model = django.contrib.auth.models.User
