@@ -24,7 +24,7 @@ class SignUpTests(django.test.TestCase):
             "username": "testusername",
             "email": "testmail@mail.ru",
             "password1": "Testpassword483",
-            "password2": "Testpassword483",
+            "password2": "Testpassword",
         }
         self.client.post(
             django.shortcuts.reverse("users:signup"),
