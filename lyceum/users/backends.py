@@ -2,13 +2,16 @@ import django.conf
 import django.contrib.auth.backends
 import django.contrib.auth.hashers
 import django.contrib.auth.models
+import users.services
 
 
 class AuthByEmailBackend(django.contrib.auth.backends.BaseBackend):
     def authenticate(self, request, username=None, password=None):
         email = username
         try:
-            user = django.contrib.auth.models.User.objects.get(email=email)
+            user = django.contrib.auth.models.User.objects.get(
+                email=users.services.generate_normalize_email(email)
+            )
         except django.contrib.auth.models.User.DoesNotExist:
             return None
 

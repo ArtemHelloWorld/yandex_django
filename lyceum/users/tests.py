@@ -4,6 +4,7 @@ import django.shortcuts
 import django.test
 import django.urls
 import freezegun
+import parameterized
 import users.forms
 import users.services
 
@@ -21,9 +22,9 @@ class SignUpTests(django.test.TestCase):
         count = django.contrib.auth.models.User.objects.count()
         form_data = {
             "username": "testusername",
-            "email": "teatmail@mail.ru",
-            "password1": "Testpasswordaloalo35aloalo",
-            "password2": "testpasswordaloalo35aloalo",
+            "email": "testmail@mail.ru",
+            "password1": "Testpassword483",
+            "password2": "Testpassword483",
         }
         self.client.post(
             django.shortcuts.reverse("users:signup"),
@@ -38,9 +39,9 @@ class SignUpTests(django.test.TestCase):
         count = django.contrib.auth.models.User.objects.count()
         form_data = {
             "username": "testusername",
-            "email": "teatmail@mail.ru",
-            "password1": "Testpasswordaloalo35aloalo",
-            "password2": "Testpasswordaloalo35aloalo",
+            "email": "testmail@mail.ru",
+            "password1": "Testpassword483",
+            "password2": "Testpassword483",
         }
         self.client.post(
             django.shortcuts.reverse("users:signup"),
@@ -55,9 +56,9 @@ class SignUpTests(django.test.TestCase):
     def test_signup_activate_user_true(self):
         form_data = {
             "username": "testusername",
-            "email": "teatmail@mail.ru",
-            "password1": "Testpasswordaloalo35aloalo",
-            "password2": "Testpasswordaloalo35aloalo",
+            "email": "testmail@mail.ru",
+            "password1": "Testpassword483",
+            "password2": "Testpassword483",
         }
         self.client.post(
             django.shortcuts.reverse("users:signup"),
@@ -75,9 +76,9 @@ class SignUpTests(django.test.TestCase):
     def test_signup_activate_user_false(self):
         form_data = {
             "username": "testusername",
-            "email": "teatmail@mail.ru",
-            "password1": "Testpasswordaloalo35aloalo",
-            "password2": "Testpasswordaloalo35aloalo",
+            "email": "testmail@mail.ru",
+            "password1": "Testpassword483",
+            "password2": "Testpassword483",
         }
         self.client.post(
             django.shortcuts.reverse("users:signup"),
@@ -95,9 +96,9 @@ class SignUpTests(django.test.TestCase):
     def test_signup_activate_user_false_redirect(self):
         form_data = {
             "username": "testusername",
-            "email": "teatmail@mail.ru",
-            "password1": "Testpasswordaloalo35aloalo",
-            "password2": "Testpasswordaloalo35aloalo",
+            "email": "testmail@mail.ru",
+            "password1": "Testpassword483",
+            "password2": "Testpassword483",
         }
         response = self.client.post(
             django.shortcuts.reverse("users:signup"),
@@ -112,9 +113,9 @@ class SignUpTests(django.test.TestCase):
     def test_signup_activate_user_false_mail_send(self):
         form_data = {
             "username": "testusername",
-            "email": "teatmail@mail.ru",
-            "password1": "Testpasswordaloalo35aloalo",
-            "password2": "Testpasswordaloalo35aloalo",
+            "email": "testmail@mail.ru",
+            "password1": "Testpassword483",
+            "password2": "Testpassword483",
         }
         self.client.post(
             django.shortcuts.reverse("users:signup"),
@@ -128,9 +129,9 @@ class SignUpTests(django.test.TestCase):
     def test_signup_activate_user_false_in_time(self):
         form_data = {
             "username": "testusername",
-            "email": "teatmail@mail.ru",
-            "password1": "Testpasswordaloalo35aloalo",
-            "password2": "Testpasswordaloalo35aloalo",
+            "email": "testmail@mail.ru",
+            "password1": "Testpassword483",
+            "password2": "Testpassword483",
         }
         self.client.post(
             django.shortcuts.reverse("users:signup"),
@@ -160,9 +161,9 @@ class SignUpTests(django.test.TestCase):
     def test_signup_activate_user_false_out_of_time(self):
         form_data = {
             "username": "testusername",
-            "email": "teatmail@mail.ru",
-            "password1": "Testpasswordaloalo35aloalo",
-            "password2": "Testpasswordaloalo35aloalo",
+            "email": "testmail@mail.ru",
+            "password1": "Testpassword483",
+            "password2": "Testpassword483",
         }
         self.client.post(
             django.shortcuts.reverse("users:signup"),
@@ -192,9 +193,9 @@ class LoginTests(django.test.TestCase):
     def setUp(self):
         form_data_signup = {
             "username": "testusername",
-            "email": "teatmail@mail.ru",
-            "password1": "Testpasswordaloalo35aloalo",
-            "password2": "Testpasswordaloalo35aloalo",
+            "email": "testmail@mail.ru",
+            "password1": "Testpassword483",
+            "password2": "Testpassword483",
         }
 
         self.client = django.test.Client()
@@ -213,7 +214,7 @@ class LoginTests(django.test.TestCase):
     def test_login_by_username(self):
         form_data_login = {
             "username": "testusername",
-            "password": "Testpasswordaloalo35aloalo",
+            "password": "Testpassword483",
         }
 
         response = self.client.post(
@@ -226,8 +227,8 @@ class LoginTests(django.test.TestCase):
 
     def test_login_by_email(self):
         form_data_login = {
-            "username": "teatmail@mail.ru",
-            "password": "Testpasswordaloalo35aloalo",
+            "username": "testmail@mail.ru",
+            "password": "Testpassword483",
         }
 
         response = self.client.post(
@@ -241,7 +242,7 @@ class LoginTests(django.test.TestCase):
     def test_login_incorrect_username(self):
         form_data = {
             "username": "incorrect",
-            "password": "Testpasswordaloalo35aloalo",
+            "password": "Testpassword483",
         }
         response = self.client.post(
             django.shortcuts.reverse("users:login"),
@@ -253,7 +254,7 @@ class LoginTests(django.test.TestCase):
     def test_login_incorrect_email(self):
         form_data = {
             "username": "incorrct@mail.ru",
-            "password": "Testpasswordaloalo35aloalo",
+            "password": "Testpassword483",
         }
         response = self.client.post(
             django.shortcuts.reverse("users:login"),
@@ -266,6 +267,94 @@ class LoginTests(django.test.TestCase):
         form_data = {
             "username": "testusername",
             "password": "IncorrctPassword",
+        }
+        response = self.client.post(
+            django.shortcuts.reverse("users:login"),
+            data=form_data,
+            follow=True,
+        )
+        self.assertFalse(response.context["user"].is_authenticated)
+
+
+class EmailFieldNormalizationTest(django.test.TestCase):
+    def setUp(self):
+        self.client = django.test.Client()
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.form = users.forms.SignUpForm()
+
+    def signup_user(self, email):
+        form_data_signup = {
+            "username": "testusername",
+            "email": email,
+            "password1": "Testpassword483",
+            "password2": "Testpassword483",
+        }
+
+        self.user = self.client.post(
+            django.shortcuts.reverse("users:signup"),
+            data=form_data_signup,
+            follow=True,
+        )
+
+    @parameterized.parameterized.expand(
+        [
+            ("0", "tEsTmAil@mail.ru", "testmail@mail.ru"),
+            ("1", "testmail@mail.ru", "tEsTmaIl@mail.ru"),
+            ("2", "testmail@ya.ru", "testmail@yandex.ru"),
+            ("3", "testmail@yandex.ru", "testmail@ya.ru"),
+            ("4", "testmail+testtag@mail.ru", "testmail@mail.ru"),
+            ("5", "testmail@mail.ru", "testmail+testtag@mail.ru"),
+            ("6", "t.e.s.t.m.a.i.l@gmail.com", "testmail@gmail.com"),
+            ("7", "testmail@gmail.com", "t.e.s.t.m.a.i.l@gmail.com"),
+            ("8", "t.e.s.t.m.a.i.l@yandex.ru", "t-e-s-t-m-a-i-l@yandex.ru"),
+            ("9", "t-e-s-t-m-a-i-l@yandex.ru", "t.e.s.t.m.a.i.l@yandex.ru"),
+            ("10", "t.e.s.t.m.a.i.l@ya.ru", "t-e-s-t-m-a-i-l@yandex.ru"),
+            ("11", "t-e-s-t-m-a-i-l@yandex.ru", "t.e.s.t.m.a.i.l@ya.ru"),
+            (
+                "12",
+                "T.e.S.t.M.a.I.l+tEsTtag@ya.ru",
+                "t-E-s-T-m-A-i-L@yandex.ru",
+            ),
+            (
+                "13",
+                "T-e-S-t-M-a-I-l@yandex.ru",
+                "t.E.s.T.m.A.i.L+TESTTAG@ya.ru",
+            ),
+        ]
+    )
+    def test_email_valid_changes(self, _, email_signup, email_login):
+        self.signup_user(email_signup)
+
+        form_data = {
+            "username": email_login,
+            "password": "Testpassword483",
+        }
+        response = self.client.post(
+            django.shortcuts.reverse("users:login"),
+            data=form_data,
+            follow=True,
+        )
+        self.assertTrue(response.context["user"].is_authenticated)
+
+    @parameterized.parameterized.expand(
+        [
+            ("0", "testmail@mail.ru", "test@mail.ru"),
+            ("1", "testmail@mail.ru", "testmail@gmail.com"),
+            ("2", "testmail@ya.ru", "testmail@gmail.com"),
+            ("3", "t.e.s.t.m.a.i.l@yandex.ru", "testmail@yandex.ru"),
+            ("4", "t.e.s.t.m.a.i.l@gmail.com", "t-e-s-t-m-a-i-l@gmail.com"),
+            ("5", "testmail@mail.ru", "testmail"),
+        ]
+    )
+    def test_email_invalid_changes(self, _, email_signup, email_login):
+        self.signup_user(email_signup)
+
+        form_data = {
+            "username": email_login,
+            "password": "Testpassword483",
         }
         response = self.client.post(
             django.shortcuts.reverse("users:login"),

@@ -218,3 +218,5 @@ AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
     "users.backends.AuthByEmailBackend",
 ]
+
+MAX_FAILED_LOGIN_ATTEMPTS = os.getenv("MAX_FAILED_LOGIN_ATTEMPTS", 3)

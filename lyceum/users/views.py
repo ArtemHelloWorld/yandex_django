@@ -22,7 +22,7 @@ def signup(request):
             user.is_active = False
             user.save()
 
-            users.services.send_email_with_registration_link(request, user)
+            users.services.send_email_with_activation_link(request, user)
 
             return django.shortcuts.redirect("users:signup_complete")
 
@@ -43,7 +43,8 @@ def signup_complete(request):
 
 
 def signup_activate(request, activation_code):
-    user = users.services.validate_activation_link(activation_code)
+    user = users.services.validate_activation_link(activation_code, hours=12)
+
     if user and not user.is_active:
         user.is_active = True
         user.save()
@@ -58,7 +59,28 @@ def signup_activate(request, activation_code):
 
     return django.shortcuts.render(
         request=request,
-        template_name="users/signup/signup_done.html",
+        template_name="users/signup/activation_done.html",
+        context=context,
+    )
+
+
+def back_activate(request, activation_code):
+    user = users.services.validate_activation_link(activation_code, days=7)
+
+    if user and not user.is_active:
+        user.is_active = True
+        user.save()
+
+        message = "Вы успешно восставновили аккаунт"
+
+    else:
+        message = "Неверная ссылка или действие ссылки истекло"
+
+    context = {"message": message}
+
+    return django.shortcuts.render(
+        request=request,
+        template_name="users/signup/activation_done.html",
         context=context,
     )
 
