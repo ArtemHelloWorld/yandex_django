@@ -17,7 +17,9 @@ MESSAGE_ACTIVATION_BACK = (
 def send_email_with_activation_link(request, user, activation_back=False):
     if activation_back:
         message = MESSAGE_ACTIVATION_BACK.format(
-            request.build_absolute_uri(generate_activation_link(user))
+            request.build_absolute_uri(
+                generate_activation_link(user, activation_back=True)
+            )
         )
     else:
         message = MESSAGE_REGISTRATION.format(
