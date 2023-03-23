@@ -191,6 +191,14 @@ class SignUpTests(django.test.TestCase):
 
 class LoginTests(django.test.TestCase):
     def setUp(self):
+        self.client = django.test.Client()
+
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+
+    def register_user(self):
         form_data_signup = {
             "username": "testusername",
             "email": "testmail@mail.ru",
@@ -198,19 +206,15 @@ class LoginTests(django.test.TestCase):
             "password2": "Testpassword483",
         }
 
-        self.client = django.test.Client()
 
         self.user = self.client.post(
             django.shortcuts.reverse("users:signup"),
             data=form_data_signup,
             follow=True,
         )
-
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-
     def test_login_by_username(self):
+        self.register_user()
+
         form_data_login = {
             "username": "testusername",
             "password": "Testpassword483",
@@ -225,6 +229,8 @@ class LoginTests(django.test.TestCase):
         self.assertTrue(response.context["user"].is_authenticated)
 
     def test_login_by_email(self):
+        self.register_user()
+
         form_data_login = {
             "username": "testmail@mail.ru",
             "password": "Testpassword483",
@@ -239,6 +245,8 @@ class LoginTests(django.test.TestCase):
         self.assertTrue(response.context["user"].is_authenticated)
 
     def test_login_incorrect_username(self):
+        self.register_user()
+
         form_data = {
             "username": "incorrect",
             "password": "Testpassword483",
@@ -251,6 +259,8 @@ class LoginTests(django.test.TestCase):
         self.assertFalse(response.context["user"].is_authenticated)
 
     def test_login_incorrect_email(self):
+        self.register_user()
+
         form_data = {
             "username": "incorrct@mail.ru",
             "password": "Testpassword483",
@@ -263,6 +273,8 @@ class LoginTests(django.test.TestCase):
         self.assertFalse(response.context["user"].is_authenticated)
 
     def test_login_incorrect_password(self):
+        self.register_user()
+
         form_data = {
             "username": "testusername",
             "password": "IncorrctPassword",
@@ -387,6 +399,9 @@ class ActivationBackClass(django.test.TestCase):
 
     def test_over_login_mail_send(self):
         self.registrate_user()
+
+        mail_counts = len(django.core.mail.outbox)
+
         form_data_incorrect = {
             "username": "testusername",
             "password": "Testpassword",
@@ -399,11 +414,15 @@ class ActivationBackClass(django.test.TestCase):
                 follow=True,
             )
 
-        self.assertEqual(len(django.core.mail.outbox), 1)
+        self.assertEqual(
+            len(django.core.mail.outbox) + 1,
+            mail_counts
+        )
 
     @freezegun.freeze_time("2023-03-19 00:00:01")
     def test_over_login_activate_in_time(self):
         self.registrate_user()
+
         form_data_incorrect = {
             "username": "testusername",
             "password": "Testpassword",
