@@ -361,3 +361,106 @@ class EmailFieldNormalizationTest(django.test.TestCase):
             follow=True,
         )
         self.assertFalse(response.context["user"].is_authenticated)
+
+
+class ActivationBackClass(django.test.TestCase):
+    def setUp(self):
+        self.client = django.test.Client()
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+
+    def registrate_user(self):
+        form_data_signup = {
+            "username": "testusername",
+            "email": "testemail@mail.ru",
+            "password1": "Testpassword483",
+            "password2": "Testpassword483",
+        }
+
+        self.user = self.client.post(
+            django.shortcuts.reverse("users:signup"),
+            data=form_data_signup,
+            follow=True,
+        )
+
+    def test_over_login_mail_send(self):
+        self.registrate_user()
+        form_data_incorrect = {
+            "username": "testusername",
+            "password": "Testpassword",
+        }
+
+        for i in range(django.conf.settings.MAX_FAILED_LOGIN_ATTEMPTS):
+            self.client.post(
+                django.shortcuts.reverse("users:login"),
+                data=form_data_incorrect,
+                follow=True,
+            )
+
+        self.assertEqual(len(django.core.mail.outbox), 1)
+
+    @freezegun.freeze_time("2023-03-19 00:00:01")
+    def test_over_login_activate_in_time(self):
+        self.registrate_user()
+        form_data_incorrect = {
+            "username": "testusername",
+            "password": "Testpassword",
+        }
+
+        for i in range(django.conf.settings.MAX_FAILED_LOGIN_ATTEMPTS):
+            self.client.post(
+                django.shortcuts.reverse("users:login"),
+                data=form_data_incorrect,
+                follow=True,
+            )
+
+        email_body = django.core.mail.outbox[0].body
+
+        with freezegun.freeze_time("2023-03-25 23:30:00"):
+            self.client.get(
+                django.urls.reverse(
+                    "users:back_activate",
+                    kwargs={"activation_code": email_body.split("/")[-1]},
+                )
+            )
+
+            self.assertEqual(
+                django.contrib.auth.models.User.objects.get(
+                    username="testusername"
+                ).is_active,
+                True,
+            )
+
+    @freezegun.freeze_time("2023-03-19 00:00:01")
+    def test_over_login_activate_out_of_time(self):
+        self.registrate_user()
+        form_data_incorrect = {
+            "username": "testusername",
+            "password": "Testpassword",
+        }
+
+        for i in range(django.conf.settings.MAX_FAILED_LOGIN_ATTEMPTS):
+            self.client.post(
+                django.shortcuts.reverse("users:login"),
+                data=form_data_incorrect,
+                follow=True,
+            )
+
+        email_body = django.core.mail.outbox[0].body
+
+        with freezegun.freeze_time("2023-03-26 00:30:00"):
+            self.client.get(
+                django.urls.reverse(
+                    "users:back_activate",
+                    kwargs={"activation_code": email_body.split("/")[-1]},
+                )
+            )
+
+            self.assertEqual(
+                django.contrib.auth.models.User.objects.get(
+                    username="testusername"
+                ).is_active,
+                False,
+            )
