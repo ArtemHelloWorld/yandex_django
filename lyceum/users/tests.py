@@ -193,7 +193,6 @@ class LoginTests(django.test.TestCase):
     def setUp(self):
         self.client = django.test.Client()
 
-
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -206,12 +205,12 @@ class LoginTests(django.test.TestCase):
             "password2": "Testpassword483",
         }
 
-
         self.user = self.client.post(
             django.shortcuts.reverse("users:signup"),
             data=form_data_signup,
             follow=True,
         )
+
     def test_login_by_username(self):
         self.register_user()
 
@@ -414,10 +413,7 @@ class ActivationBackClass(django.test.TestCase):
                 follow=True,
             )
 
-        self.assertEqual(
-            len(django.core.mail.outbox) + 1,
-            mail_counts
-        )
+        self.assertEqual(len(django.core.mail.outbox), mail_counts + 1)
 
     @freezegun.freeze_time("2023-03-19 00:00:01")
     def test_over_login_activate_in_time(self):

@@ -30,7 +30,7 @@ SECRET_KEY = os.getenv(
 KEY32 = os.getenv("KEY32", "f1tiEM4419f-UeWZPdtj670xIbDdRg5OMm58B9OakGU=")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", "False").lower() in ("true", "1")
+DEBUG = os.getenv("DEBUG", "True").lower() in ("true", "1")
 
 
 # for debug_toolbar
