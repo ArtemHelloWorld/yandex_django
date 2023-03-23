@@ -6,7 +6,7 @@ import django.forms
 import users.services
 
 
-class AuthByEmailBackend(django.contrib.auth.backends.BaseBackend):
+class AuthByEmailOrUsernameBackend(django.contrib.auth.backends.BaseBackend):
     def authenticate(self, request, username=None, password=None):
         if "@" in username:
             query_filter = {

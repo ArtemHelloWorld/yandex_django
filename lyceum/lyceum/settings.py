@@ -215,7 +215,7 @@ ACTIVATE_USERS = (
 )
 
 AUTHENTICATION_BACKENDS = [
-    "users.backends.AuthByEmailBackend",
+    "users.backends.AuthByEmailOrUsernameBackend",
 ]
 
 MAX_FAILED_LOGIN_ATTEMPTS = os.getenv("MAX_FAILED_LOGIN_ATTEMPTS", 3)
