@@ -74,35 +74,38 @@ class CustomAuthenticationForm(django.contrib.auth.forms.AuthenticationForm):
             )
             if self.user_cache is None:
                 count = self.request.session.get("load_count", 0) + 1
-                print(count)
                 self.request.session["load_count"] = count
 
                 if count == django.conf.settings.MAX_FAILED_LOGIN_ATTEMPTS:
                     self.request.session["load_count"] = 0
-
-                    if "@" in username:
-                        user = django.contrib.auth.models.User.objects.get(
-                            email=users.services.generate_normalize_email(
-                                username
+                    try:
+                        if "@" in username:
+                            user = django.contrib.auth.models.User.objects.get(
+                                email=users.services.generate_normalize_email(
+                                    username
+                                )
                             )
+                        else:
+                            user = django.contrib.auth.models.User.objects.get(
+                                username=username
+                            )
+
+                        user.is_active = False
+                        user.save()
+
+                        users.services.send_email_with_activation_link(
+                            self.request, user, activation_back=True
                         )
-                    else:
-                        user = django.contrib.auth.models.User.objects.get(
-                            username=username
+
+                        raise django.forms.ValidationError(
+                            "Вы превысили количество попыток войти. "
+                            "На вашу почту отправлено письмо "
+                            "cо ссылкой для восстановления аккаунта"
                         )
-
-                    user.is_active = False
-                    user.save()
-
-                    users.services.send_email_with_activation_link(
-                        self.request, user, activation_back=True
-                    )
-
-                    raise django.forms.ValidationError(
-                        "Вы превысили количество попыток войти. "
-                        "На вашу почту отправлено письмо "
-                        "cо ссылкой для восстановления аккаунта"
-                    )
+                    except django.contrib.auth.models.User.DoesNotExist:
+                        raise django.forms.ValidationError(
+                            "Вы превысили количество попыток войти."
+                        )
 
                 raise self.get_invalid_login_error()
             else:
