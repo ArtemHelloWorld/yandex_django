@@ -1,6 +1,6 @@
+import django.conf
 import django.contrib.auth.models
 import django.core.mail
-import django.conf
 import django.shortcuts
 import django.test
 import django.urls
@@ -313,14 +313,14 @@ class EmailFieldNormalizationTest(django.test.TestCase):
             ("10", "t.e.s.t.m.a.i.l@ya.ru", "t-e-s-t-m-a-i-l@yandex.ru"),
             ("11", "t-e-s-t-m-a-i-l@yandex.ru", "t.e.s.t.m.a.i.l@ya.ru"),
             (
-                    "12",
-                    "T.e.S.t.M.a.I.l+tEsTtag@ya.ru",
-                    "t-E-s-T-m-A-i-L@yandex.ru",
+                "12",
+                "T.e.S.t.M.a.I.l+tEsTtag@ya.ru",
+                "t-E-s-T-m-A-i-L@yandex.ru",
             ),
             (
-                    "13",
-                    "T-e-S-t-M-a-I-l@yandex.ru",
-                    "t.E.s.T.m.A.i.L+TESTTAG@ya.ru",
+                "13",
+                "T-e-S-t-M-a-I-l@yandex.ru",
+                "t.E.s.T.m.A.i.L+TESTTAG@ya.ru",
             ),
         ]
     )
@@ -361,5 +361,3 @@ class EmailFieldNormalizationTest(django.test.TestCase):
             follow=True,
         )
         self.assertFalse(response.context["user"].is_authenticated)
-
-
