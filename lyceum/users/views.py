@@ -102,7 +102,7 @@ def users_list(request):
 
 
 def user_detail(request, user_id):
-    user_info = users.models.MyUser.objects.select_profile.only(
+    user_info = users.models.MyUser.objects.only(
         "email",
         "username",
         "first_name",
