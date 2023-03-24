@@ -2,19 +2,19 @@
 {% load static %}
 {% load i18n %}
 
-{% block title %}Обратная связь{% endblock %}
+{% block title %}{% trans "Обратная связь" %}{% endblock %}
 
 
 {% block content %}
 <div class="container pt-4">
   <div class="row justify-content-center">
     <div class=" col-md-6  text-center">
-      <h1 class="text-center pb-4">Форма обратной связи</h1>
+      <h1 class="text-center pb-4">{% trans "Форма обратной связи" %}</h1>
+
       <form enctype="multipart/form-data" method="POST">
         {% csrf_token %}
         {% for form_item in form %}
           <div class="form-group">
-
             <label for="{{ form_item.id_for_label }}">{{ form_item.label }}</label>
             {% for error in form_item.errors %}
               <p class="form-error text-danger">{{ error }}</p>
@@ -28,7 +28,7 @@
         {% for message in messages %}
           <p class="form-status {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}text-danger{% else %}text-success{% endif %}">{{ message }}</p>
         {% endfor %}
-        <input type="submit" class="btn btn-primary" value="Отправить письмо">
+        <input type="submit" class="btn btn-primary" value="{% trans 'Отправить письмо' %}">
       </form>
 
     </div>

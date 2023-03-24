@@ -1,4 +1,8 @@
+{% load static %}
 {% load thumbnail %}
+{% load i18n %}
+
+
 <div class="col-sm-4">
   <div class="card mb-3">
     {% thumbnail item.image.image_main "300x300" padding=True as im %}
@@ -14,7 +18,7 @@
         {% endfor %}
       </p>
       <p class="card-text">{{ item.text|truncatewords:10|safe }}</p>
-      <a href="{{ item.get_absolute_url }}" class="btn btn-primary">Перейти</a>
+      <a href="{{ item.get_absolute_url }}" class="btn btn-primary">{% trans "Перейти" %}</a>
     </div>
   </div>
 </div>

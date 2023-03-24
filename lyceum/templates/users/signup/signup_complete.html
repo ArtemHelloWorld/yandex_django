@@ -1,6 +1,8 @@
 <!DOCTYPE html>
+{% load i18n %}
+
 <html>
-  <h1>На вашу почту отправлена ссылка для завершения регистрации</h1>
-  <h3>Ссылка действует 12 часов</h3>
-  <a href="{% url 'users:login' %}" type="button" class="btn btn-outline-light me-2">Войти</a>
+  <h1>{% trans "На вашу почту отправлена ссылка для завершения регистрации" %}</h1>
+  <h3>{% trans "Ссылка действует 12 часов" %}</h3>
+  <a href="{% url 'users:login' %}" type="button" class="btn btn-outline-light me-2">{% trans "Войти" %}</a>
 </html>

@@ -1,6 +1,8 @@
 <!DOCTYPE html>
+{% load i18n %}
+
 <html>
-  <h1>Регистрация</h1>
+  <h1>{% trans "Регистрация" %}</h1>
   {% if form.errors %}
     {% for field in form %}
       {% for error in field.error %}
@@ -28,8 +30,8 @@
         </small>
       {% endif %}
     {% endfor %}
-    <button type="submit">Зарегистрироваться</button>
-    <a href="{% url 'users:login' %}" type="button" class="btn btn-outline-light me-2">Есть аккаунт? Войти</a>
+    <button type="submit">{% trans "Зарегистрироваться" %}</button>
+    <a href="{% url 'users:login' %}" type="button" class="btn btn-outline-light me-2">{% trans "Войти" %}</a>
 
   </form>
 

@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{ title }} {% endblock %}
+{% block title %}{{ title }}{% endblock %}
 
 
 {% block content %}{{ content }}
+
 <div class="container pt-4">
  <div class="row">
     {% for item in items %}
@@ -12,4 +13,5 @@
     {% endfor %}
  </div>
 </div>
- {% endblock %}
+
+{% endblock %}

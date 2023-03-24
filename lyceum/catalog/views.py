@@ -4,6 +4,7 @@ import django.shortcuts
 
 import catalog.models
 
+
 NUMBER_OF_ITEMS = 5
 
 
@@ -40,13 +41,11 @@ def item_detail(request, item_pk):
 
 
 def download_image_main(request, image_pk):
-    item = django.shortcuts.get_object_or_404(
-        catalog.models.Item, image__pk=image_pk
+    image = django.shortcuts.get_object_or_404(
+        catalog.models.ItemImageMain.objects.select_related('item'), pk=image_pk
     )
-    if item.is_published:
-        image = django.shortcuts.get_object_or_404(
-            catalog.models.ItemImageMain, pk=image_pk
-        )
+    if image.item.is_published:
+
         image_path = image.image_main.path
         filename = image.image_main.name.split("/")[-1]
         image_file = open(image_path, "rb")
@@ -54,19 +53,18 @@ def download_image_main(request, image_pk):
         response = django.http.FileResponse(image_file)
         response["Content-Type"] = "image/jpg"
         response["Content-Disposition"] = f"attachment; filename={filename}"
+
         return response
     else:
         raise django.http.Http404("This item is not published")
 
 
 def download_image_gallery(request, image_pk):
-    item = django.shortcuts.get_object_or_404(
+    image = django.shortcuts.get_object_or_404(
         catalog.models.ItemImageGallery, pk=image_pk
-    ).item
-    if item.is_published:
-        image = django.shortcuts.get_object_or_404(
-            catalog.models.ItemImageGallery, pk=image_pk
-        )
+    )
+    if image.item.is_published:
+
         image_path = image.image_gallery.path
         filename = image.image_gallery.name.split("/")[-1]
         image_file = open(image_path, "rb")
@@ -74,6 +72,7 @@ def download_image_gallery(request, image_pk):
         response = django.http.FileResponse(image_file)
         response["Content-Type"] = "image/jpg"
         response["Content-Disposition"] = f"attachment; filename={filename}"
+
         return response
     else:
         raise django.http.Http404("This item is not published")
@@ -87,6 +86,7 @@ def items_new(request):
         "header": "НОВИНКИ ЭТОЙ НЕДЕЛИ!",
         "items": items,
     }
+
     return django.shortcuts.render(
         request=request,
         template_name="catalog/item_unique.html",
@@ -102,6 +102,7 @@ def items_friday(request):
         "header": "ПЯТНИЧНЫЕ НОВИНКИ!",
         "items": items,
     }
+
     return django.shortcuts.render(
         request=request,
         template_name="catalog/item_unique.html",
@@ -111,11 +112,13 @@ def items_friday(request):
 
 def items_unverified(request):
     items = catalog.models.Item.objects.unverified()
+
     context = {
         "title": "Непроверенное",
         "header": "Эти товары ещё не изменялись",
         "items": items,
     }
+
     return django.shortcuts.render(
         request=request,
         template_name="catalog/item_unique.html",

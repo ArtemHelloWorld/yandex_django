@@ -3,30 +3,30 @@
 {% load i18n %}
 {% load thumbnail %}
 
-{% block title %}{% endblock %}
+{% block title %}{% trans "Мой фидбек" %}{% endblock %}
 
 {% block content %}
 
 <div class="container">
   {% if feedback_item %}
     <div class="row text-center">
-      <h1>Мой фидбек</h1>
+      <h1>{% trans "Мой фидбек" %}</h1>
 
       <h1>{{ feedback_item.text }}</h1>
-      <p>Отправлено: {{ feedback_item.created_on }}</p>
-      <p>Статус: {{ feedback_item.get_status_display }}</p>
+      <p>{% trans "Отправлено" %}: {{ feedback_item.created_on }}</p>
+      <p>{% trans "Статус" %}: {{ feedback_item.get_status_display }}</p>
     </div>
     <div class="row text-center">
-      <p>Файлы, прикрепленные к сообщению:</p>
+      <p>{% trans "Файлы, прикрепленные к сообщению" %}:</p>
 
       {% for file in feedback_item.files.all %}
         <p><a href="{{ file.file.url }}">{{ file.file.url }}</a></p>
       {% endfor %}
     </div>
   {% else %}
-  <div class="row text-center">
-      <h1>Такого фидбека не существует</h1>
-  </div>
+    <div class="row text-center">
+        <h1>{% trans "Такого фидбека не существует" %}</h1>
+    </div>
   {% endif %}
 </div>
 

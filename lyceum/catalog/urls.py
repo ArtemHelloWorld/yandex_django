@@ -3,6 +3,7 @@ import django.urls
 import catalog.converters
 import catalog.views
 
+
 app_name = "catalog"
 
 django.urls.register_converter(
