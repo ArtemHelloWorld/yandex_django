@@ -3,6 +3,7 @@ import django.conf
 import django.core.mail
 import django.db.models
 import django.db.models.functions
+
 import feedback.models
 
 MESSAGE = (

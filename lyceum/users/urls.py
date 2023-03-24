@@ -1,7 +1,8 @@
-import catalog.converters
 import django.conf
 import django.contrib.auth.views
 import django.urls
+
+import catalog.converters
 import users.forms
 import users.views
 

@@ -1,11 +1,11 @@
-import catalog.managers
-import catalog.validators
 import django.db.models
 import django.urls
 import django_cleanup.signals
 import sorl.thumbnail
 import tinymce
 
+import catalog.managers
+import catalog.validators
 import core.models
 
 

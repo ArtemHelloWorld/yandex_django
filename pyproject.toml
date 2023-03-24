@@ -1,6 +1,5 @@
 [tool.black]
 line-length = 79
-profile = "google"
 include = '\.pyi?$'
 #skip-string-normalization = true
 exclude = '''
@@ -20,10 +19,14 @@ exclude = '''
   | README.md
   | .gitignore
   | .env
-
 )
 '''
 
 [tool.isort]
-profile = "google"
-known_third_party = ["django", "parameterized"]
+profile = "black"
+py_version = 310
+skip_gitignore = true
+line_length = 79
+use_parentheses = true
+known_first_party=["about", "catalog", "core", "feedback", "homepage", "lyceum", "users"]
+force_alphabetical_sort_within_sections = true

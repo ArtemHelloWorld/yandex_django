@@ -1,7 +1,8 @@
-import catalog.models
 import django.forms.models
 import django.test
 import django.urls
+
+import catalog.models
 
 
 class ContextTests(django.test.TestCase):
