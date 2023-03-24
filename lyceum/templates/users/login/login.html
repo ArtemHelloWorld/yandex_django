@@ -3,7 +3,8 @@
 
 <html>
   <h1>{% trans "Логин" %}</h1>
-  {% include "users/form.html" with form=form btn_text="{% trans 'Войти' %}" %}
+  {% trans "Войти" as login_message %}
+  {% include "users/form.html" with form=form btn_text=login_message %}
   <a href="{% url 'users:password_reset' %}" type="button" class="btn btn-outline-light me-2">{% trans "Забыли пароль?" %}</a>
   <a href="{% url 'users:signup' %}" type="button" class="btn btn-outline-light me-2">{% trans "Регистрация" %}</a>
 </html>

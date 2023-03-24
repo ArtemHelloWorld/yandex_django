@@ -24,8 +24,7 @@ class Feedback(django.db.models.Model):
         related_name="personal_information",
     )
     created_on = django.db.models.DateTimeField(
-        auto_now_add=True,
-        verbose_name="дата и время создания"
+        auto_now_add=True, verbose_name="дата и время создания"
     )
 
     class Meta:

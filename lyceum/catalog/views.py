@@ -42,10 +42,10 @@ def item_detail(request, item_pk):
 
 def download_image_main(request, image_pk):
     image = django.shortcuts.get_object_or_404(
-        catalog.models.ItemImageMain.objects.select_related('item'), pk=image_pk
+        catalog.models.ItemImageMain.objects.select_related("item"),
+        pk=image_pk,
     )
     if image.item.is_published:
-
         image_path = image.image_main.path
         filename = image.image_main.name.split("/")[-1]
         image_file = open(image_path, "rb")
@@ -64,7 +64,6 @@ def download_image_gallery(request, image_pk):
         catalog.models.ItemImageGallery, pk=image_pk
     )
     if image.item.is_published:
-
         image_path = image.image_gallery.path
         filename = image.image_gallery.name.split("/")[-1]
         image_file = open(image_path, "rb")
