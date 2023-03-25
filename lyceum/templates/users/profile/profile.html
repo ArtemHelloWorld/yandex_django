@@ -1,21 +1,25 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load thumbnail %}
+{% load i18n %}
 
-{% block title %}Мой профиль{% endblock %}
+
+{% block title %}{% trans "Мой профиль" %}{% endblock %}
 
 
 {% block content %}
-<h1>Мой профиль</h1>
+
+<h1>{% trans "Мой профиль" %}</h1>
 <div class="container pt-4">
   <div class="row">
     <form method="POST" enctype="multipart/form-data">
       {% csrf_token %}
       {{ user_form.as_p }}
       {{ profile_form.as_p }}
-      <a href="{% url 'homepage:coffee' %}" type="button" class="btn btn-outline-dark me-2">Выпить кофе</a>
-      <button type="submit">Сохранить изменения</button>
+      <a href="{% url 'homepage:coffee' %}" type="button" class="btn btn-outline-dark me-2">{% trans "Выпить кофе" %}</a>
+      <button type="submit">{% trans "Сохранить изменения" %}</button>
     </form>
   </div>
 </div>
+
 {% endblock %}

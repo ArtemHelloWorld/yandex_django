@@ -1,28 +1,32 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load thumbnail %}
+{% load i18n %}
+
 
 {% block title %}{{ user_info.username }}{% endblock %}
 
 
 {% block content %}
+
 <h1>Пользователь {{ user_info.username }}</h1>
 <div class="container pt-4">
  <div class="row">
-   <p>Почта: {{ user_info.email }}</p>
-   <p>Имя:{% if user_info.first_name %} {{ user_info.first_name }} {% else %} <strong>не указано </strong>{% endif %}</p>
-   <p>Фамилия:{% if user_info.last_name %} {{ user_info.last_name }} {% else %} <strong>не указано</strong> {% endif %}</p>
-   <p>День рождения:{% if user_info.profile.birthday %} {{ user_info.profile.birthday }} {% else %} <strong>не указано</strong> {% endif %}</p>
-   <p>Картинка:
+   <p>{% trans "Почта" %}: {{ user_info.email }}</p>
+   <p>{% trans "Имя" %}:{% if user_info.first_name %} {{ user_info.first_name }} {% else %} <strong>{% trans "не указано" %} </strong>{% endif %}</p>
+   <p>{% trans "Фамилия" %}:{% if user_info.last_name %} {{ user_info.last_name }} {% else %} <strong>{% trans "не указано" %}</strong> {% endif %}</p>
+   <p>{% trans "День рождения" %}:{% if user_info.profile.birthday %} {{ user_info.profile.birthday }} {% else %} <strong>{% trans "не указано" %}</strong> {% endif %}</p>
+   <p>{% trans "Картинка" %}:
      {% if user_info.profile.image %}
        {% thumbnail user_info.profile.image "500x500" padding=True as im %}
           <img src="{{ im.url }}" class="img-fluid">
        {% endthumbnail %}
      {% else %}
-      <strong>не добалвено</strong>
+      <strong>{% trans "не указано" %}</strong>
      {% endif %}
    </p>
-   <p>Кружек кофе: {{ user_info.profile.coffee_count }}</p>
+   <p>{% trans "Кружек кофе" %}: {{ user_info.profile.coffee_count }}</p>
  </div>
 </div>
- {% endblock %}
+
+{% endblock %}

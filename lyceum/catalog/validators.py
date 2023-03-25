@@ -3,6 +3,7 @@ import re
 import django.core.exceptions
 import django.utils.deconstruct
 
+
 PATTERN = re.compile(r"\w+|\W+")
 
 

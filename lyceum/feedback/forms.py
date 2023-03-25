@@ -1,5 +1,6 @@
 import django.core.validators
 import django.forms
+
 import feedback.models
 
 
@@ -25,6 +26,7 @@ class FeedbackForm(django.forms.Form):
 class FeedbackCheckForm(django.forms.ModelForm):
     class Meta:
         model = feedback.models.PersonalInformation
+
         fields = ["email"]
 
         labels = {"email": "Ваша электронная почта"}

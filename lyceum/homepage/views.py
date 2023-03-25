@@ -1,7 +1,8 @@
-import catalog.models
 import django.db.models
 import django.http
 import django.shortcuts
+
+import catalog.models
 
 
 def home(request):

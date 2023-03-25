@@ -2,6 +2,6 @@
 {% load i18n %}
 
 <html>
-  <h1>{% trans "Вы успешно восстановили пароль" %}</h1>
+  <h1>{{ message }}</h1>
   <a href="{% url 'users:login' %}" type="button" class="btn btn-outline-light me-2">{% trans "Войти" %}</a>
 </html>

@@ -1,7 +1,9 @@
-import catalog.converters
 import django.conf
 import django.contrib.auth.views
 import django.urls
+
+import catalog.converters
+import users.forms
 import users.views
 
 app_name = "users"
@@ -15,7 +17,8 @@ urlpatterns = [
     django.urls.path(
         "login/",
         django.contrib.auth.views.LoginView.as_view(
-            template_name="users/login/login.html"
+            template_name="users/login/login.html",
+            form_class=users.forms.CustomAuthenticationForm,
         ),
         name="login",
     ),
@@ -75,6 +78,11 @@ urlpatterns = [
         "signup/activate/<str:activation_code>",
         users.views.signup_activate,
         name="signup_activate",
+    ),
+    django.urls.path(
+        "back/activate/<str:activation_code>",
+        users.views.back_activate,
+        name="back_activate",
     ),
     django.urls.path("users_list/", users.views.users_list, name="users_list"),
     django.urls.path(

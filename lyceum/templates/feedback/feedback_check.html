@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 {% load feedback_tags %}
 
-{% block title %}Проверить мое обращение{% endblock %}
+{% block title %}{% trans "Проверить моё обращение" %}{% endblock %}
 
 
 {% block content %}
 <div class="container pt-4">
   <div class="row justify-content-center  pb-4">
     <div class=" col-md-6  text-center">
-      <h1 class="text-center pb-4">Проверить мой фидбек</h1>
+      <h1 class="text-center pb-4">{% trans "Проверить моё обращение" %}</h1>
       <form method="POST">
         {% csrf_token %}
         {% for form_item in form %}
@@ -28,7 +29,7 @@
         {% for message in messages %}
           <p class="form-status {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}text-danger{% else %}text-success{% endif %}">{{ message }}</p>
         {% endfor %}
-        <input type="submit" class="btn btn-primary" value="Найти">
+        <input type="submit" class="btn btn-primary" value="{% trans 'Найти' %}">
       </form>
     </div>
 
@@ -38,8 +39,8 @@
         {% for feedback in feedbacks %}
           {% id_encode feedback_id=feedback.id as feedback_id_code %}
           <a href="{% url 'feedback:feedback_detail' feedback_id_code=feedback_id_code %}">
-            <p class="mb-0"><strong>Создано: {{ feedback.created_on }}</strong></p>
-            <p><small>Статус: {{ feedback.get_status_display }}</small></p>
+            <p class="mb-0"><strong>{% trans "Создано" %}: {{ feedback.created_on }}</strong></p>
+            <p><small>{% trans "Статус" %}: {{ feedback.get_status_display }}</small></p>
           </a>
         {% endfor %}
       {% endif %}

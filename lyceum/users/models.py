@@ -1,6 +1,8 @@
 import django.contrib.auth.models
 import django.db.models
 
+import users.managers
+
 
 class Profile(django.db.models.Model):
     user = django.db.models.OneToOneField(
@@ -23,11 +25,16 @@ class Profile(django.db.models.Model):
 
     coffee_count = django.db.models.PositiveIntegerField(
         default=0,
-        null=False,
-        blank=False,
         verbose_name="сколько раз сварил кофе",
     )
 
     class Meta:
-        verbose_name = "Дополнительное поле"
-        verbose_name_plural = "Дополнительные поля"
+        verbose_name = "дополнительное поле"
+        verbose_name_plural = "дополнительные поля"
+
+
+class MyUser(django.contrib.auth.models.User):
+    objects = users.managers.MyUserManager()
+
+    class Meta:
+        proxy = True

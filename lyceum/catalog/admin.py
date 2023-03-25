@@ -1,7 +1,8 @@
-import catalog.models
 import django.contrib.admin
 import django.db.models
 import tinymce.widgets
+
+import catalog.models
 
 
 class ImageGalleryInline(django.contrib.admin.StackedInline):

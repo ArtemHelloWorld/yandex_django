@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-01 19:29+0300\n"
+"POT-Creation-Date: 2023-03-25 00:35+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,81 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: .\templates\catalog\item_detail.html:17
+#: .\templates\catalog\item_detail.html:34
+msgid "Скачать фото"
+msgstr "Download image"
+
+#: .\templates\catalog\item_list.html:6
+msgid "Каталог"
+msgstr "Catalog"
+
+#: .\templates\catalog\item_list.html:11
+#: .\templates\catalog\item_unique.html:12
+msgid "Новинки"
+msgstr "New items"
+
+#: .\templates\catalog\item_list.html:12
+#: .\templates\catalog\item_unique.html:13
+msgid "Пятница"
+msgstr "Friday"
+
+#: .\templates\catalog\item_list.html:13
+#: .\templates\catalog\item_unique.html:14
+msgid "Непроверенное"
+msgstr "Unverified"
+
+#: .\templates\feedback\feedback.html:5 .\templates\includes\footer.html:10
+msgid "Обратная связь"
+msgstr "Feedback"
+
+#: .\templates\feedback\feedback.html:12
+msgid "Форма обратной связи"
+msgstr "Feddback form"
+
+#: .\templates\feedback\feedback.html:31
+msgid "Отправить письмо"
+msgstr "Send mail"
+
+#: .\templates\feedback\feedback_check.html:5
+#: .\templates\feedback\feedback_check.html:12
+#: .\templates\includes\footer.html:11
+msgid "Проверить моё обращение"
+msgstr "Check my feedback"
+
+#: .\templates\feedback\feedback_check.html:31
+msgid "Найти"
+msgstr "Search"
+
+#: .\templates\feedback\feedback_check.html:41
+msgid "Создано"
+msgstr "Created"
+
+#: .\templates\feedback\feedback_check.html:42
+#: .\templates\feedback\feedback_detail.html:17
+msgid "Статус"
+msgstr "Status"
+
+#: .\templates\feedback\feedback_detail.html:6
+#: .\templates\feedback\feedback_detail.html:13
+msgid "Мой фидбек"
+msgstr "My feedback"
+
+#: .\templates\feedback\feedback_detail.html:16
+msgid "Отправлено"
+msgstr "Send"
+
+#: .\templates\feedback\feedback_detail.html:20
+msgid "Файлы, прикрепленные к сообщению"
+msgstr "Files attached to the message"
+
+#: .\templates\feedback\feedback_detail.html:28
+msgid "Такого фидбека не существует"
+msgstr "No such feedback"
+
 #: .\templates\includes\header.html:14
+#: .\templates\users\password_change\password_change_done.html:4
+#: .\templates\users\password_reset\password_reset_done.html:6
 msgid "На главную"
 msgstr "Homepage"
 
@@ -30,10 +104,136 @@ msgstr "About"
 msgid "Список товаров"
 msgstr "Shop"
 
-#: .\templates\includes\header.html:21
+#: .\templates\includes\header.html:25
+msgid "Панель администратора"
+msgstr "Admin panel"
+
+#: .\templates\includes\header.html:26
+msgid "Пользователи"
+msgstr "Users"
+
+#: .\templates\includes\header.html:29
+msgid "Выйти"
+msgstr "Logout"
+
+#: .\templates\includes\header.html:30 .\templates\users\profile\profile.html:5
+#: .\templates\users\profile\profile.html:10
+msgid "Мой профиль"
+msgstr "My profile"
+
+#: .\templates\includes\header.html:32
+#: .\templates\users\password_reset\password_reset_complete.html:4
+#: .\templates\users\signup\activation_done.html:4
+#: .\templates\users\signup\signup.html:32
+#: .\templates\users\signup\signup_complete.html:5
 msgid "Войти"
 msgstr "Login"
 
-#: .\templates\includes\header.html:22
+#: .\templates\includes\header.html:33 .\templates\users\signup\signup.html:31
 msgid "Зарегистрироваться"
 msgstr "Sign up"
+
+#: .\templates\includes\item.html:19
+msgid "Перейти"
+msgstr "View"
+
+#: .\templates\users\login\login.html:3
+msgid "Логин"
+msgstr "Login"
+
+#: .\templates\users\login\login.html:5
+#: .\templates\users\password_change\password_change.html:5
+msgid "Забыли пароль?"
+msgstr "Forgot password?"
+
+#: .\templates\users\login\login.html:6 .\templates\users\signup\signup.html:3
+#, fuzzy
+#| msgid "Зарегистрироваться"
+msgid "Регистрация"
+msgstr "Sign up"
+
+#: .\templates\users\password_change\password_change.html:3
+msgid "Смена пароля"
+msgstr "Change password"
+
+#: .\templates\users\password_change\password_change_done.html:3
+msgid "Вы успешно изменили пароль"
+msgstr "You have successfully changed your password"
+
+#: .\templates\users\password_reset\password_reset.html:3
+msgid "Восстановить пароль"
+msgstr "Reset password"
+
+#: .\templates\users\password_reset\password_reset.html:5
+msgid "Я вспомнил пароль"
+msgstr "I remembered password"
+
+#: .\templates\users\password_reset\password_reset_complete.html:3
+msgid "Вы успешно восстановили пароль"
+msgstr "You have successfully reset your password"
+
+#: .\templates\users\password_reset\password_reset_confirm.html:3
+msgid "Придумайте новый пароль"
+msgstr "Create a new password"
+
+#: .\templates\users\profile\profile.html:17
+msgid "Выпить кофе"
+msgstr "Drink a coffee"
+
+#: .\templates\users\profile\profile.html:18
+msgid "Сохранить изменения"
+msgstr "Save changes"
+
+#: .\templates\users\profile\user_detail.html:13
+msgid "Почта"
+msgstr "Email"
+
+#: .\templates\users\profile\user_detail.html:14
+msgid "Имя"
+msgstr "Name"
+
+#: .\templates\users\profile\user_detail.html:14
+#: .\templates\users\profile\user_detail.html:15
+#: .\templates\users\profile\user_detail.html:16
+#: .\templates\users\profile\user_detail.html:23
+msgid "не указано"
+msgstr "not indicated"
+
+#: .\templates\users\profile\user_detail.html:15
+msgid "Фамилия"
+msgstr "Surname"
+
+#: .\templates\users\profile\user_detail.html:16
+msgid "День рождения"
+msgstr "Birthday"
+
+#: .\templates\users\profile\user_detail.html:17
+msgid "Картинка"
+msgstr "Image"
+
+#: .\templates\users\profile\user_detail.html:26
+msgid "Кружек кофе"
+msgstr "Drank cups of coffee"
+
+#: .\templates\users\profile\users_list.html:4
+#, fuzzy
+#| msgid "Зарегистрироваться"
+msgid "Зарегестрированные пользователи"
+msgstr "Sign up"
+
+#: .\templates\users\profile\users_list.html:9
+#, fuzzy
+#| msgid "Список товаров"
+msgid "Список пользователей"
+msgstr "Shop"
+
+#: .\templates\users\signup\signup_complete.html:3
+msgid "На вашу почту отправлена ссылка для завершения регистрации"
+msgstr "A link has been sent to your email to complete your registration."
+
+#: .\templates\users\signup\signup_complete.html:4
+msgid "Ссылка действует 12 часов"
+msgstr "Link valid for 12 hours"
+
+#~ msgid "не добалвено"
+#~ msgstr "not added"

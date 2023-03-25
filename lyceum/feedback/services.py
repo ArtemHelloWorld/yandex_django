@@ -3,6 +3,7 @@ import django.conf
 import django.core.mail
 import django.db.models
 import django.db.models.functions
+
 import feedback.models
 
 MESSAGE = (
@@ -50,6 +51,7 @@ def get_feedbacks_by_email(email):
 
 def decode_item_id(encoded_id):
     f = cryptography.fernet.Fernet(django.conf.settings.KEY32)
+
     encrypt = f.decrypt(encoded_id)
     return int(encrypt)
 

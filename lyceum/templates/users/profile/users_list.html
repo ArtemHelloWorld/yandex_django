@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
-{% block title %}Зарегестрированные пользователи{% endblock %}
+
+{% block title %}{% trans "Зарегестрированные пользователи" %}{% endblock %}
 
 
 {% block content %}
-<h1>Список пользователей:</h1>
+
+<h1>{% trans "Список пользователей" %}:</h1>
 <div class="container pt-4">
  <div class="row">
    {% for user in users %}
@@ -13,4 +16,5 @@
    {% endfor %}
  </div>
 </div>
- {% endblock %}
+
+{% endblock %}

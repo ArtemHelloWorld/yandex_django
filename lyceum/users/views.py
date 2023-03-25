@@ -3,6 +3,7 @@ import django.contrib.auth.decorators
 import django.contrib.auth.forms
 import django.contrib.auth.models
 import django.shortcuts
+
 import users.forms
 import users.models
 import users.services
@@ -22,7 +23,7 @@ def signup(request):
             user.is_active = False
             user.save()
 
-            users.services.send_email_with_registration_link(request, user)
+            users.services.send_email_with_activation_link(request, user)
 
             return django.shortcuts.redirect("users:signup_complete")
 
@@ -43,7 +44,8 @@ def signup_complete(request):
 
 
 def signup_activate(request, activation_code):
-    user = users.services.validate_activation_link(activation_code)
+    user = users.services.validate_activation_link(activation_code, hours=12)
+
     if user and not user.is_active:
         user.is_active = True
         user.save()
@@ -58,7 +60,28 @@ def signup_activate(request, activation_code):
 
     return django.shortcuts.render(
         request=request,
-        template_name="users/signup/signup_done.html",
+        template_name="users/signup/activation_done.html",
+        context=context,
+    )
+
+
+def back_activate(request, activation_code):
+    user = users.services.validate_activation_link(activation_code, days=7)
+
+    if user and not user.is_active:
+        user.is_active = True
+        user.save()
+
+        message = "Вы успешно восставновили аккаунт"
+
+    else:
+        message = "Неверная ссылка или действие ссылки истекло"
+
+    context = {"message": message}
+
+    return django.shortcuts.render(
+        request=request,
+        template_name="users/signup/activation_done.html",
         context=context,
     )
 
@@ -80,19 +103,15 @@ def users_list(request):
 
 
 def user_detail(request, user_id):
-    user_info = (
-        django.contrib.auth.models.User.objects.select_related("profile")
-        .only(
-            "email",
-            "username",
-            "first_name",
-            "last_name",
-            "profile__birthday",
-            "profile__image",
-            "profile__coffee_count",
-        )
-        .get(id=user_id)
-    )
+    user_info = users.models.MyUser.objects.only(
+        "email",
+        "username",
+        "first_name",
+        "last_name",
+        "profile__birthday",
+        "profile__image",
+        "profile__coffee_count",
+    ).get(id=user_id)
 
     context = {
         "user_info": user_info,

@@ -1,7 +1,8 @@
-import catalog.models
 import django.forms.models
 import django.test
 import django.urls
+
+import catalog.models
 
 
 class HomepageTests(django.test.TestCase):
@@ -13,7 +14,7 @@ class HomepageTests(django.test.TestCase):
         super().setUpClass()
         cls.published_category = catalog.models.Category.objects.create(
             is_published=True,
-            name="vfhgffgfgz",
+            name="Тестовая категория опубликованная",
             slug="published_category",
             weight=100,
         )

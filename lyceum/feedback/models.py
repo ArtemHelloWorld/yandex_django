@@ -16,7 +16,7 @@ class Feedback(django.db.models.Model):
         choices=STATUS_CHOICES,
         max_length=8,
         default=RECEIVED,
-        verbose_name="Статус обработки",
+        verbose_name="статус обработки",
     )
     personal_information = django.db.models.OneToOneField(
         "PersonalInformation",
@@ -24,7 +24,7 @@ class Feedback(django.db.models.Model):
         related_name="personal_information",
     )
     created_on = django.db.models.DateTimeField(
-        auto_now_add=True, verbose_name="Дата и время создания"
+        auto_now_add=True, verbose_name="дата и время создания"
     )
 
     class Meta:
@@ -47,5 +47,5 @@ class FeedbackFile(django.db.models.Model):
 
 class PersonalInformation(django.db.models.Model):
     email = django.db.models.EmailField(
-        verbose_name="Почта пользователя, оставившего сообщение"
+        verbose_name="почта пользователя, оставившего сообщение"
     )
