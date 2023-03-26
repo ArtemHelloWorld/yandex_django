@@ -1,3 +1,4 @@
+import cryptography.fernet
 import django.conf
 import django.core.mail
 import django.db.models
@@ -26,6 +27,13 @@ def send_feedback_mail(text, email):
     )
 
 
+def decode_item_id(encoded_id):
+    f = cryptography.fernet.Fernet(django.conf.settings.KEY32)
+
+    encrypt = f.decrypt(encoded_id)
+    return int(encrypt)
+
+
 def add_feedback_to_db(text, email, files):
     personal_information = feedback.models.PersonalInformation.objects.create(
         email=email
@@ -36,3 +44,24 @@ def add_feedback_to_db(text, email, files):
     )
     for file in files:
         feedback.models.FeedbackFile.objects.create(feedback=fb, file=file)
+
+
+def get_feedbacks_by_email(email):
+    feedbacks = feedback.models.Feedback.objects.filter(
+        personal_information__email=email
+    ).only(
+        "status",
+        "created_on",
+    )
+    return feedbacks
+
+
+def get_feedback_by_id_code(feedback_id_code):
+    return (
+        feedback.models.Feedback.objects.prefetch_related(
+            django.db.models.Prefetch("files")
+        )
+        .only("text", "status", "created_on")
+        .filter(pk=decode_item_id(feedback_id_code))
+        .first()
+    )
