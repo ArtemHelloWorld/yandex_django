@@ -60,7 +60,7 @@ INSTALLED_APPS = [
     "sorl.thumbnail",
     "tinymce",
     "django_cleanup.apps.CleanupConfig",
-    'tz_detect',
+    "tz_detect",
 ]
 
 
@@ -72,7 +72,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'tz_detect.middleware.TimezoneMiddleware',
+    "tz_detect.middleware.TimezoneMiddleware",
     "lyceum.middleware.common.ReverseMiddleware",
 ]
 REVERSE_RU = os.getenv("REVERSE_MIDDLEWARE", "False").lower() in (
@@ -156,7 +156,7 @@ LANGUAGES = [
     ("en", "English"),
 ]
 
-TZ_DETECT_COUNTRIES = ('RU', 'US', 'JP')
+TZ_DETECT_COUNTRIES = ("RU", "US", "JP")
 
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, "locale"),

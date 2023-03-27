@@ -12,7 +12,7 @@ urlpatterns = [
     django.urls.path("users/", django.urls.include("users.urls")),
     django.urls.path("users/", django.urls.include(django.contrib.auth.urls)),
     django.urls.path("tinymce/", django.urls.include("tinymce.urls")),
-    django.urls.path('tz_detect/', django.urls.include('tz_detect.urls')),
+    django.urls.path("tz_detect/", django.urls.include("tz_detect.urls")),
     django.urls.path("", django.urls.include("homepage.urls")),
 ]
 if django.conf.settings.DEBUG:
