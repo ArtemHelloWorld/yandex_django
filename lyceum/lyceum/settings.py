@@ -81,7 +81,9 @@ REVERSE_RU = os.getenv("REVERSE_MIDDLEWARE", "False").lower() in (
     "true",
     "1",
 )
-RATE_LIMIT_MIDDLEWARE = os.getenv("RATE_LIMIT_MIDDLEWARE", "False").lower() in (
+RATE_LIMIT_MIDDLEWARE = os.getenv(
+    "RATE_LIMIT_MIDDLEWARE", "False"
+).lower() in (
     "active",
     "true",
     "1",
