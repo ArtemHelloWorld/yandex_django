@@ -2,6 +2,9 @@
 <html lang="en">
 {% load static %}
 {% load thumbnail %}
+{% load tz_detect %}
+{% tz_detect %}
+
 <head>
   <meta charset="UTF-8">
   <title>{% block title %}{% endblock %}</title>
