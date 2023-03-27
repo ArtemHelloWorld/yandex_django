@@ -12,6 +12,9 @@
         {% include "includes/item.html"  with item=item %}
     {% endfor %}
  </div>
+
+  {% include "includes/paginator.html"  with item=item %}
+
 </div>
 
 {% endblock %}

@@ -115,7 +115,6 @@ class ProfileView(
         context = super().get_context_data(**kwargs)
 
         user = self.request.user
-        print(user.email, user.username)
         user_form = users.forms.UserForm(instance=user)
         profile_form = users.forms.UserProfileForm(instance=user.profile)
 
@@ -132,3 +131,4 @@ class ProfileView(
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
+        return django.shortcuts.redirect("users:profile")

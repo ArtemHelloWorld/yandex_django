@@ -9,6 +9,7 @@ import catalog.models
 class HomeView(django.views.generic.ListView):
     template_name = "homepage/home.html"
     context_object_name = "items"
+    paginate_by = 18
 
     def get_queryset(self):
         return catalog.models.Item.objects.published(

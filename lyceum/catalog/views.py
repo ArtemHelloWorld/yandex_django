@@ -11,6 +11,7 @@ NUMBER_OF_ITEMS = 5
 class ItemListView(django.views.generic.ListView):
     template_name = "catalog/item_list.html"
     context_object_name = "items"
+    paginate_by = 18
 
     def get_queryset(self):
         return catalog.models.Item.objects.published(ordering="category__name")
@@ -73,6 +74,7 @@ class DownloadImageGalleryView(django.views.generic.View):
 class ItemsNewView(django.views.generic.ListView):
     template_name = "catalog/item_unique.html"
     context_object_name = "items"
+    paginate_by = 18
 
     def get_queryset(self):
         return catalog.models.Item.objects.this_week(NUMBER_OF_ITEMS)
@@ -87,6 +89,7 @@ class ItemsNewView(django.views.generic.ListView):
 class ItemsFridayView(django.views.generic.ListView):
     template_name = "catalog/item_unique.html"
     context_object_name = "items"
+    paginate_by = 18
 
     def get_queryset(self):
         return catalog.models.Item.objects.friday(NUMBER_OF_ITEMS)
@@ -101,6 +104,7 @@ class ItemsFridayView(django.views.generic.ListView):
 class ItemsUnverifiedView(django.views.generic.ListView):
     template_name = "catalog/item_unique.html"
     context_object_name = "items"
+    paginate_by = 18
 
     def get_queryset(self):
         return catalog.models.Item.objects.unverified()
