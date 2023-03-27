@@ -2,6 +2,17 @@
 {% load i18n %}
 
 <header class="p-3 text-bg-dark">
+
+  {% if BIRTHDAY_PEOPLE|length %}
+    <marquee>
+    {% if BIRTHDAY_PEOPLE|length > 1 %}ИМЕНИННИКИ!!!{% else %}ИМЕНИННИК!!!{% endif %}
+    {% for birthday_man in BIRTHDAY_PEOPLE %}
+      {{ birthday_man.username }} {% if birthday_man.email %}({{ birthday_man.email }}){% endif %} {% if not forloop.last %}|{% endif %}
+    {% endfor %}
+    ПОЗДРАВЛЯЕМ И ДАРИМ СКИДКУ 5% НА ВСЮ НАШУ ПРОДУКЦИЮ :)
+    </marquee>
+  {% endif %}
+
   <div class="container">
     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
       <a href="{% url 'homepage:homepage' %}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
