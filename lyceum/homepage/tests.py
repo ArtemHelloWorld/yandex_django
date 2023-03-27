@@ -5,6 +5,7 @@ import django.urls
 import catalog.models
 
 
+@django.test.override_settings(RATE_LIMIT_MIDDLEWARE=False)
 class HomepageTests(django.test.TestCase):
     def setUp(self):
         self.client = django.test.Client()

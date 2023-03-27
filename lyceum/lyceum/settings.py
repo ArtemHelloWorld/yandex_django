@@ -73,9 +73,15 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "tz_detect.middleware.TimezoneMiddleware",
-    "lyceum.middleware.common.ReverseMiddleware",
+    "lyceum.middleware.custom.ReverseMiddleware",
+    "lyceum.middleware.custom.RateLimitMiddleware",
 ]
 REVERSE_RU = os.getenv("REVERSE_MIDDLEWARE", "False").lower() in (
+    "active",
+    "true",
+    "1",
+)
+RATE_LIMIT_MIDDLEWARE = os.getenv("RATE_LIMIT_MIDDLEWARE", "False").lower() in (
     "active",
     "true",
     "1",
@@ -224,3 +230,4 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 MAX_FAILED_LOGIN_ATTEMPTS = os.getenv("MAX_FAILED_LOGIN_ATTEMPTS", 3)
+REQUESTS_PER_SECOND = os.getenv("REQUESTS_PER_SECOND", 10)
