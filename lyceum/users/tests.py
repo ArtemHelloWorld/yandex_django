@@ -487,7 +487,7 @@ class ActivationBackClass(django.test.TestCase):
             )
 
 
-class BirtdayContextProcessorTest(django.test.TestCase):
+class BirthdayContextProcessorTest(django.test.TestCase):
     def registrate_user(self):
         form_data_signup = {
             "username": "testusername",
