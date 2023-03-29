@@ -7,8 +7,8 @@ import django.urls
 import freezegun
 import parameterized
 
-import users.models
 import users.forms
+import users.models
 import users.services
 
 
