@@ -7,9 +7,9 @@ import django.urls
 import freezegun
 import parameterized
 
+import users.models
 import users.forms
 import users.services
-import users.models
 
 
 @django.test.override_settings(RATE_LIMIT_MIDDLEWARE=False)
@@ -512,13 +512,13 @@ class BirtdayContextProcessorTest(django.test.TestCase):
         profile = users.models.Profile.objects.get(user_id=user_id)
         profile.birthday = "2023-01-01"
         profile.save()
-        
+
         with freezegun.freeze_time("2023-01-01 00:30:00"):
             response = django.test.Client().get(
                 django.urls.reverse("homepage:homepage")
             )
             self.assertNotEqual(len(response.context["BIRTHDAY_PEOPLE"]), 0)
-    
+
     @freezegun.freeze_time("2023-01-01 00:00:01")
     def test_birthday_not_today(self):
         self.registrate_user()
@@ -529,7 +529,7 @@ class BirtdayContextProcessorTest(django.test.TestCase):
         profile = users.models.Profile.objects.get(user_id=user_id)
         profile.birthday = "2023-01-02"
         profile.save()
-        
+
         with freezegun.freeze_time("2023-01-01 00:30:00"):
             response = django.test.Client().get(
                 django.urls.reverse("homepage:homepage")
