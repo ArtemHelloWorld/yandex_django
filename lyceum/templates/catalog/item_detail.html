@@ -23,7 +23,7 @@
       <p>{{ item.text|safe }}</p>
       <p><strong>Категория: </strong>{{ item.category.name }}</p>
       <p><strong>Теги: </strong>{% for tag in item.tags.all %}{{ tag.name }} {% endfor %}</p>
-      {% if item.reviews %}
+      {% if item.reviews.exists %}
         <p>Средняя оценка: <span class="fs-4 fw-bold">{{ item.avg_rating|floatformat }}</span></p>
         <p>Количество оценок: {{ item.reviews.count }}</p>
       {% else %}
@@ -43,13 +43,13 @@
     </div>
     {% endfor %}
   </div>
-  {% if request.user %}
-    <div class="mt-3">
+  <div class="mt-3">
+    {% if request.user.is_authenticated %}
       {% if review %}
         <h2>Ваша оценка: {{ review.rating }}</h2>
         <form action="{% url 'rating:delete' item.id %}" method="post">
           {% csrf_token %}
-          <button class="btn btn-primary" type="submit">Удалить оценку</button>
+          <button class="btn btn-danger" type="submit">Удалить оценку</button>
         </form>
         <p>Изменить оценку:</p>
       {% else %}
@@ -57,11 +57,13 @@
       {% endif %}
       <form action="" method="POST">
         {% csrf_token %}
-        {{ form.fields.rating }}
+        {{ review_form.rating }}
         <button class="btn btn-primary" type="submit">Поставить</button>
       </form>
-    </div>
-  {% endif %}
+    {% else %}
+      Войдите, чтобы ставить оценки товарам
+    {% endif %}
+  </div>
 </div>
 
 {% endblock %}

@@ -6,29 +6,27 @@ import catalog.models
 
 
 class ReviewManager(django.db.models.Manager):
-    def get_rating(self, **kwargs):
-        queryset = (
-            self.get_queryset()
-            .filter(**kwargs)
-        )
+    def get(self, **kwargs):
+        queryset = self.get_queryset().filter(**kwargs)
         if queryset:
-            return queryset[0].rating
+            return queryset[0]
         return None
 
 
 class Review(django.db.models.Model):
     class Rating(django.db.models.IntegerChoices):
-        VERY_BAD = (1, "Very bad")
-        BAD = (2, "Bad")
-        NEUTRAL = (3, "Neutral")
-        GOOD = (4, "Good")
-        VERY_GOOD = (5, "Very good")
+        VERY_BAD = (1, "1")
+        BAD = (2, "2")
+        NEUTRAL = (3, "3")
+        GOOD = (4, "4")
+        VERY_GOOD = (5, "5")
 
     objects = ReviewManager()
-    
+
     rating = django.db.models.SmallIntegerField(
         choices=Rating.choices,
         verbose_name="оценка",
+        default=Rating.NEUTRAL,
         help_text="Целое число от 1 до 5",
     )
     item = django.db.models.ForeignKey(

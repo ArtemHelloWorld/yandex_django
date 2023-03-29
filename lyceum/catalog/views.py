@@ -2,10 +2,10 @@ import django.db.models
 import django.http
 import django.shortcuts
 import django.views.generic
-
-import catalog.models
 import rating.forms
 import rating.models
+
+import catalog.models
 
 NUMBER_OF_ITEMS = 5
 
@@ -29,38 +29,41 @@ class ItemDetailView(django.views.generic.View):
             "gallery",
         )
         item = django.shortcuts.get_object_or_404(queryset, id=item_pk)
-        review = rating.models.Review.objects.get_rating(
-            user=request.user, 
-            item=item,
-        ) if request.user.is_authenticated else None
+        review = (
+            rating.models.Review.objects.get(
+                user=request.user,
+                item=item,
+            )
+            if request.user.is_authenticated
+            else None
+        )
 
         context = {
-            "item": item, 
+            "item": item,
             "review_form": self.form_class(instance=review),
             "delete_review_form": self.delete_form_class(),
             "review": review,
         }
 
         return django.shortcuts.render(request, self.template_name, context)
-    
+
     def post(self, request, item_pk):
         form = self.form_class(request.POST)
 
         if form.is_valid():
-            rating = form.cleaned_data["rating"]
+            score = form.cleaned_data["rating"]
 
-            review = rating.models.Review.objects.get_rating(
-                user=request.user, 
+            review = rating.models.Review.objects.get(
+                user=request.user,
                 item__id=item_pk,
             ) or rating.models.Review.objects.create(
-                user=request.user, 
-                item_id=item_pk
+                user=request.user, item_id=item_pk
             )
-            
-            review.rating = rating
+
+            review.rating = score
             review.save()
 
-        django.shortcuts.redirect("catalog:item_detail", item_pk=item_pk)
+        return django.shortcuts.redirect("catalog:item_detail", item_pk=item_pk)
 
 
 class DownloadImageMainView(django.views.generic.View):
