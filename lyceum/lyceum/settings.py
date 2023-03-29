@@ -46,17 +46,18 @@ INTERNAL_IPS = [
 # Application definition
 
 INSTALLED_APPS = [
+    "about.apps.AboutConfig",
+    "catalog.apps.CatalogConfig",
+    "feedback.apps.FeedbackConfig",
+    "homepage.apps.HomepageConfig",
+    "rating.apps.RatingConfig",
+    "users.apps.UsersConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "about.apps.AboutConfig",
-    "catalog.apps.CatalogConfig",
-    "feedback.apps.FeedbackConfig",
-    "homepage.apps.HomepageConfig",
-    "users.apps.UsersConfig",
     "sorl.thumbnail",
     "tinymce",
     "django_cleanup.apps.CleanupConfig",
@@ -231,5 +232,5 @@ AUTHENTICATION_BACKENDS = [
     "users.backends.AuthByEmailOrUsernameBackend",
 ]
 
-MAX_FAILED_LOGIN_ATTEMPTS = os.getenv("MAX_FAILED_LOGIN_ATTEMPTS", 3)
-REQUESTS_PER_SECOND = os.getenv("REQUESTS_PER_SECOND", 10)
+MAX_FAILED_LOGIN_ATTEMPTS = int(os.getenv("MAX_FAILED_LOGIN_ATTEMPTS", 3))
+REQUESTS_PER_SECOND = int(os.getenv("REQUESTS_PER_SECOND", 10))

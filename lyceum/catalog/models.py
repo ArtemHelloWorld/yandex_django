@@ -50,6 +50,12 @@ class Item(core.models.NameFieldMixin, core.models.IsPublishedFieldMixin):
         auto_now=True, verbose_name="дата последнего изменения"
     )
 
+    @property
+    def avg_rating(self):
+        return self.reviews.aggregate(
+            avg_rating=django.db.models.Avg("rating")
+        )["avg_rating"]
+
     def get_absolute_url(self):
         return django.urls.reverse(
             "catalog:item_detail", kwargs={"item_pk": self.pk}
