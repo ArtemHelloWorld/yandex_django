@@ -2,6 +2,7 @@ import django.conf
 import django.contrib.auth.forms
 import django.contrib.auth.models
 import django.forms
+import django.contrib.admin.widgets
 
 import users.models
 import users.services
@@ -13,9 +14,15 @@ class UserForm(django.forms.ModelForm):
         fields = ("email", "username", "first_name", "last_name")
 
 
+class DateInput(django.forms.DateInput):
+    input_type = 'date'
+
+
 class UserProfileForm(django.forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        self.fields["birthday"].widget = django.contrib.admin.widgets.AdminDateWidget(attrs={'type': 'date'})
 
         for field in self.Meta.readonly:
             self.fields[field].widget.attrs["readonly"] = True
@@ -38,7 +45,7 @@ class SignUpForm(django.contrib.auth.forms.UserCreationForm):
         username = self.cleaned_data.get("username")
 
         if django.contrib.auth.models.User.objects.filter(
-            username=username
+                username=username
         ).exists():
             raise django.forms.ValidationError("Такое имя уже существует")
 
@@ -50,7 +57,7 @@ class SignUpForm(django.contrib.auth.forms.UserCreationForm):
         normalized_email = users.services.generate_normalize_email(email)
 
         if django.contrib.auth.models.User.objects.filter(
-            email=normalized_email
+                email=normalized_email
         ).exists():
             raise django.forms.ValidationError("Такая почта уже существует")
 
