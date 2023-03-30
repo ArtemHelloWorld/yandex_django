@@ -22,7 +22,6 @@ class ItemListView(django.views.generic.ListView):
 class ItemDetailView(django.views.generic.View):
     template_name = "catalog/item_detail.html"
     form_class = rating.forms.ReviewForm
-    delete_form_class = rating.forms.DeleteReviewForm
 
     def get(self, request: django.http.HttpRequest, item_pk: int):
         queryset = catalog.models.Item.objects.published().prefetch_related(
@@ -41,7 +40,6 @@ class ItemDetailView(django.views.generic.View):
         context = {
             "item": item,
             "review_form": self.form_class(instance=review),
-            "delete_review_form": self.delete_form_class(),
             "review": review,
         }
 
@@ -53,17 +51,13 @@ class ItemDetailView(django.views.generic.View):
         if form.is_valid():
             score = form.cleaned_data["rating"]
 
-            review = rating.models.Review.objects.get(
-                user=request.user,
-                item__id=item_pk,
-            ) or rating.models.Review.objects.create(
-                user=request.user, item_id=item_pk
+            rating.models.Review.objects.update_or_create(
+                user=request.user, item_id=item_pk, defaults={"rating": score}
             )
 
-            review.rating = score
-            review.save()
-
-        return django.shortcuts.redirect("catalog:item_detail", item_pk=item_pk)
+        return django.shortcuts.redirect(
+            "catalog:item_detail", item_pk=item_pk
+        )
 
 
 class DownloadImageMainView(django.views.generic.View):

@@ -23,10 +23,10 @@ class Review(django.db.models.Model):
 
     objects = ReviewManager()
 
-    rating = django.db.models.SmallIntegerField(
+    rating = django.db.models.PositiveSmallIntegerField(
         choices=Rating.choices,
         verbose_name="оценка",
-        default=Rating.NEUTRAL,
+        default=Rating.VERY_GOOD,
         help_text="Целое число от 1 до 5",
     )
     item = django.db.models.ForeignKey(
