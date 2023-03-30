@@ -14,10 +14,6 @@ class UserForm(django.forms.ModelForm):
         fields = ("email", "username", "first_name", "last_name")
 
 
-class DateInput(django.forms.DateInput):
-    input_type = 'date'
-
-
 class UserProfileForm(django.forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -34,7 +30,9 @@ class UserProfileForm(django.forms.ModelForm):
         readonly = ("coffee_count",)
 
 
-class SignUpForm(django.contrib.auth.forms.UserCreationForm):
+class SignUpForm(
+    django.contrib.auth.forms.UserCreationForm
+):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

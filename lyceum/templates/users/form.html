@@ -1,3 +1,5 @@
+{% load static %}
+
 {% for error in form.non_field_errors %}
   {{ error|escape }}
 {% endfor %}
@@ -6,20 +8,23 @@
   {% csrf_token %}
 
   {% for field in form %}
-    {{ field.error }}
-    <label for="{{ field.id_for_label }}">
-      {{ field.label }}
-        {% if field.field.required %}
-          <span>*</span>
-        {% endif %}
-    </label>
-    {{ field }}
-    {% if field.help_text %}
-      <small id="{{ field.id_for_label }}-help">
-        {{ field.help_text|safe }}
-      </small>
-    {% endif %}
-
+    <div class="form-group">
+      {{ field.error }}
+      <label for="{{ field.id_for_label }}">
+        {{ field.label }}
+          {% if field.field.required %}
+            <span>*</span>
+          {% endif %}
+      </label>
+      {{ field }}
+    </div>
+    <div class="form-help-text">
+      {% if field.help_text %}
+        <small id="{{ field.id_for_label }}-help">
+          {{ field.help_text|safe }}
+        </small>
+      {% endif %}
+    </div>
   {% endfor %}
-  <button type="submit">{{ btn_text }}</button>
+  <button type="submit" class="btn btn-outline-dark me-2">{{ btn_text }}</button>
 </form>

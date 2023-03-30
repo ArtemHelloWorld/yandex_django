@@ -1,10 +1,15 @@
-<!DOCTYPE html>
+{% extends 'users/base.html' %}
+
 {% load i18n %}
 
-<html>
+{% block title %}
+  {% trans "Логин" %}
+{% endblock %}
+
+{% block content %}
   <h1>{% trans "Логин" %}</h1>
   {% trans "Войти" as login_message %}
   {% include "users/form.html" with form=form btn_text=login_message %}
-  <a href="{% url 'users:password_reset' %}" type="button" class="btn btn-outline-light me-2">{% trans "Забыли пароль?" %}</a>
-  <a href="{% url 'users:signup' %}" type="button" class="btn btn-outline-light me-2">{% trans "Регистрация" %}</a>
-</html>
+  <a href="{% url 'users:password_reset' %}" type="button" class="btn btn-outline-dark me-2">{% trans "Забыли пароль?" %}</a>
+  <a href="{% url 'users:signup' %}" type="button" class="btn btn-outline-dark me-2">{% trans "Регистрация" %}</a>
+{% endblock %}
