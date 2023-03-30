@@ -510,7 +510,7 @@ class BirthdayContextProcessorTest(django.test.TestCase):
             username="testusername"
         ).id
         profile = users.models.Profile.objects.get(user_id=user_id)
-        profile.birthday = "2023-01-01"
+        profile.birthday = "1984-01-01"
         profile.save()
 
         with freezegun.freeze_time("2023-01-01 00:30:00"):
