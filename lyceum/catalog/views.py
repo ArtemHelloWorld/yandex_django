@@ -2,6 +2,8 @@ import django.db.models
 import django.http
 import django.shortcuts
 import django.views.generic
+import rating.forms
+import rating.models
 
 import catalog.models
 
@@ -17,14 +19,44 @@ class ItemListView(django.views.generic.ListView):
         return catalog.models.Item.objects.published(ordering="category__name")
 
 
-class ItemDetailView(django.views.generic.DetailView):
+class ItemDetailView(django.views.generic.View):
     template_name = "catalog/item_detail.html"
-    pk_url_kwarg = "item_pk"
-    context_object_name = "item"
+    form_class = rating.forms.ReviewForm
 
-    def get_queryset(self):
-        return catalog.models.Item.objects.published().prefetch_related(
+    def get(self, request: django.http.HttpRequest, item_pk: int):
+        queryset = catalog.models.Item.objects.published().prefetch_related(
             "gallery",
+        )
+        item = django.shortcuts.get_object_or_404(queryset, id=item_pk)
+        review = (
+            rating.models.Review.objects.get(
+                user=request.user,
+                item=item,
+            )
+            if request.user.is_authenticated
+            else None
+        )
+
+        context = {
+            "item": item,
+            "review_form": self.form_class(instance=review),
+            "review": review,
+        }
+
+        return django.shortcuts.render(request, self.template_name, context)
+
+    def post(self, request, item_pk):
+        form = self.form_class(request.POST)
+
+        if form.is_valid():
+            score = form.cleaned_data["rating"]
+
+            rating.models.Review.objects.update_or_create(
+                user=request.user, item_id=item_pk, defaults={"rating": score}
+            )
+
+        return django.shortcuts.redirect(
+            "catalog:item_detail", item_pk=item_pk
         )
 
 

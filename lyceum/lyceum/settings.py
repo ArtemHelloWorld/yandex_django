@@ -46,17 +46,18 @@ INTERNAL_IPS = [
 # Application definition
 
 INSTALLED_APPS = [
+    "about.apps.AboutConfig",
+    "catalog.apps.CatalogConfig",
+    "feedback.apps.FeedbackConfig",
+    "homepage.apps.HomepageConfig",
+    "rating.apps.RatingConfig",
+    "users.apps.UsersConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "about.apps.AboutConfig",
-    "catalog.apps.CatalogConfig",
-    "feedback.apps.FeedbackConfig",
-    "homepage.apps.HomepageConfig",
-    "users.apps.UsersConfig",
     "sorl.thumbnail",
     "tinymce",
     "django_cleanup.apps.CleanupConfig",
