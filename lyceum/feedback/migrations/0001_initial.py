@@ -6,44 +6,108 @@ import feedback.models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Feedback',
+            name="Feedback",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('text', models.TextField(verbose_name='Сообщение пользователя')),
-                ('status', models.CharField(choices=[('received', 'Получено'), ('handling', 'В обработке'), ('answered', 'Ответ дан')], default='received', max_length=8, verbose_name='статус обработки')),
-                ('created_on', models.DateTimeField(auto_now_add=True, verbose_name='дата и время создания')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "text",
+                    models.TextField(verbose_name="Сообщение пользователя"),
+                ),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[
+                            ("received", "Получено"),
+                            ("handling", "В обработке"),
+                            ("answered", "Ответ дан"),
+                        ],
+                        default="received",
+                        max_length=8,
+                        verbose_name="статус обработки",
+                    ),
+                ),
+                (
+                    "created_on",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="дата и время создания"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'сообщение пользователя',
-                'verbose_name_plural': 'сообщения пользователей',
+                "verbose_name": "сообщение пользователя",
+                "verbose_name_plural": "сообщения пользователей",
             },
         ),
         migrations.CreateModel(
-            name='PersonalInformation',
+            name="PersonalInformation",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('email', models.EmailField(max_length=254, verbose_name='почта пользователя, оставившего сообщение')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "email",
+                    models.EmailField(
+                        max_length=254,
+                        verbose_name="почта пользователя, оставившего сообщение",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='FeedbackFile',
+            name="FeedbackFile",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('file', models.FileField(upload_to=feedback.models.feedback_upload_path)),
-                ('feedback', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='files', to='feedback.feedback')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "file",
+                    models.FileField(
+                        upload_to=feedback.models.feedback_upload_path
+                    ),
+                ),
+                (
+                    "feedback",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="files",
+                        to="feedback.feedback",
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='feedback',
-            name='personal_information',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='personal_information', to='feedback.personalinformation'),
+            model_name="feedback",
+            name="personal_information",
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="personal_information",
+                to="feedback.personalinformation",
+            ),
         ),
     ]

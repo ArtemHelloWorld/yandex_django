@@ -6,38 +6,68 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('auth', '0012_alter_user_first_name_max_length'),
+        ("auth", "0012_alter_user_first_name_max_length"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='MyUser',
-            fields=[
-            ],
+            name="MyUser",
+            fields=[],
             options={
-                'proxy': True,
-                'indexes': [],
-                'constraints': [],
+                "proxy": True,
+                "indexes": [],
+                "constraints": [],
             },
-            bases=('auth.user',),
+            bases=("auth.user",),
         ),
         migrations.CreateModel(
-            name='Profile',
+            name="Profile",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('birthday', models.DateField(blank=True, null=True, verbose_name='дата рождения')),
-                ('image', models.ImageField(blank=True, null=True, upload_to='item/main/%Y/%m/%d', verbose_name='аватарка')),
-                ('coffee_count', models.PositiveIntegerField(default=0, verbose_name='сколько раз сварил кофе')),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "birthday",
+                    models.DateField(
+                        blank=True, null=True, verbose_name="дата рождения"
+                    ),
+                ),
+                (
+                    "image",
+                    models.ImageField(
+                        blank=True,
+                        null=True,
+                        upload_to="item/main/%Y/%m/%d",
+                        verbose_name="аватарка",
+                    ),
+                ),
+                (
+                    "coffee_count",
+                    models.PositiveIntegerField(
+                        default=0, verbose_name="сколько раз сварил кофе"
+                    ),
+                ),
+                (
+                    "user",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'дополнительное поле',
-                'verbose_name_plural': 'дополнительные поля',
+                "verbose_name": "дополнительное поле",
+                "verbose_name_plural": "дополнительные поля",
             },
         ),
     ]
