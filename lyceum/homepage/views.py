@@ -1,28 +1,31 @@
 import django.db.models
 import django.http
 import django.shortcuts
+import django.views.generic
 
 import catalog.models
 
 
-def home(request):
-    items = catalog.models.Item.objects.published(
-        is_on_main=True, ordering="name"
-    )
+class HomeView(django.views.generic.ListView):
+    template_name = "homepage/home.html"
+    context_object_name = "items"
+    paginate_by = 18
 
-    context = {
-        "title": "Главная",
-        "content": "Главная",
-        "items": items,
-    }
-    return django.shortcuts.render(
-        request=request, template_name="homepage/home.html", context=context
-    )
+    def get_queryset(self):
+        return catalog.models.Item.objects.published(
+            is_on_main=True, ordering="name"
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Главная"
+        return context
 
 
-def error418(request):
-    if request.user.is_authenticated:
-        request.user.profile.coffee_count += 1
-        request.user.profile.save()
+class Error418(django.views.generic.View):
+    def get(self, request):
+        if self.request.user.is_authenticated:
+            self.request.user.profile.coffee_count += 1
+            self.request.user.profile.save()
 
-    return django.http.HttpResponse("<body>Я чайник.</body>", status=418)
+        return django.http.HttpResponse("<body>Я чайник.</body>", status=418)

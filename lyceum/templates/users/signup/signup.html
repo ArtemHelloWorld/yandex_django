@@ -1,38 +1,16 @@
-<!DOCTYPE html>
+{% extends 'users/base.html' %}
+
 {% load i18n %}
 
-<html>
+{% block title %}
+  {% trans "Регистрация" %}
+{% endblock %}
+
+{% block content %}
   <h1>{% trans "Регистрация" %}</h1>
-  {% if form.errors %}
-    {% for field in form %}
-      {% for error in field.error %}
-        {{ error|escape }}
-      {% endfor %}
-    {% endfor %}
-    {% for error in form.non_field_errors %}
-      {{ error|escape }}
-    {% endfor %}
-  {% endif %}
 
-  <form action="" method="POST">
-    {% csrf_token %}
-    {% for field in form %}
-      <label for="{{ field.id_for_label }}">
-        {{ field.label }}
-          {% if field.field.required %}
-            <span>*</span>
-          {% endif %}
-      </label>
-      {{ field }}
-      {% if field.help_text %}
-        <small id="{{ field.id_for_label }}-help">
-          {{ field.help_text|safe }}
-        </small>
-      {% endif %}
-    {% endfor %}
-    <button type="submit">{% trans "Зарегистрироваться" %}</button>
-    <a href="{% url 'users:login' %}" type="button" class="btn btn-outline-light me-2">{% trans "Войти" %}</a>
+    {% trans "Зарегистрироваться" as login_message %}
+    {% include "users/form.html" with form=form btn_text=login_message %}
+    <a href="{% url 'users:login' %}" type="button" class="btn btn-outline-dark me-2">{% trans "Войти" %}</a>
 
-  </form>
-
-</html>
+{% endblock %}

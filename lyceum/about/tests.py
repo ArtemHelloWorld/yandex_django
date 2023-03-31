@@ -2,6 +2,7 @@ import django.test
 import django.urls
 
 
+@django.test.override_settings(RATE_LIMIT_MIDDLEWARE=False)
 class AboutTests(django.test.TestCase):
     def setUp(self):
         self.client = django.test.Client()

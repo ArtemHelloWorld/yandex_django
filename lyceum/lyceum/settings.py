@@ -46,20 +46,22 @@ INTERNAL_IPS = [
 # Application definition
 
 INSTALLED_APPS = [
+    "about.apps.AboutConfig",
+    "catalog.apps.CatalogConfig",
+    "feedback.apps.FeedbackConfig",
+    "homepage.apps.HomepageConfig",
+    "rating.apps.RatingConfig",
+    "users.apps.UsersConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "about.apps.AboutConfig",
-    "catalog.apps.CatalogConfig",
-    "feedback.apps.FeedbackConfig",
-    "homepage.apps.HomepageConfig",
-    "users.apps.UsersConfig",
     "sorl.thumbnail",
     "tinymce",
     "django_cleanup.apps.CleanupConfig",
+    "tz_detect",
 ]
 
 
@@ -71,9 +73,18 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "lyceum.middleware.common.ReverseMiddleware",
+    "tz_detect.middleware.TimezoneMiddleware",
+    "lyceum.middleware.custom.ReverseMiddleware",
+    "lyceum.middleware.custom.RateLimitMiddleware",
 ]
 REVERSE_RU = os.getenv("REVERSE_MIDDLEWARE", "False").lower() in (
+    "active",
+    "true",
+    "1",
+)
+RATE_LIMIT_MIDDLEWARE = os.getenv(
+    "RATE_LIMIT_MIDDLEWARE", "False"
+).lower() in (
     "active",
     "true",
     "1",
@@ -98,6 +109,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "lyceum.context_processors.birthday_people",
             ],
         },
     },
@@ -152,6 +164,8 @@ LANGUAGES = [
     ("ru", "Russian"),
     ("en", "English"),
 ]
+
+TZ_DETECT_COUNTRIES = ("RU", "US", "JP")
 
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, "locale"),
@@ -218,4 +232,5 @@ AUTHENTICATION_BACKENDS = [
     "users.backends.AuthByEmailOrUsernameBackend",
 ]
 
-MAX_FAILED_LOGIN_ATTEMPTS = os.getenv("MAX_FAILED_LOGIN_ATTEMPTS", 3)
+MAX_FAILED_LOGIN_ATTEMPTS = int(os.getenv("MAX_FAILED_LOGIN_ATTEMPTS", 3))
+REQUESTS_PER_SECOND = int(os.getenv("REQUESTS_PER_SECOND", 10))

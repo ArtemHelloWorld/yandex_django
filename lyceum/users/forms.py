@@ -1,4 +1,5 @@
 import django.conf
+import django.contrib.admin.widgets
 import django.contrib.auth.forms
 import django.contrib.auth.models
 import django.forms
@@ -16,6 +17,12 @@ class UserForm(django.forms.ModelForm):
 class UserProfileForm(django.forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        self.fields[
+            "birthday"
+        ].widget = django.contrib.admin.widgets.AdminDateWidget(
+            attrs={"type": "date"}
+        )
 
         for field in self.Meta.readonly:
             self.fields[field].widget.attrs["readonly"] = True

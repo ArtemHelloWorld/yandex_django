@@ -7,6 +7,7 @@ import feedback.forms
 import feedback.models
 
 
+@django.test.override_settings(RATE_LIMIT_MIDDLEWARE=False)
 class ContextTests(django.test.TestCase):
     def setUp(self):
         self.client = django.test.Client()

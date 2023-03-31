@@ -70,25 +70,33 @@ urlpatterns = [
         ),
         name="password_reset_complete",
     ),
-    django.urls.path("signup/", users.views.signup, name="signup"),
     django.urls.path(
-        "signup_complete/", users.views.signup_complete, name="signup_complete"
+        "signup/", users.views.SignupView.as_view(), name="signup"
+    ),
+    django.urls.path(
+        "signup_complete/",
+        users.views.SignupCompleteView.as_view(),
+        name="signup_complete",
     ),
     django.urls.path(
         "signup/activate/<str:activation_code>",
-        users.views.signup_activate,
+        users.views.SignupActivateView.as_view(),
         name="signup_activate",
     ),
     django.urls.path(
         "back/activate/<str:activation_code>",
-        users.views.back_activate,
+        users.views.BackActivateView.as_view(),
         name="back_activate",
     ),
-    django.urls.path("users_list/", users.views.users_list, name="users_list"),
+    django.urls.path(
+        "users_list/", users.views.UsersListView.as_view(), name="users_list"
+    ),
     django.urls.path(
         "user_detail/<customint:user_id>/",
-        users.views.user_detail,
+        users.views.UserDetail.as_view(),
         name="user_detail",
     ),
-    django.urls.path("profile/", users.views.profile, name="profile"),
+    django.urls.path(
+        "profile/", users.views.ProfileView.as_view(), name="profile"
+    ),
 ]
