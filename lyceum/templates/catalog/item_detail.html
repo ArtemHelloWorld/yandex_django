@@ -29,6 +29,7 @@
       {% else %}
         <p>Нет оценок</p>
       {% endif %}
+      <a href="{% url 'statistic:item' item.id %}" class="btn btn-primary">Статистика товара</a>
     </div>
   </div>
 

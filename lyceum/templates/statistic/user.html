@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Статистика пользователя" %} {{ user.username }}{% endblock %}
+
+
+{% block content %}
+<div class="container pt-4">
+  <h1 class="mt-4 mb-5">Cтатистика пользователя {{ user.username }}</h1>
+  {% if reviews_count %}
+    <div class="row">
+      <div class="col-md-6 col-lg-4">
+        <h3>Средняя оценка</h3>
+        <div class="fs-4">{{ avg_rating|floatformat }}</div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <h3>Количество оценок</h3>
+        <div class="fs-4">{{ reviews_count }}</div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <h3>Лучший товар</h3>
+        <div class="fs-4">{{ best_item.name }}</div>
+        <a href="{{ best_item.get_absolute_url }}" class="btn btn-primary">Перейти к товару</a>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <h3>Худший товар</h3>
+        <div class="fs-4">{{ worst_item.name }}</div>
+        <a href="{{ worst_item.get_absolute_url }}" class="btn btn-primary">Перейти к товару</a>
+      </div>
+    </div>
+  {% else %}
+    <h3 class="text-center mt-3">У пользователя нет оценок</h3>
+  {% endif %}
+  
+</div>
+
+{% endblock %}

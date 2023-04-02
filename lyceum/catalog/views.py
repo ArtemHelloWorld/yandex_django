@@ -2,10 +2,10 @@ import django.db.models
 import django.http
 import django.shortcuts
 import django.views.generic
-import rating.forms
-import rating.models
 
 import catalog.models
+import rating.forms
+import rating.models
 
 NUMBER_OF_ITEMS = 5
 

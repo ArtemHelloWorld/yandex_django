@@ -41,6 +41,9 @@ class Review(django.db.models.Model):
         related_name="reviews",
         verbose_name="пользователь",
     )
+    created_at = django.db.models.DateTimeField(
+        auto_now_add=True, verbose_name="Дата и время создания"
+    )
 
     class Meta:
         verbose_name = "отзыв/оценка товара"

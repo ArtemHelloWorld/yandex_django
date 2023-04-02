@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "feedback.apps.FeedbackConfig",
     "homepage.apps.HomepageConfig",
     "rating.apps.RatingConfig",
+    "statistic.apps.StatisticConfig",
     "users.apps.UsersConfig",
     "django.contrib.admin",
     "django.contrib.auth",

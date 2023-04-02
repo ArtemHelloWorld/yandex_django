@@ -25,7 +25,7 @@
         <li><a href="{% url 'homepage:homepage' %}" class="nav-link px-2 {% if view_name == 'homepage:homepage' %} text-secondary {% else %} text-white {% endif %}">{% trans "На главную" %}</a></li>
         <li><a href="{% url 'about:description' %}" class="nav-link px-2 {% if view_name == 'about:description' %} text-secondary {% else %} text-white {% endif %}">{% trans "О проекте" %}</a></li>
         <li><a href="{% url 'catalog:item_list' %}" class="nav-link px-2 {% if view_name == 'catalog:item_list' %} text-secondary {% else %} text-white {% endif %}">{% trans "Список товаров" %}</a></li>
-
+        <li><a href="{% url 'statistic:index' %}" class="nav-link px-2 {% if view_name == 'statistic:index' %} text-secondary {% else %} text-white {% endif %}">{% trans "Статистика" %}</a></li>
 
       </ul>
       {% endwith %}

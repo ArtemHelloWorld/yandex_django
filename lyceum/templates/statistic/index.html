@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Статистика" %}{% endblock %}
+
+
+{% block content %}
+<div class="container pt-4">
+  <h1>Cтатистика</h1>
+  <p>Статистику товара можно посмотреть на странице товара</p>
+  {% if request.user.is_authenticated %}
+    <div class="mb-5 mt-4">
+      <a class="btn btn-primary" href="{% url 'statistic:user_reviews' %}">Мои оценки</a>
+    </div>
+  {% endif %}
+  <div>
+    <h2>По пользователям</h2>
+    {% for user in users %}
+      <a href="{% url 'statistic:user' user_pk=user.id %}">{{ user.username }}</a>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

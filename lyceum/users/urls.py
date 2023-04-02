@@ -2,14 +2,14 @@ import django.conf
 import django.contrib.auth.views
 import django.urls
 
-import catalog.converters
+import core.converters
 import users.forms
 import users.views
 
 app_name = "users"
 
 django.urls.register_converter(
-    catalog.converters.CustomPositiveIntegerConverter, "customint"
+    core.converters.CustomPositiveIntegerConverter, "customint"
 )
 
 

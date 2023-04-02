@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Статистика товара" %}{% endblock %}
+
+
+{% block content %}
+<div class="container pt-4">
+  <h1 class="mt-4 mb-5">Cтатистика товара {{ item.name }}</h1>
+  {% if reviews_count %}
+    <div class="row">
+      <div class="col-md-6 col-lg-4">
+        <h3>Средняя оценка</h3>
+        <div class="fs-4">{{ item.avg_rating|floatformat }}</div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <h3>Количество оценок</h3>
+        <div class="fs-4">{{ reviews_count }}</div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <h3>Последняя минимальная оценка</h3>
+        <div class="fs-4">{{ last_minimum_rating.rating }}</div>
+        <div>Поставил пользователь {{ last_minimum_rating.user.username }}</div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <h3>Последняя максималная оценка</h3>
+        <div class="fs-4">{{ last_maximum_rating.rating }}</div>
+        <div>Поставил пользователь {{ last_maximum_rating.user.username }}</div>
+      </div>
+    </div>
+  {% else %}
+    <h3 class="text-center mt-3">У товара нет оценок</h3>
+  {% endif %}
+  
+</div>
+
+{% endblock %}

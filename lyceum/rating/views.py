@@ -1,7 +1,7 @@
-import django.db.models
 import django.http
 import django.shortcuts
 import django.views.generic
+
 import rating.forms
 import rating.models
 

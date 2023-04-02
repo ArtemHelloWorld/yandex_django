@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Ваши оценки" %}{% endblock %}
+
+
+{% block content %}
+<div class="container pt-4">
+  <h1 class="mb-4">Оценки</h1>
+  {% if reviews %}
+    <div class="row">
+    {% for review in reviews %}
+      <div class="col-md-6">
+        <h4>{{ review.item.name }}</h4>
+        <div class="fs-5">Оценка: {{ review.rating }}</div>
+        <a href="{{ review.item.get_absolute_url }}" class="btn btn-primary">Перейти к товару</a>
+      </div>
+    {% endfor %}
+    </div>
+  {% else %}
+    <h3 class="text-center mt-3">У вас нет оценок</h3>
+  {% endif %}
+</div>
+
+{% endblock %}

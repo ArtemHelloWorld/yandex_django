@@ -10,6 +10,7 @@ urlpatterns = [
     django.urls.path("catalog/", django.urls.include("catalog.urls")),
     django.urls.path("feedback/", django.urls.include("feedback.urls")),
     django.urls.path("rating/", django.urls.include("rating.urls")),
+    django.urls.path("statistic/", django.urls.include("statistic.urls")),
     django.urls.path("users/", django.urls.include("users.urls")),
     django.urls.path("users/", django.urls.include(django.contrib.auth.urls)),
     django.urls.path("tinymce/", django.urls.include("tinymce.urls")),

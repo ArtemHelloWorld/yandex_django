@@ -1,12 +1,12 @@
 import django.urls
 
-import catalog.converters
 import catalog.views
+import core.converters
 
 app_name = "catalog"
 
 django.urls.register_converter(
-    catalog.converters.CustomPositiveIntegerConverter, "customint"
+    core.converters.CustomPositiveIntegerConverter, "customint"
 )
 
 
